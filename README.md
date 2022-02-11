@@ -16,7 +16,7 @@
     > cut 和 cut 之間 (shot)，圖片數量至少為 3 張
     > input: 2018micro_cluster.csv
     > output: 2018micro_cut.csv
-===
+---
 ## 準備的數據
 -  2018micro.csv
 -  level.csv
@@ -24,7 +24,7 @@
     > 將原始數據轉為空汙 PM2.5 等級劃分
     > input: 2018micro.csv
     > ouput: level.csv
-===
+---
 ## GEI
 4. GEI.py
     > 將cut和cut之間的shot疊成GEI
@@ -44,7 +44,7 @@
     > output: GEI 圖片
 
 ### step
-|切cut       |疊GEI
-1 -> 2 -> 3 -> 4 -> 5 -> 5
-                      | K-means 分群 (結果並沒有空間分析)
+|切cut       |疊GEI <br/>
+1 -> 2 -> 3 -> 4 -> 5 -> 5<br/>
+                      | K-means 分群 (結果並沒有空間分析)<br/>
                       -> 1 -> 2
