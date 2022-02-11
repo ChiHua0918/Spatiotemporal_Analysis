@@ -13,7 +13,6 @@
 
 3. cut.py
     > 現在檢查的這一張和前張的所屬群不同，此張視為cut
-    <!-- > cut不會有連續且cut和cut之間的空汙圖至少為3張 -->
     > cut 和 cut 之間 (shot)，圖片數量至少為 3 張
     > input: 2018micro_cluster.csv
     > output: 2018micro_cut.csv
@@ -21,8 +20,8 @@
 ## 準備的數據
 -  2018micro.csv
 -  level.csv
-<!-- 將原始數據轉為空汙 PM2.5 等級劃分 -->
 1. covertToLevel.py
+    > 將原始數據轉為空汙 PM2.5 等級劃分
     > input: 2018micro.csv
     > ouput: level.csv
 ===
