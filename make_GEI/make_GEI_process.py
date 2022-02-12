@@ -28,10 +28,10 @@ def GEI():
         print(f"python ./code/regular.py {file}")
         os.system(f"python ./code/regular.py {file}")
     # 劃出GEI圖
-    drawData = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
-    for file in drawData:
-        print(f"python ./code/userDataPic.py {file}")
-        os.system(f"python ./code/userDataPic.py {file}")
+    # drawData = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
+    # for file in drawData:
+    #     print(f"python ./code/userDataPic.py {file}")
+    #     os.system(f"python ./code/userDataPic.py {file}")
 
 # 將原始 PM2.5 數據轉為等級
 def microToLevel():

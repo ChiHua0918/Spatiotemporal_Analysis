@@ -4,7 +4,8 @@ def regular(readData,minValue,maxValue):
     # 正規化
     for r in range(len(readData)):
         for c in range(1,len(readData[r])):
-            readData[r][c] = round((readData[r][c]-minValue)/(maxValue-minValue))
+            # 灰階圖 rgb 0~255
+            readData[r][c] = round((readData[r][c]-minValue)/(maxValue-minValue)*255)
 # 原始數據才要開根號
 def squareRoot(readData):
     for r in range(len(readData)):
@@ -34,6 +35,10 @@ def main(argv):
     mode = inputData[:index]
     if mode == "GEI_origin":
         squareRoot(readData)
+        maxValue = maxValue**0.5
+        minValue = minValue**0.5
+    print("最大值",maxValue)
+    print("最小值",minValue)
     regular(readData,minValue,maxValue)
     outputData = inputData[:index]+"_regular"+inputData[index:]
     outputFile = "./data/GEI_regular/"+ outputData

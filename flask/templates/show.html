@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/css/show.css">
+  <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
+  <!--引入jQuery包用于使用ajax-->
+  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <title>GEI</title>
+</head>
+
+<body class="bg">
+  <div id="container">
+    <div>
+      <a>目前分群種類:<div id="information"></div></a>
+    </div>
+    <!-- 按鈕-原始按鈕 -->
+    <button onclick="GEI('GEI_origin')">原始數據GEI(開根號)</button>
+    <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button>
+    <!-- 按鈕-等級按鈕 -->
+    <button onclick="GEI('GEI_Level')">等級GEI(累加)</button>
+    <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button>
+    <!-- GEI 加強對比 -->
+    <button onclick="contrast()">加強對比</button>
+    <!-- 分群按鈕 -->
+    <button onclick="clickClassify()">分群</button>
+    <!-- 分群樣式 -->
+    <button onclick="cluster_pattern('level')">等級</button>
+    <button onclick="cluster_pattern('space')">空間</button>
+    <button onclick="cluster_pattern('cnn')">CNN</button>
+    <!-- 返回按鈕 -->
+    <button onclick="back()">返回</button>
+    <!-- 圖片畫面 -->
+    <table id="frame">
+      <div id="modal" style="overflow: overflow-y"></div>
+      <button id="modalBtn" onclick="hide()">確認</button>
+      <input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)">
+      <button id="speedBtn" onclick="gif()">開始製作gif</button>
+    </table>
+  </div>
+  <!-- <script src="show.js" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>></script> -->
+  <script src="../static/show.js"></script>
+</body>
+
+</html>
