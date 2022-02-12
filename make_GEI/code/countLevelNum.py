@@ -40,7 +40,6 @@ def main(argv):
             except:
                 pass
     part(readData)
-    print(readData[0])
     HisData = HD(readData)
     index = inputData.find('.csv')
     outputData = inputData[:index]+"_countNum"+inputData[index:]
