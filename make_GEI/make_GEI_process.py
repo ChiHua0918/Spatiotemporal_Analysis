@@ -1,8 +1,6 @@
 # 切 cut 流程
 # GEI 製作流程
 import os
-
-from numpy import source
 def cut():
     # 計算原始 10*10 彩色空汙圖中，各 Level 佔多少
     # 輸出: 每一張彩色空汙圖各 Level 數量
