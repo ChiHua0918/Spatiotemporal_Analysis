@@ -6,7 +6,7 @@ import sys
 def HD(data) :
     HisData = []
     for r in range(len(data)):
-        print(data[r][0])
+        # print(data[r][0])
         His = list(plt.hist(data[r][1:], bins=16, range=[0, 16]))
         # print("His",His)
         oneData = list(His[0])
@@ -31,6 +31,13 @@ def part(data) :
 def main(argv):
     inputData = argv
     inputFile = inputData
+    # 如果是正規化後的數據，正規化後的數據放在 GEI_regular 資料夾裡面
+    regularData = argv.split("_")
+    try:
+        if regularData[2][:-4] == "regular":
+            inputFile = "./data/GEI_regular/"+inputData
+    except:
+        pass
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')

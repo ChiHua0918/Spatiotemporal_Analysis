@@ -14,7 +14,7 @@ def root():
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
 def GEINum():
-    path = "./static/image/GEI~3/GEI_origin"
+    path = "./static/image/GEI/GEI_origin"
     GEIName = os.listdir(path)
     return {"num":len(GEIName)}
 
@@ -24,43 +24,71 @@ def cluster():
     memory = request.args.get("memory")
     pattern = request.args.get("pattern")
     if pattern == "level":
-        path = "./static/classifyData/classify_rgb_3/"+memory+"_regular_classify.csv"
+        path = "./static/data/clusterData/KMeans/"+memory+"_regular_cluster.csv"
     elif pattern == "space":
-        path = "./static/classifyData/classify_bow/"+memory+"_classify.csv"
+        path = "./static/data/clusterData/bow/"+memory+"_cluster.csv"
     elif pattern == "cnn":
-        path = "./static/classifyData/classify_cnn/"+memory+"_classify.csv"
+        path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
     cluster = []
     GEIName = []
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
-            if row[1].isdigit():
+            try:
                 cluster.append(int(row[1]))
                 GEIName.append(row[0])
-    return {"cluster":cluster,"GEIName":GEIName}
+            except:
+                pass
+    return {"cluster":cluster,"GEIName":GEIName,"maxCluster":max(cluster)}
 
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖
 def gif():
-    path = "./static/image/sis~3"
-    allPicture = os.listdir(path) # 所有 PM2.5 彩色圖片
-    stackList = [] # 要疊成 gif 的圖片
-    # 從前端拿到 id
-    id = request.args.get("id")
-    speed = request.args.get("speed")
-    for img in allPicture:
-        imgID = img.split("-")[0]
-        if imgID == id:
-            stackList.append(img)
-        elif stackList != []:
-            putPlace = "./static/image/gif/"# gif要存取的地方
-            path = putPlace+id+".gif"
-            with imageio.get_writer(path, mode='I',fps=speed) as writer:
-                for filename in stackList:
-                    image = imageio.imread("./static/image/sis~3/"+filename)
-                    writer.append_data(image)
-            break
+    id = request.args.get("id") # GEI id
+    speed = request.args.get("speed") # gif 速度
+    # 要疊成 gif 的圖片
+    stackList = findPictureName(id)
+    print(stackList)
+    putPlace = "./static/image/gif/"# gif要存取的地方
+    path = putPlace+id+".gif"
+    with imageio.get_writer(path, mode='I',fps=speed) as writer:
+        for filename in stackList:
+            filename = filename.replace("/","-")
+            filename = filename.replace(" ","-")
+            filename = filename.replace(":","-")
+            filename += ".png"
+            image = imageio.imread("./static/image/sis/"+filename)
+            writer.append_data(image)
     return {"gif":path}
-
+# 找要疊加的圖片
+def findPictureName(id):
+    readData = []
+    with open("./static/data/cut~3.csv", newline= '') as csvfile :
+        rows = csv.reader(csvfile, delimiter = ',')
+        for row in rows :
+            try:
+                readData.append([row[0]]+list(map(int,row[1:])))
+            except:
+                pass
+    # 要疊加的照片
+    statckList = []
+    order = 1
+    print("GEI ID:",id)
+    for data in readData:
+        # cut
+        if data[1] == 1 and statckList != []:
+            if order > 930:
+                print("order",order)
+                print("stackList",statckList)
+            # 確認是疊加的原始圖片
+            if order == int(id):
+                return statckList
+            order += 1
+            statckList.clear()
+        # shot
+        elif data[1] == 0:
+            # data[0]: 彩色 PM2.5 圖片名字
+            statckList.append(data[0])
+    return statckList
 app.run(port=8000)

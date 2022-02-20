@@ -2,6 +2,8 @@ import csv
 import sys
 # 疊加 GEI
 def GEI(data,cut_shot):
+    print(f"data 總共有 {len(data)} 筆")
+    print(f"cut_shot 總共有 {len(cut_shot)} 筆")
     n = 0 # 目前疊加幾張
     energy = [0 for i in range(len(data[0]))]
     order = 0 # 第幾張 GEI
@@ -17,9 +19,11 @@ def GEI(data,cut_shot):
             n = 0
             order += 1
             energy = [0 for j in range(len(data[i]))]
+            continue
         # shot -> 疊加
-        energy = [energy[j]+data[i][j] for j in range(len(energy))]
-        n += 1
+        elif int(cut_shot[i][0]) == 0:
+            energy = [energy[j]+data[i][j] for j in range(len(energy))]
+            n += 1
     return GEIData
 # read csv file
 def readCSV(inputFile):

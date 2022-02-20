@@ -1,6 +1,5 @@
-# 切 cut 流程
-# GEI 製作流程
 import os
+# 切 cut 流程
 def cut():
     # 計算原始 10*10 彩色空汙圖中，各 Level 佔多少
     # 輸出: 每一張彩色空汙圖各 Level 數量
@@ -16,22 +15,34 @@ def cut():
     print(f"python ./code/cut.py {file}")
     os.system(f"python ./code/cut.py {file}")
 
+# GEI 製作流程
 def GEI():
     sourceData = ["2018micro.csv","2018level.csv"]
     outputData = ["GEI_origin.csv","GEI_Level.csv"]
-    # 數據疊成GEI
+    # # 數據疊成GEI
     for i in range(len(sourceData)):
         print(f"python ./code/GEI.py {sourceData[i]} {outputData[i]}")
         os.system(f"python ./code/GEI.py {sourceData[i]} {outputData[i]}")
-    # GEI正規化
+    # # GEI正規化
     for file in outputData:
         print(f"python ./code/regular.py {file}")
         os.system(f"python ./code/regular.py {file}")
     # 劃出GEI圖
-    # drawData = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
-    # for file in drawData:
-    #     print(f"python ./code/userDataPic.py {file}")
-    #     os.system(f"python ./code/userDataPic.py {file}")
+    drawData = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
+    for file in drawData:
+        print(f"python ./code/userDataPic.py {file}")
+        os.system(f"python ./code/userDataPic.py {file}")
+# GEI 分群
+def GEIcluster():
+    # GEI 正規化後(0~255)的數據
+    data = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
+    for file in data:
+        print(f"python ./code/countLevelNum.py {file}")
+        os.system(f"python ./code/countLevelNum.py {file}")
+    data = ["GEI_origin_regular_countNum.csv","GEI_Level_regular_countNum.csv"]
+    for file in data:
+        print(f"python ./code/cluster.py {file}")
+        os.system(f"python ./code/cluster.py {file}")
 
 # 將原始 PM2.5 數據轉為等級
 def microToLevel():
@@ -40,9 +51,10 @@ def microToLevel():
     os.system(f"python ./code/covertToLevel.py {file}")
 
 def main():
-    cut()
+    # cut()
     # 資料 --- 1. 原始數據 2. 等級數據
-    microToLevel()
+    # microToLevel()
     GEI()
+    # GEIcluster()
 if __name__ == '__main__':
     main()

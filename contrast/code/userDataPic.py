@@ -62,17 +62,16 @@ def drawColor(GEI,folder):
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
-    plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
+    plt.savefig(f"./image/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
     # plt.show()
 
 def main(argv):
-    # print(len(argv))
     global plt
     inputData = argv
-    inputFile =  "./data/GEI_regular/"+inputData
+    inputFile =  "./"+inputData
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
@@ -81,7 +80,7 @@ def main(argv):
                 readData.append([row[0]]+list(map(float,row[1:])))
             except:
                 pass
-    index = inputData.find('_regular')
+    index = inputData.find('_singleRegular')
     folder = inputData[:index]
     for GEI in readData:
         print(drawColor(GEI,folder))

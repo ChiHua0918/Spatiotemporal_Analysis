@@ -41,7 +41,7 @@ def main(argv):
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    outputData = inputData.split("_")[0]+"_cluster.csv"
+    outputData = inputData.split("_countNum")[0]+"_cluster.csv"
     outputFile = "./data/clustering/"+ outputData
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)

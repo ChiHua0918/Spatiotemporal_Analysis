@@ -1,28 +1,28 @@
 // 顯示GEI
-let showPicture = document.getElementById("frame");
+var showPicture = document.getElementById("frame");
 // 位置設定
-let modal = document.getElementById('modal');
-let modalBtn = document.getElementById('modalBtn');
-let speed = document.getElementById('speed');
-let speedBtn = document.getElementById('speedBtn');
+var modal = document.getElementById('modal');
+var modalBtn = document.getElementById('modalBtn');
+var speed = document.getElementById('speed');
+var speedBtn = document.getElementById('speedBtn');
 setPos();
 
 // 紀錄目前選取的照片
-let picture = "";
+var picture = "";
 // GEI也多少照片
-let GEINum;
+var GEINum;
 //所有原始圖片的檔名(.png)
-let imgData = [];
+var imgData = [];
 //每一張GEI所屬的分類
-let cluster;
+var cluster;
 //每一張GEI資料(NO.1,分群,10筆)
-let GEIName;
+var GEIName;
 // 判斷目前為等級分群/空間分群
-let classify_pattern = "";
+var pattern = "";
 // 紀錄現在畫面上的GEI
-let boardGEI = [];
-getGEINum()
+var boardGEI = [];
 
+getGEINum()
 function getGEINum() {
     $.ajax({
         url: "GEINum", 
@@ -38,11 +38,11 @@ function getGEINum() {
 // 顯示GEI
 function GEI(folder) {
     let img = "<tr>";
-    for (var i = 1; i <= GEINum; i++) {
-        imgName = "NO." + i;
-        img += `<td><img src='./static/image/GEI~3/${folder}/${imgName}.png' width="280px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+    for (var i = 0; i < GEINum; i++) {
+        imgName = "NO." + i + ".png";
+        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="280px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
         // 換行
-        if (i % 5 == 0) {
+        if (i % 5 == 4) {
             img += "</tr><tr>";
         }
         boardGEI.push(imgName);
@@ -52,62 +52,69 @@ function GEI(folder) {
 }
 
 //存取上一個版面
-let tmp;
+var tmp;
 // 返回鑑
 function back() {
     showPicture.innerHTML = tmp;
     picture = "";
 }
 // 紀錄我現在按的按鈕
-let memory = "";
+var memory = "";
 
 // 加強對比: 單張 GEI 的黑白對比加強
 function contrast(){
     picture = "";
     let img = "<tr>";
+    console.log("contrast boardGEI",boardGEI);
     for (var i = 0; i < boardGEI.length; i++) {
         imgName = boardGEI[i];
         id = imgName.slice(3,imgName.length);
-        img += `<td><img src='./static/image/GEI~3Contrast/${memory}/${imgName}.png' id = ${id} width="280px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}.png' id = ${id} width="280px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
-        if (i % 5 == 4 && i != 0) {
+        if (i % 5 == 4) {
             img += "</tr><tr>";
         }
     }
     showPicture.innerHTML = img;
 }
 // 按下分群
-function clickClassify() {
-    classify(memory);
+function clickCluster() {
+    clusterGEI(memory);
+    console.log("memory",memory);
 }
 // 依據等級/空間分類
-function cluster_pattern(pattern){
+function cluster_pattern(mode){
     picture = "";
     let information = document.getElementById('information');
-    classify_pattern = pattern;
-    information.innerHTML = pattern;
+    pattern = mode;
+    information.innerHTML = mode;
 }
-// 分類 -- cluster:每一張 GEI 所屬的群
-function classify(memory) {
+// 分群 -- cluster:每一張 GEI 所屬的群
+function clusterGEI(memory) {
+    var maxCluster;
     $.ajax({
         url: 'cluster',
         type: "GET",
         // dataType: 'json',
         // contentType:'application/json',
-        data: {"memory":memory,"pattern":classify_pattern},
+        data: {"memory":memory,"pattern":pattern},
+        async: false, // 同步 -> 等到拿到後端回傳的資料再做 clusterUI
         /*result為后端函式回傳的json*/
         success: function (result) {
-            clusterObject = result.cluster;
+            clusterObject = result.cluster;  // GEI 依序所屬分群
             cluster = Object.values(clusterObject);
-            GEIName = result.GEIName;
+            GEIName = result.GEIName;        // 目前資料夾中所有 GEI 名字
+            maxCluster = result.maxCluster;  // 總共分多少群
+            console.log(maxCluster);
         }
     });
-    clusterUI(cluster);
+    clusterUI(maxCluster);
 }
 // 顯示分群的圖示
-function clusterUI(cluster) {
-    let html = "";
-    for (let i = 0; i <= Math.max(...cluster); i++) {
+function clusterUI(maxCluster) {
+    var html = "";
+    console.log(maxCluster);
+    for (let i = 0; i <= maxCluster; i++) {
         html += `<img src="./static/image/Number_icon/${i + 1}.png" width="200px" onclick = "everyGEI(${i})">`;
     }
     tmp = html;
@@ -122,15 +129,16 @@ function everyGEI(k) {
     for (let i = 0; i < cluster.length; i++) {
         if (cluster[i] == k) {
             n += 1;
-            // id數字
+            // GEI id 數字
             let id = GEIName[i].slice(3, GEIName[i].length);
             console.log("cluterID:",id)
-            html += `<td><img src="./static/image/GEI~3/${memory}/${GEIName[i]}.png" width="300px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            html += `<td><img src="./static/image/GEI/${memory}/${GEIName[i]}.png" width="300px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
             // 換行
-            if (n % 5 == 0) {
+            if (n % 5 == 4) {
                 html += "</tr><tr>";
             }
             boardGEI.push(GEIName[i]);
+            console.log("everyGEI GEIName",GEIName[i]);
         }
     }
     showPicture.innerHTML = html;
@@ -162,6 +170,7 @@ function gif(){
         data: {"id":picture,"speed":$("#speed").val()},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
         /*result為后端函式回傳的json*/
         success: function (result) {
+            console.log(result);
             modal.innerHTML = `<td><img src="${result.gif}" width="500px"></td>`;
         }
     });
