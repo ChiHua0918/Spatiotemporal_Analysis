@@ -35,10 +35,10 @@ def GEI():
 # GEI 分群
 def GEIcluster():
     # GEI 正規化後(0~255)的數據
-    data = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
-    for file in data:
-        print(f"python ./code/countLevelNum.py {file}")
-        os.system(f"python ./code/countLevelNum.py {file}")
+    # data = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
+    # for file in data:
+    #     print(f"python ./code/countLevelNum.py {file}")
+    #     os.system(f"python ./code/countLevelNum.py {file}")
     data = ["GEI_origin_regular_countNum.csv","GEI_Level_regular_countNum.csv"]
     for file in data:
         print(f"python ./code/cluster.py {file}")
@@ -54,7 +54,7 @@ def main():
     # cut()
     # 資料 --- 1. 原始數據 2. 等級數據
     # microToLevel()
-    GEI()
-    # GEIcluster()
+    # GEI()
+    GEIcluster()
 if __name__ == '__main__':
     main()

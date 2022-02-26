@@ -29,6 +29,8 @@ def cluster():
         path = "./static/data/clusterData/bow/"+memory+"_cluster.csv"
     elif pattern == "cnn":
         path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
+    elif pattern == "clusterIcon":
+        
     cluster = []
     GEIName = []
     with open(path, newline= '') as csvfile :

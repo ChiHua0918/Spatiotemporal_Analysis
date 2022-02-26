@@ -40,7 +40,7 @@ function GEI(folder) {
     let img = "<tr>";
     for (var i = 0; i < GEINum; i++) {
         imgName = "NO." + i + ".png";
-        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="280px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="300px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -69,7 +69,7 @@ function contrast(){
     for (var i = 0; i < boardGEI.length; i++) {
         imgName = boardGEI[i];
         id = imgName.slice(3,imgName.length);
-        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}.png' id = ${id} width="280px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}.png' id = ${id} width="300px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -115,7 +115,7 @@ function clusterUI(maxCluster) {
     var html = "";
     console.log(maxCluster);
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<img src="./static/image/Number_icon/${i + 1}.png" width="200px" onclick = "everyGEI(${i})">`;
+        html += `<img src="./static/image/Number_icon/${i + 1}.png" width="300px" onclick = "everyGEI(${i})">`;
     }
     tmp = html;
     showPicture.innerHTML = html;
@@ -128,7 +128,6 @@ function everyGEI(k) {
     boardGEI = [];
     for (let i = 0; i < cluster.length; i++) {
         if (cluster[i] == k) {
-            n += 1;
             // GEI id 數字
             let id = GEIName[i].slice(3, GEIName[i].length);
             console.log("cluterID:",id)
@@ -137,6 +136,7 @@ function everyGEI(k) {
             if (n % 5 == 4) {
                 html += "</tr><tr>";
             }
+            n += 1;
             boardGEI.push(GEIName[i]);
             console.log("everyGEI GEIName",GEIName[i]);
         }
