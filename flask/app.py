@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import os
 import csv
 import imageio
+import numpy as np
 #創建Flask物件app并初始化
 app = Flask(__name__)
 
@@ -29,20 +30,67 @@ def cluster():
         path = "./static/data/clusterData/bow/"+memory+"_cluster.csv"
     elif pattern == "cnn":
         path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
-    elif pattern == "clusterIcon":
-        
-    cluster = []
-    GEIName = []
+    cluster = [] # GEI 所屬群
+    GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
-            try:
-                cluster.append(int(row[1]))
+            try: # 防止加到標題
+                cluster.append(int(row[1])) # GEI 所屬群，如果是標題就會是字串
                 GEIName.append(row[0])
             except:
                 pass
-    return {"cluster":cluster,"GEIName":GEIName,"maxCluster":max(cluster)}
-
+    k = max(cluster)
+    tmp = cluster.copy()
+    clusterUI(tmp,memory)
+    return {"cluster":cluster,"GEIName":GEIName,"maxCluster":k}
+# 製作每一群的代表 GEI
+def clusterUI(cluster,memory):
+    # 每一群所有 GEI 堆疊成一個代表的 GEI
+    print("make clusterUI")
+    readData = []
+    if memory == "GEI_origin":
+        with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
+            rows = csv.reader(csvfile, delimiter = ',')
+            for row in rows :
+                try:
+                    readData.append(list(map(float,row[1:])))
+                except:
+                    pass
+    elif memory == "GEI_Level":
+        with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
+            rows = csv.reader(csvfile, delimiter = ',')
+            for row in rows :
+                try:
+                    readData.append(list(map(float,row[1:])))
+                except:
+                    pass
+    print("cluster length",len(cluster))
+    print("readData length",len(readData))
+    clusterData = []
+    for k in range(max(cluster)+1):
+        # 堆疊的 GEI 數據
+        stackData = np.array([float(0) for i in range(len(readData[0]))])
+        while k in cluster:
+            pos = cluster.index(k) # 找對應群的 GEI
+            stackData += readData[pos]
+            cluster.remove(k) # 把剛剛已經加到 stackList 的 GEI 移除
+        # 名字
+        stackData = stackData.tolist()
+        stackData.insert(0,k)
+        print(k)
+        print(stackData)
+        clusterData.append(stackData)
+    file = "clusterUI.csv"
+    with open("./static/data/"+file, 'w', newline='') as _file:
+        writer = csv.writer(_file)
+        writer.writerow(["name","data"])
+        writer.writerows(clusterData)
+    # 正規化
+    os.system(f"python ./make_clusterUI/regular.py {file}")
+    # 畫圖
+    file = "clusterUI_regular.csv"
+    os.system(f"python ./make_clusterUI/userDataPic.py {file}")
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖

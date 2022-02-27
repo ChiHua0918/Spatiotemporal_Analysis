@@ -103,29 +103,31 @@ function clusterGEI(memory) {
         success: function (result) {
             clusterObject = result.cluster;  // GEI 依序所屬分群
             cluster = Object.values(clusterObject);
-            GEIName = result.GEIName;        // 目前資料夾中所有 GEI 名字
+            GEIName = result.GEIName;        // 目前資料夾中所有 GEI 名字(NO.0.png...)
             maxCluster = result.maxCluster;  // 總共分多少群
-            console.log(maxCluster);
+            console.log(`分 ${maxCluster} 群`);
         }
     });
     clusterUI(maxCluster);
 }
 // 顯示分群的圖示
 function clusterUI(maxCluster) {
+    console.log("clusterUI");
     var html = "";
-    console.log(maxCluster);
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<img src="./static/image/Number_icon/${i + 1}.png" width="300px" onclick = "everyGEI(${i})">`;
+        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i})">`;
     }
     tmp = html;
     showPicture.innerHTML = html;
 }
 // 每一群的GEI
 function everyGEI(k) {
+    console.log("everyGEI");
     picture = "";
     let html = "<tr/>";
     let n = 0;//該行有幾張
     boardGEI = [];
+    console.log(cluster);
     for (let i = 0; i < cluster.length; i++) {
         if (cluster[i] == k) {
             // GEI id 數字
