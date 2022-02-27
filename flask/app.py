@@ -49,22 +49,13 @@ def clusterUI(cluster,memory):
     # 每一群所有 GEI 堆疊成一個代表的 GEI
     print("make clusterUI")
     readData = []
-    if memory == "GEI_origin":
-        with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
-            rows = csv.reader(csvfile, delimiter = ',')
-            for row in rows :
-                try:
-                    readData.append(list(map(float,row[1:])))
-                except:
-                    pass
-    elif memory == "GEI_Level":
-        with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
-            rows = csv.reader(csvfile, delimiter = ',')
-            for row in rows :
-                try:
-                    readData.append(list(map(float,row[1:])))
-                except:
-                    pass
+    with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
+        rows = csv.reader(csvfile, delimiter = ',')
+        for row in rows :
+            try:
+                readData.append(list(map(float,row[1:])))
+            except:
+                pass
     print("cluster length",len(cluster))
     print("readData length",len(readData))
     clusterData = []
