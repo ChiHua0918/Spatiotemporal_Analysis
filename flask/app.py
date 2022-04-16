@@ -62,11 +62,15 @@ def clusterUI(cluster,memory):
     for k in range(max(cluster)+1):
         # 堆疊的 GEI 數據
         stackData = np.array([float(0) for i in range(len(readData[0]))])
+        # 堆疊的張數
+        n = 0
         while k in cluster:
+            n += 1
             pos = cluster.index(k) # 找對應群的 GEI
             stackData += readData[pos]
             cluster.remove(k) # 把剛剛已經加到 stackList 的 GEI 移除
         # 名字
+        stackData = stackData / n
         stackData = stackData.tolist()
         stackData.insert(0,k)
         print(k)
@@ -78,9 +82,10 @@ def clusterUI(cluster,memory):
         writer.writerow(["name","data"])
         writer.writerows(clusterData)
     # 正規化
-    os.system(f"python ./make_clusterUI/regular.py {file}")
+    # os.system(f"python ./make_clusterUI/regular.py {file}")
     # 畫圖
-    file = "clusterUI_regular.csv"
+    file = "clusterUI.csv"
+    # file = "clusterUI_regular.csv"
     os.system(f"python ./make_clusterUI/userDataPic.py {file}")
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
@@ -114,14 +119,14 @@ def findPictureName(id):
                 pass
     # 要疊加的照片
     statckList = []
-    order = 1
+    order = 0
     print("GEI ID:",id)
     for data in readData:
         # cut
         if data[1] == 1 and statckList != []:
-            if order > 930:
-                print("order",order)
-                print("stackList",statckList)
+        #     if order > 930:
+        #         print("order",order)
+        #         print("stackList",statckList)
             # 確認是疊加的原始圖片
             if order == int(id):
                 return statckList

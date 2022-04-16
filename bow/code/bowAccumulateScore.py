@@ -26,7 +26,7 @@ def countScores(filters,img,pos,size):
     return score
 # GEI 分成 4 個象限，每一個象限做 filter
 # img:GEI filters:直橫斜 size: filter 大小
-def bowCountScore(img,filters,size):
+def bowAccumulateScore(img,filters,size):
     # 區塊符合filter的個數
     # bag = np.zeros(len(filters))
     # GEI照片寬度
@@ -109,9 +109,9 @@ def main(argv,size):
     result = []
     # 計算圖片在每一個 filter 占比多少
     for i in range(len(readData)):
-        # 計算每個 GEI filter 的分數，因為 slice 必須同型態，所以先轉為 string
-        feature = bowCountScore(readData[i],filters,size)
-        # 轉型態
+        # 計算每個 GEI filter 的分數
+        feature = bowAccumulateScore(readData[i],filters,size)
+        # 轉型態，因為 slice 必須同型態，所以先轉為 string
         feature = np.array(feature,dtype="str")
         feature = np.insert(feature,0,name[i])
         result.append(feature)

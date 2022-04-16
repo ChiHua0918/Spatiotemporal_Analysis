@@ -78,6 +78,7 @@ def vgg16(model,path):
         # 計算每一類的個數
         for i in range(len(predicted)):
             item = predicted[i][1] # 類別
+            # 字典還沒有新增此類別
             if classNum.get(item) == None:
                 classNum[item] = 1
             else:

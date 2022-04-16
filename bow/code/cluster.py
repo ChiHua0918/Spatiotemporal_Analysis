@@ -22,10 +22,10 @@ def k_means(data):
     print(f"分 {k} 類")
     return cluster
 
-def main(argv):
+def main(argv,folder):
     # 數據
     inputData = argv
-    inputFile =  "./data/"+inputData
+    inputFile =  f"./data/{folder}/"+inputData
     readData = []
     name = []
     with open(inputFile, newline= '') as csvfile :
@@ -49,4 +49,4 @@ def main(argv):
         writer.writerows(readData)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])

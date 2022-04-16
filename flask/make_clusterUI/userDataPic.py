@@ -72,7 +72,8 @@ def main(argv):
     # print(len(argv))
     global plt
     inputData = argv
-    inputFile =  "./static/data/GEI_regular/"+inputData
+    inputFile =  "./static/data/"+inputData
+    # inputFile =  "./static/data/GEI_regular/"+inputData
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
@@ -81,7 +82,8 @@ def main(argv):
                 readData.append([row[0]]+list(map(float,row[1:])))
             except:
                 pass
-    index = inputData.find('_regular')
+    # index = inputData.find('_regular')
+    index = inputData.find('.csv')
     folder = inputData[:index]
     for GEI in readData:
         print(drawColor(GEI,folder))

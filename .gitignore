@@ -4,3 +4,8 @@ flask/static/image
 contrast/image
 test.py
 test1.py
+Histogram.py
+bow/data
+test.csv
+cnnContent.txt
+cnn/data
