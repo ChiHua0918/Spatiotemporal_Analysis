@@ -40,7 +40,7 @@ function GEI(folder) {
     let img = "<tr>";
     for (var i = 0; i < GEINum; i++) {
         imgName = "NO." + i + ".png";
-        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="300px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -66,10 +66,11 @@ function contrast(){
     picture = "";
     let img = "<tr>";
     console.log("contrast boardGEI",boardGEI);
+    console.log("now folder is",memory);
     for (var i = 0; i < boardGEI.length; i++) {
         imgName = boardGEI[i];
         id = imgName.slice(3,imgName.length);
-        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}.png' id = ${id} width="300px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -82,12 +83,10 @@ function clickCluster() {
     clusterGEI(memory);
     console.log("memory",memory);
 }
-// 依據等級/空間分類
+// 紀錄目前的模式是 等級 or 空間
 function cluster_pattern(mode){
     picture = "";
-    let information = document.getElementById('information');
     pattern = mode;
-    information.innerHTML = mode;
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
 function clusterGEI(memory) {
@@ -133,7 +132,7 @@ function everyGEI(k) {
             // GEI id 數字
             let id = GEIName[i].slice(3, GEIName[i].length);
             console.log("cluterID:",id)
-            html += `<td><img src="./static/image/GEI/${memory}/${GEIName[i]}.png" width="300px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            html += `<td><img src="./static/image/GEI/${memory}/${GEIName[i]}.png" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
             // 換行
             if (n % 5 == 4) {
                 html += "</tr><tr>";
@@ -200,4 +199,19 @@ function setPos() {
     let width = document.documentElement.clientWidth / 2;
     modal.style.marginTop = (height - 350) + "px";
     modal.style.marginLeft = (width - 700) + "px";
+}
+// button change color
+function changeColor(buttonType,order){
+    // 屬於此 className 的 button 總共有多少個
+    let howManyButton = document.getElementsByClassName(buttonType).length;
+    // 屬於此 className 的 button 恢復原狀
+    for (var i = 0; i < howManyButton; i++){
+        document.getElementsByClassName(buttonType)[i].style.backgroundColor = "#F3E9DD";
+    }
+    // 剛剛按下的按鈕加深背景顏色
+    document.getElementsByClassName(buttonType)[order].style.backgroundColor = "#CEAB93";
+    // 加強對比(contrast) 比較特殊，如果按了其他資料或是分群，目前的畫面就不是加強對比的 GEI 圖了
+    if (buttonType == "clustering" || buttonType == "dataButton"){
+        document.getElementsByClassName("contrast")[0].style.backgroundColor = "#F3E9DD";
+    }
 }

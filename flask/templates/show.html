@@ -14,25 +14,33 @@
 
 <body class="bg">
   <div id="container">
-    <div>
-      <a>目前分群種類:<div id="information"></div></a>
+    <div class="text">
+      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"<br/>等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br/></p>
+      <li>GEI_origin: 將原始數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
+      <li>GEI_Level: 將等級數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
+      <li>加強對比: 將 GEI 單張正規化。由於有些 GEI 對比不明顯，不易觀察 GEI 中的隱藏訊息，所以加強單張對比輔助觀察<br/></li>
+      <li>分群:將目前的 GEI 依照下列選取的模式進行分群<br/></li>
+      <li>模式 --- 等級: 0~256 切 8 個等級，統計 GEI 各等級塊數<br/></li>
+      <li>模式 --- 空間: bow<br/></li>
     </div>
-    <!-- 按鈕-原始按鈕 -->
-    <button onclick="GEI('GEI_origin')">GEI_origin</button>
-    <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
-    <!-- 按鈕-等級按鈕 -->
-    <button onclick="GEI('GEI_Level')">GEI_Level</button>
-    <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
-    <!-- GEI 加強對比 -->
-    <button onclick="contrast()">加強對比</button>
-    <!-- 分群按鈕 -->
-    <button onclick="clickCluster()">分群</button>
-    <!-- 分群樣式 -->
-    <button onclick="cluster_pattern('level')">等級</button>
-    <button onclick="cluster_pattern('space')">空間</button>
-    <!-- <button onclick="cluster_pattern('cnn')">CNN</button> -->
-    <!-- 返回按鈕 -->
-    <button onclick="back()">返回</button>
+    <div id="functionButton">
+      <!-- 按鈕-原始按鈕 -->
+      <button class = "dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button>
+      <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
+      <!-- 按鈕-等級按鈕 -->
+      <button class = "dataButton" onclick="GEI('GEI_Level');changeColor('dataButton','1')">GEI_Level</button>
+      <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
+      <!-- GEI 加強對比 -->
+      <button class = "contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
+      <!-- 分群按鈕 -->
+      <button class = "clustering" onclick="clickCluster();changeColor('clustering','0')">分群</button>
+      <!-- 分群模式 -->
+      <button class = "mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
+      <button class = "mode" onclick="cluster_pattern('space');changeColor('mode','1')">空間</button>
+      <!-- <button onclick="cluster_pattern('cnn')">CNN</button> -->
+      <!-- 返回按鈕 -->
+      <button onclick="back()">返回</button>
+    </div>
     <!-- 圖片畫面 -->
     <table id="frame">
       <div id="modal" style="overflow: overflow-y"></div>
@@ -41,7 +49,8 @@
       <button id="speedBtn" onclick="gif()">開始製作gif</button>
     </table>
   </div>
-  <script src="../static/show.js" src="http://code.jquery.com/jquery-1.7.1.min.js"></script></script>
+  <script src="../static/show.js" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  </script>
   <script src="../static/show.js"></script>
 </body>
 

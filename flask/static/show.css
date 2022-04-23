@@ -1,80 +1,118 @@
-.bg{
+.bg {
     /* background-color:rgb(199, 164, 235); */
-    background-color:#c4a6f3;
+    background-color: #FDF6EC;
+    font-family: 'Crimson Text', serif;
     text-align: center;
     margin: auto;
+    color:#614124;
     
 }
+
+/* 網站資訊 */
+.text {
+    background-color: #F3E9DD;
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+    width: 1000px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid #DAB88B;
+}
+
+/* 所有的 button */
+#functionButton {
+    position: fixed;
+    text-align: center;
+    margin: auto;
+    padding: auto;
+    margin-left: 90%;
+    margin-right: 8%;
+}
+
 /* PM2.5彩色圖 */
-#modal{
-    width:90%;
+#modal {
+    width: 90%;
     max-height: 600px;
-    margin-left:50px;
-    background-color:none;/*paleturquoise*/
-    position:fixed;
-    display:block;
+    margin-left: 50px;
+    background-color: none;
+    /*paleturquoise*/
+    position: fixed;
+    display: block;
     overflow: auto;
     overscroll-behavior-y: contain;
 }
-#modalBtn{
+
+#modalBtn {
     position: fixed;
     margin-top: 0px;
     margin-left: 10px;
-    display:none;
+    display: none;
 }
-#speed{
+
+#speed {
     position: fixed;
     margin-top: 60px;
     margin-left: 10px;
-    display:none;
+    display: none;
     font-size: 20px;
 }
-#speedBtn{
+
+#speedBtn {
     position: fixed;
     margin-top: 100px;
     margin-left: 10px;
-    display:none;
+    display: none;
 }
+
 /* 顯示分群圖示 */
-#modalCluster{
-    width:90%;
-    background-color:none;
-    position:fixed;
-    display:none;
+#modalCluster {
+    width: 90%;
+    background-color: none;
+    position: fixed;
+    display: none;
 }
-#modalBtnReturn{
+
+#modalBtnReturn {
     position: fixed;
     margin-top: 100px;
     margin-left: 300px;
-    display:none;
+    display: none;
 }
 
-button{
-    border-radius:10px;
-    font-size: 16px;
-    font-family: 'Crimson Text', serif;
-    border-color:rgb(175, 89, 255); /*框框的顏色*/
-    /* color: rgb(32, 59, 133);        字的顏色 */
-    color:rgb(75, 52, 82);        /*字的顏色*/
-    padding: 10px 22px;
-    text-align: 32;
-    text-decoration: none;
-    display: inline-block;
+button {
+    /*外框*/
+    border-radius: 10px;
+    border-color: #CEAB93;
+    /* 字 */
     font-size: 20px;
-    background-color: rgb(255, 220, 247); /*按鈕的底*/
+    color: #876445;
+    text-decoration: none;
+    /* border-color: rgb(175, 89, 255); */
+    /* color: rgb(32, 59, 133);        字的顏色 */
+    /* color: rgb(75, 52, 82); */
+    margin-top: 5px;
+    padding: 10px;
+    display: block;
+    background-color: #F3E9DD;
+
 }
-img{
+
+img {
     border: 2px solid white;
-    border-color:white;
+    border-color: white;
 }
-
-
+p{
+    font-size: 20px;
+}
+li{
+    text-align:justify;
+}
 button:active {
-    background-color:#c4a6f3;
     transition-duration: 0.2s;
 }
+
 button:hover {
     transform: scale(1.1);
 }
-
-
