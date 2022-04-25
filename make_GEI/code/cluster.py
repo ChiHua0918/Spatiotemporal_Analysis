@@ -1,4 +1,3 @@
-from sklearn import cluster
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import KMeans
 import csv
