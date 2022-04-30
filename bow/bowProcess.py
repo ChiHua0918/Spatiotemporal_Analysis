@@ -66,10 +66,10 @@ def main():
     # folder = AccumulateScore(size)
     # folder = strengthenEdge(size) # 每一個 filter 分數分開
     # folder = bowFilterScore(size)
-    # folder = bowFilterScore_quadrant(size)
-    # cluster(size,folder)
-    folder = "quadrant"
+    folder = bowFilterScore_quadrant(size)
+    cluster(size,folder)
+    # folder = "quadrant"
     # hierarchical(folder,size)
-    decideHierarchical(folder,size)
+    # decideHierarchical(folder,size)
 if __name__ == '__main__':
     main()

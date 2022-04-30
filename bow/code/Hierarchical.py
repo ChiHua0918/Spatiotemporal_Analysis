@@ -4,7 +4,7 @@ import sys
 from matplotlib import pyplot as plt
 from scipy.cluster.hierarchy import dendrogram
 from sklearn.cluster import AgglomerativeClustering
-
+from sklearn import metrics
 
 # Create linkage matrix and then plot the dendrogram
 def plot_dendrogram(model):
@@ -25,7 +25,6 @@ def plot_dendrogram(model):
     ).astype(float)
     # Plot the corresponding dendrogram
     dendrogram(linkage_matrix,color_threshold=max(model.distances_)*0.2)
-
 
 def main(inputFile):
     title = inputFile.split("/")[-1]
@@ -48,8 +47,8 @@ def main(inputFile):
     # plot the top three levels of the dendrogram
     plot_dendrogram(model)
     plt.title(title)
-    plt.show()
+    # plt.show()
 if __name__ == "__main__":
-    # inputFile = "../data/quadrant/GEI_Level_bow_2_col.csv"
-    # main(inputFile)
-    main(sys.argv[1])
+    inputFile = "../data/quadrant/GEI_Level_bow_2_col.csv"
+    main(inputFile)
+    # main(sys.argv[1])
