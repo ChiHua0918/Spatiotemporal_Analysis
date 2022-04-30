@@ -3,13 +3,13 @@ import os
 def cut():
     # 計算原始 10*10 彩色空汙圖中，各 Level 佔多少
     # 輸出: 每一張彩色空汙圖各 Level 數量
-    file = "2018micro.csv"
-    print(f"python ./code/countLevelNum.py {file}")
-    os.system(f"python ./code/countLevelNum.py {file}")
-    # K-means 分群
-    file = "2018micro_countNum.csv"
-    print(f"python ./code/cluster.py {file}")
-    os.system(f"python ./code/cluster.py {file}")
+    # file = "2018micro.csv"
+    # print(f"python ./code/countLevelNum.py {file}")
+    # os.system(f"python ./code/countLevelNum.py {file}")
+    # # K-means 分群
+    # file = "2018micro_countNum.csv"
+    # print(f"python ./code/cluster.py {file}")
+    # os.system(f"python ./code/cluster.py {file}")
     # 切 cut
     file = "2018micro_cluster.csv"
     print(f"python ./code/cut.py {file}")
@@ -51,10 +51,10 @@ def microToLevel():
     os.system(f"python ./code/covertToLevel.py {file}")
 
 def main():
-    # cut()
+    cut()
     # 資料 --- 1. 原始數據 2. 等級數據
     # microToLevel()
     # GEI()
-    GEIcluster()
+    # GEIcluster()
 if __name__ == '__main__':
     main()
