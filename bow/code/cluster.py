@@ -17,7 +17,7 @@ def selectK(distortions):
             k = i
             break
     return k
-# 畫圖 --- 輪廓係數
+# 畫圖
 def draw(fileName,X,scores,distortions):
     fig = plt.figure()
     # 輪廓係數
