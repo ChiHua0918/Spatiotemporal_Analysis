@@ -3,20 +3,7 @@ from sklearn.cluster import KMeans
 import csv
 import sys
 from matplotlib import pyplot as plt
-# 選最好的分群數 k
-def selectK(distortions):
-    diff = []
-    for i in range(1,len(distortions)):
-        diff.append(distortions[i] - distortions[i-1])
-    # average
-    average = abs((diff[0]+diff[len(diff)-1])/len(diff))
-    print("average",average)
-    # select k
-    for i in range(len(diff)):
-        if abs(diff[i]) < average:
-            k = i
-            break
-    return k
+
 # 畫圖
 def draw(fileName,X,scores,distortions):
     fig = plt.figure()
@@ -35,6 +22,20 @@ def draw(fileName,X,scores,distortions):
     plt.xlabel("k") # labelpad代表與圖片的距離
     plt.ylabel("distance")
     fig.tight_layout()
+# 選最好的分群數 k
+def selectK(distortions):
+    diff = []
+    for i in range(1,len(distortions)):
+        diff.append(distortions[i] - distortions[i-1])
+    # average
+    average = abs((diff[0]+diff[len(diff)-1])/len(diff))
+    print("average",average)
+    # select k
+    for i in range(len(diff)):
+        if abs(diff[i]) < average:
+            k = i
+            break
+    return k
 # k-means分類
 def k_means(fileName,data):
     scores = []      # 輪廓係數分數
@@ -56,11 +57,10 @@ def k_means(fileName,data):
     # 取結果分數最好的
     # k = scores.index(max(scores))+least
     k = selectK(distortions)+least
-    cluster = results[k].predict(data)
+    cluster = KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).predict(data)
     print("群心",KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).cluster_centers_)
     print(f"分 {k} 類")
     draw(fileName,[i for i in range(least,most)],scores,distortions)
-    plt.show()
     return cluster
 
 def main(argv,folder):
@@ -81,13 +81,14 @@ def main(argv,folder):
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    index = inputData.find("_bow")
-    outputData = inputData[:index]+"_cluster.csv"
-    outputFile = "./data/clustering/"+ outputData
+    # index = inputData.find("_bow")
+    # outputData = inputData[:index]+"_cluster.csv"
+    outputFile = f"./data/clustering/{folder}/"+ inputData
+    print("outpuFilte:",outputFile)
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","cluster","LevelNum"])
         writer.writerows(readData)
-
+    plt.show()
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
