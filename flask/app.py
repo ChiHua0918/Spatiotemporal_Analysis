@@ -139,4 +139,5 @@ def findPictureName(id):
             # data[0]: 彩色 PM2.5 圖片名字
             statckList.append(data[0])
     return statckList
-app.run(port=8000)
+if __name__ == "__main__":
+    app.run(port=8000)
