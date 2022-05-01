@@ -21,7 +21,8 @@ var GEIName;
 var pattern = "";
 // 紀錄現在畫面上的GEI
 var boardGEI = [];
-
+// bow filter 為 橫豎斜哪一個
+filterType = ""
 getGEINum()
 function getGEINum() {
     $.ajax({
@@ -81,22 +82,31 @@ function contrast(){
 // 按下分群
 function clickCluster() {
     clusterGEI(memory);
-    console.log("memory",memory);
+    console.log("memory",memory,"\t","filter type:",filterType);
 }
 // 紀錄目前的模式是 等級 or 空間
 function cluster_pattern(mode){
     picture = "";
     pattern = mode;
 }
+// filter type
+function filterMode(type){
+    filterType = type;
+}
 // 分群 -- cluster:每一張 GEI 所屬的群
 function clusterGEI(memory) {
     var maxCluster;
+    // user 沒有選擇 pattern
+    if (pattern.length == 0){
+        alert("請先選擇模式");
+        return;
+    }
     $.ajax({
         url: 'cluster',
         type: "GET",
         // dataType: 'json',
         // contentType:'application/json',
-        data: {"memory":memory,"pattern":pattern},
+        data: {"memory":memory,"pattern":pattern,"filterType":filterType},
         async: false, // 同步 -> 等到拿到後端回傳的資料再做 clusterUI
         /*result為后端函式回傳的json*/
         success: function (result) {
@@ -214,4 +224,5 @@ function changeColor(buttonType,order){
     if (buttonType == "clustering" || buttonType == "dataButton"){
         document.getElementsByClassName("contrast")[0].style.backgroundColor = "#F3E9DD";
     }
+    // 如果還沒選 pattern 的話，分群的按鈕不可以變深
 }

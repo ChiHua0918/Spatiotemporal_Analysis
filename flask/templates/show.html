@@ -15,7 +15,9 @@
 <body class="bg">
   <div id="container">
     <div class="text">
-      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"<br/>等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br/></p>
+      <h2>GEI 分群觀察</h2>
+      <p>按按鈕即可查看對應的 GEI 圖片，<b>分群前請先選擇模式</b></p>
+      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"，等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br/></p>
       <li>GEI_origin: 將原始數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
       <li>GEI_Level: 將等級數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
       <li>加強對比: 將 GEI 單張正規化。由於有些 GEI 對比不明顯，不易觀察 GEI 中的隱藏訊息，所以加強單張對比輔助觀察<br/></li>
@@ -40,6 +42,12 @@
       <!-- <button onclick="cluster_pattern('cnn')">CNN</button> -->
       <!-- 返回按鈕 -->
       <button onclick="back()">返回</button>
+      <!-- 選取 filter  -->
+      <button class = "filter" onclick="filterMode('col');changeColor('filter','0')">豎</button>
+      <button class = "filter" onclick="filterMode('row');changeColor('filter','1')">橫</button>
+      <button class = "filter" onclick="filterMode('leftDown');changeColor('filter','2')">左下斜</button>
+      <button class = "filter" onclick="filterMode('rightDown');changeColor('filter','3')">右下斜</button>
+      
     </div>
     <!-- 圖片畫面 -->
     <table id="frame">

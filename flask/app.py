@@ -24,10 +24,12 @@ def GEINum():
 def cluster():
     memory = request.args.get("memory")
     pattern = request.args.get("pattern")
+    filterType = request.args.get("filterType")
+    print(f"memory:{memory} pattern:{pattern} filterType:{filterType}")
     if pattern == "level":
         path = "./static/data/clusterData/KMeans/"+memory+"_regular_cluster.csv"
     elif pattern == "space":
-        path = "./static/data/clusterData/bow/"+memory+"_cluster.csv"
+        path = f"./static/data/clusterData/bow/filter_3/quadrant/{memory}_bow_3_{filterType}.csv"
     elif pattern == "cnn":
         path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
     cluster = [] # GEI 所屬群

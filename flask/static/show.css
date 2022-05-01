@@ -5,32 +5,38 @@
     text-align: center;
     margin: auto;
     color:#614124;
-    
 }
 
 /* 網站資訊 */
 .text {
+    width:fit-content;
     background-color: #F3E9DD;
     display: block;
     margin: auto;
     padding: 10px;
     border-radius: 5px;
-    width: 1000px;
     border-radius: 10px;
     margin-top: 10px;
     border: 2px solid #DAB88B;
+    position: relative;
+    z-index: 0;
 }
 
 /* 所有的 button */
 #functionButton {
     position: fixed;
     text-align: center;
-    margin: auto;
     padding: auto;
     margin-left: 90%;
     margin-right: 8%;
+    /* 層數 */
+    z-index: 2;
 }
-
+/* GEI 圖片 */
+#frame{
+    position: relative;
+    z-index: 0;
+}
 /* PM2.5彩色圖 */
 #modal {
     width: 90%;
@@ -96,7 +102,6 @@ button {
     padding: 10px;
     display: block;
     background-color: #F3E9DD;
-
 }
 
 img {
@@ -104,7 +109,7 @@ img {
     border-color: white;
 }
 p{
-    font-size: 20px;
+    font-size: 16px;
 }
 li{
     text-align:justify;
