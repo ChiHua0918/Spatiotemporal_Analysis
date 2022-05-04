@@ -159,19 +159,18 @@ function everyGEI(k) {
 function ShowModal(id) {
     show();
     // 讓上一個的邊框消失
-    if (picture != "") {
+    if (picture.length != 0) {
         var chooseImg = document.getElementById(picture);
         chooseImg.style.border = "2px solid";
         chooseImg.style.borderColor = "white";
-        console.log("pre:", picture);
+        console.log("Previous choose:", picture);
     }
-    // 把選起來的GEI框起來
+    // 把選起來的 GEI 框起來(color=綠色)
     var chooseImg = document.getElementById(id);
     chooseImg.style.border = "6px solid";
     chooseImg.style.borderColor = "greenyellow";
     picture = id;
-    console.log("after:",picture);
-    console.log("id:",id);
+    console.log("after choose:",id);
 }
 function gif(){
     // 傳送資料給gif.py

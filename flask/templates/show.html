@@ -17,44 +17,47 @@
     <div class="text">
       <h2>GEI 分群觀察</h2>
       <p>按按鈕即可查看對應的 GEI 圖片，<b>分群前請先選擇模式</b></p>
-      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"，等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br/></p>
-      <li>GEI_origin: 將原始數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
-      <li>GEI_Level: 將等級數據做資料前處理後，將 shot 疊加成 GEI<br/></li>
-      <li>加強對比: 將 GEI 單張正規化。由於有些 GEI 對比不明顯，不易觀察 GEI 中的隱藏訊息，所以加強單張對比輔助觀察<br/></li>
-      <li>分群:將目前的 GEI 依照下列選取的模式進行分群<br/></li>
-      <li>模式 --- 等級: 0~256 切 8 個等級，統計 GEI 各等級塊數<br/></li>
-      <li>模式 --- 空間: bow<br/></li>
+      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"，等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br /></p>
+      <li>GEI_origin: 將原始數據做資料前處理後，將 shot 疊加成 GEI<br /></li>
+      <li>GEI_Level: 將等級數據做資料前處理後，將 shot 疊加成 GEI<br /></li>
+      <li>加強對比: 將 GEI 單張正規化。由於有些 GEI 對比不明顯，不易觀察 GEI 中的隱藏訊息，所以加強單張對比輔助觀察<br /></li>
+      <li>分群:將目前的 GEI 依照下列選取的模式進行分群<br /></li>
+      <li>模式 --- 等級: 0~256 切 8 個等級，統計 GEI 各等級塊數<br /></li>
+      <li>模式 --- 空間: bow<br /></li>
     </div>
     <div id="functionButton">
       <!-- 按鈕-原始按鈕 -->
-      <button class = "dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button>
+      <button class="dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button>
       <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
       <!-- 按鈕-等級按鈕 -->
-      <button class = "dataButton" onclick="GEI('GEI_Level');changeColor('dataButton','1')">GEI_Level</button>
+      <button class="dataButton" onclick="GEI('GEI_Level');changeColor('dataButton','1')">GEI_Level</button>
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
       <!-- GEI 加強對比 -->
-      <button class = "contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
+      <button class="contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
       <!-- 分群按鈕 -->
-      <button class = "clustering" onclick="clickCluster();changeColor('clustering','0')">分群</button>
+      <button class="clustering" onclick="clickCluster();changeColor('clustering','0')">分群</button>
       <!-- 分群模式 -->
-      <button class = "mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
-      <button class = "mode" onclick="cluster_pattern('space');changeColor('mode','1')">空間</button>
+      <button class="mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
+      <button class="mode" onclick="cluster_pattern('space');changeColor('mode','1')">空間</button>
       <!-- <button onclick="cluster_pattern('cnn')">CNN</button> -->
       <!-- 返回按鈕 -->
       <button onclick="back()">返回</button>
       <!-- 選取 filter  -->
-      <button class = "filter" onclick="filterMode('col');changeColor('filter','0')">豎</button>
-      <button class = "filter" onclick="filterMode('row');changeColor('filter','1')">橫</button>
-      <button class = "filter" onclick="filterMode('leftDown');changeColor('filter','2')">左下斜</button>
-      <button class = "filter" onclick="filterMode('rightDown');changeColor('filter','3')">右下斜</button>
-      
+      <button class="filter" onclick="filterMode('col');changeColor('filter','0')">豎</button>
+      <button class="filter" onclick="filterMode('row');changeColor('filter','1')">橫</button>
+      <button class="filter" onclick="filterMode('leftDown');changeColor('filter','2')">左下斜</button>
+      <button class="filter" onclick="filterMode('rightDown');changeColor('filter','3')">右下斜</button>
+
     </div>
-    <!-- 圖片畫面 -->
-    <table id="frame">
+    <div id="gif">
+      <!-- gif 空汙動畫 -->
       <div id="modal" style="overflow: overflow-y"></div>
       <button id="modalBtn" onclick="hide()">確認</button>
       <input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)">
       <button id="speedBtn" onclick="gif()">開始製作gif</button>
+    </div>
+    <!-- GEI 畫面 -->
+    <table id="frame">
     </table>
   </div>
   <script src="../static/show.js" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>

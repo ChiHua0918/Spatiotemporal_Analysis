@@ -29,7 +29,7 @@ def cluster():
     if pattern == "level":
         path = "./static/data/clusterData/KMeans/"+memory+"_regular_cluster.csv"
     elif pattern == "space":
-        path = f"./static/data/clusterData/bow/filter_3/quadrant/{memory}_bow_3_{filterType}.csv"
+        path = f"./static/data/clusterData/bow/quadrant/{memory}_bow_3_{filterType}.csv"
     elif pattern == "cnn":
         path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
     cluster = [] # GEI 所屬群
