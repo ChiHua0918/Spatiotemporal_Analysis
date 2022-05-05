@@ -1,6 +1,5 @@
 other
 make_GEI/picture
-flask/static/image
 contrast/image
 test.py
 test1.py
@@ -9,3 +8,4 @@ bow/data
 test.csv
 cnnContent.txt
 cnn/data
+flask/static/image/clusterUI
