@@ -17,12 +17,12 @@ var imgData = [];
 var cluster;
 //每一張GEI資料(NO.1,分群,10筆)
 var GEIName;
-// 判斷目前為等級分群/空間分群
-var pattern = "";
 // 紀錄現在畫面上的GEI
 var boardGEI = [];
-// bow filter 為 橫豎斜哪一個
-filterType = ""
+//存取上一個版面
+var tmp;
+// 紀錄現在選取的數據 (GEI_origin、GEI_Level)
+var memory = "";
 getGEINum()
 function getGEINum() {
     $.ajax({
@@ -52,16 +52,11 @@ function GEI(folder) {
     memory = folder;
 }
 
-//存取上一個版面
-var tmp;
 // 返回鑑
 function back() {
     showPicture.innerHTML = tmp;
     picture = "";
 }
-// 紀錄我現在按的按鈕
-var memory = "";
-
 // 加強對比: 單張 GEI 的黑白對比加強
 function contrast(){
     picture = "";
@@ -81,23 +76,29 @@ function contrast(){
 }
 // 按下分群
 function clickCluster() {
-    clusterGEI(memory);
-    console.log("memory",memory,"\t","filter type:",filterType);
-}
-// 紀錄目前的模式是 等級 or 空間
-function cluster_pattern(mode){
+    // 要顯示哪一個檔案的 GEI 分群
+    let clusterFile = document.getElementById('clusterFile').value;
+    // filter 方向
+    let filterDirect = document.getElementById('filterDirect').value;
+    // filter 大小
+    let filterSize = document.getElementById('filterSize').value;
+    // BOW 要選擇 filter 的方向和大小
+    if (clusterFile.split('_')[0] == "bow" && (filterDirect == "" || filterSize == "")){
+        alert('bow 須選擇 filter 方向以及 filter 大小');
+        return;
+    }
     picture = "";
-    pattern = mode;
-}
-// filter type
-function filterMode(type){
-    filterType = type;
+    alert("圖片製作中，請稍等");
+    // 紀錄目前的模式是 等級 or 空間
+    clusterGEI(memory,clusterFile,filterDirect,filterSize);
+    // console.log("memory",memory,"\t","filter type:",filterDirect);
+    changeColor('dataButton','1');
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
-function clusterGEI(memory) {
+function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
     var maxCluster;
-    // user 沒有選擇 pattern
-    if (pattern.length == 0){
+    // user 沒有選擇檔案
+    if (clusterFile.length == 0){
         alert("請先選擇模式");
         return;
     }
@@ -106,7 +107,7 @@ function clusterGEI(memory) {
         type: "GET",
         // dataType: 'json',
         // contentType:'application/json',
-        data: {"memory":memory,"pattern":pattern,"filterType":filterType},
+        data: {"memory":memory,"clusterFile":clusterFile,"filterDirect":filterDirect,"filterSize":filterSize},
         async: false, // 同步 -> 等到拿到後端回傳的資料再做 clusterUI
         /*result為后端函式回傳的json*/
         success: function (result) {
@@ -204,10 +205,14 @@ function hide() {
 
 // 設定modal位置
 function setPos() {
-    let height = document.documentElement.clientHeight / 2;
-    let width = document.documentElement.clientWidth / 2;
-    modal.style.marginTop = (height - 350) + "px";
-    modal.style.marginLeft = (width - 700) + "px";
+    let height = document.documentElement.scrollHeight;
+    let width = document.documentElement.scrollWidth;
+    modal.style.marginTop = (height - 350)/2 + "px";
+    modal.style.marginLeft = (width - 700)/2 + "px";
+    // // button 置中
+    // let functionButton = document.getElementById("functionButton");
+    // functionButton.style.marginLeft = (width-1100)/2+"px";
+    // console.log(width);
 }
 // button change color
 function changeColor(buttonType,order){
@@ -223,5 +228,5 @@ function changeColor(buttonType,order){
     if (buttonType == "clustering" || buttonType == "dataButton"){
         document.getElementsByClassName("contrast")[0].style.backgroundColor = "#F3E9DD";
     }
-    // 如果還沒選 pattern 的話，分群的按鈕不可以變深
+    // 如果還沒選 file 的話，分群的按鈕不可以變深
 }

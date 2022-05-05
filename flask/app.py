@@ -22,15 +22,18 @@ def GEINum():
 # 讀取csv獲取每一張 GEI 所屬的群
 @app.route("/cluster",methods = ["GET"])
 def cluster():
+    # 從前端拿到的資料
     memory = request.args.get("memory")
-    pattern = request.args.get("pattern")
-    filterType = request.args.get("filterType")
-    print(f"memory:{memory} pattern:{pattern} filterType:{filterType}")
-    if pattern == "level":
-        path = "./static/data/clusterData/KMeans/"+memory+"_regular_cluster.csv"
-    elif pattern == "space":
-        path = f"./static/data/clusterData/bow/quadrant/{memory}_bow_3_{filterType}.csv"
-    elif pattern == "cnn":
+    clusterFile = request.args.get("clusterFile")
+    filterDirect = request.args.get("filterDirect")
+    filterSize = request.args.get("filterSize")
+    print(f"memory:{memory} clusterFile:{clusterFile} filterDirect:{filterDirect} filterSize:{filterSize}")
+    if clusterFile.split('_')[0] == "countLevel":
+        path = "./static/data/clusterData/countLevel/"+memory+"_regular_cluster.csv"
+    elif clusterFile.split('_')[0] == "bow":
+        folder = clusterFile.split('_')[1]
+        path = f"./static/data/clusterData/bow/{folder}/{memory}_bow_{filterSize}_{filterDirect}.csv"
+    elif clusterFile.split('_')[0] == "cnn":
         path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
