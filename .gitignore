@@ -9,3 +9,5 @@ test.csv
 cnnContent.txt
 cnn/data
 flask/static/image/clusterUI
+flask/static/image/gif
+flask/static/data/clusterUI.csv
