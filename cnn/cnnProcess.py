@@ -1,6 +1,5 @@
 import os
 
-from numpy import source
 # 將原始 PM2.5 數據轉為等級
 def cnn():
     # source = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
@@ -12,7 +11,11 @@ def cnn():
     #     for j in range(len(source)):
     #         print(f"python cnn.py {source[j]} {outputFolder[i]}")
     #         os.system(f"python cnn.py {source[j]} {outputFolder[i]}")
-    os.system(f"python cnn.py GEI_origin mnist")
+    for data in source:
+        # os.system(f"python cnn.py {data} imagenet")
+        file = data+"_cnn.csv"
+        print(f"python ./code/cluster.py {file} imagenat")
+        os.system(f"python ./code/cluster.py {file} imagenet")
 
 def main():
     cnn()

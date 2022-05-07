@@ -5,7 +5,6 @@ import numpy as np
 import csv
 import tensorflow as tf
 import os
-import random
 import sys
 # 模型及權重載入程式
 # include_top=True，表示會載入完整的 VGG16 模型，包括加在最後(頂部)3層完全連接層 <- 後進先出
@@ -37,10 +36,10 @@ def dot(classification,every_GEI_extent):
         print("===== name ===== ",name)
     print("===== GEI_dot ====== ",GEI_dot)
     return GEI_dot
-# 取前10名
+# 取前 20 名
 def take(classNum):
     order = sorted(classNum.values(),reverse=True)
-    threshold = order[10] # 過第10名分數的門檻
+    threshold = order[20]
     classification = []
     for key,value in classNum.items():
         if value >= threshold:
@@ -90,12 +89,12 @@ def vgg16(model,path):
 def main(source,outputFolder):
     # model
     model = tf.keras.applications.VGG16(
-        include_top=False,
-        weights="mnist", # "imagenet"、"mnist"
+        include_top=True,
+        weights="imagenet", # "imagenet"、"mnist"
         input_tensor=None,
         input_shape=None,
         pooling=None,
-        classes=10,
+        classes=1000,
         classifier_activation="softmax",
         # classifier_activation=None,
     )
@@ -103,7 +102,7 @@ def main(source,outputFolder):
     inputData = source
     inputFile = "../make_GEI/picture/"+inputData+"/"
     classNum, every_GEI_extent = vgg16(model,inputFile) # cnn
-    classification = take(classNum)           # 取前10名的類別
+    classification = take(classNum)
     # random.shuffle(classification) # 把順序打亂
     GEI_dot = dot(classification, every_GEI_extent)
     writeCSV(GEI_dot,outputFolder,source)
