@@ -32,12 +32,12 @@
       <button class="dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button>
       <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
       <!-- 按鈕-等級按鈕 -->
-      <button class="dataButton" onclick="GEI('GEI_Level');">GEI_Level</button>
+      <button class="dataButton" onclick="GEI('GEI_Level');changeColor('dataButton','1')">GEI_Level</button>
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
       <!-- GEI 加強對比 -->
       <button class="contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
       <!-- 分群按鈕 -->
-      <button class="clustering" onclick="clickCluster();changeColor('clustering','0')">分群</button>
+      <button class="clustering" onclick="clickCluster()">分群</button>
       <!-- GEI 分群檔案 -->
       <!-- <button class="mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
       <button class="mode" onclick="cluster_pattern('space');changeColor('mode','1')">BOW</button> -->
@@ -84,8 +84,7 @@
     <!-- GEI 畫面 -->
     <table id="frame"></table>
   </div>
-  <script src="../static/show.js" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-  </script>
+  <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="../static/show.js"></script>
 </body>
 

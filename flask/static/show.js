@@ -56,6 +56,7 @@ function GEI(folder) {
 function back() {
     showPicture.innerHTML = tmp;
     picture = "";
+    changeColor('back','0');
 }
 // 加強對比: 單張 GEI 的黑白對比加強
 function contrast(){
@@ -98,7 +99,7 @@ function clickCluster() {
     // 紀錄目前的模式是 等級 or 空間
     clusterGEI(memory,clusterFile,filterDirect,filterSize);
     // console.log("memory",memory,"\t","filter type:",filterDirect);
-    changeColor('dataButton','1');
+    changeColor('clustering','0');
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
 function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
@@ -131,7 +132,7 @@ function clusterUI(maxCluster) {
     console.log("clusterUI");
     var html = "";
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i})">`;
+        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i});changeColor(${null},0);">`;
     }
     tmp = html;
     showPicture.innerHTML = html;
@@ -224,11 +225,19 @@ function changeColor(buttonType,order){
     for (var i = 0; i < howManyButton; i++){
         document.getElementsByClassName(buttonType)[i].style.backgroundColor = "#F3E9DD";
     }
+    console.log("button type",buttonType);
     // 剛剛按下的按鈕加深背景顏色
-    document.getElementsByClassName(buttonType)[order].style.backgroundColor = "#CEAB93";
-    // 加強對比(contrast) 比較特殊，如果按了其他資料或是分群，目前的畫面就不是加強對比的 GEI 圖了
-    if (buttonType == "clustering" || buttonType == "dataButton"){
+    try {
+        document.getElementsByClassName(buttonType)[order].style.backgroundColor = "#CEAB93";
+    } catch (error) {
+        console.log("buttonType",buttonType);
+    }
+    // 加強對比(contrast)，如果按了其他資料或是分群，目前的畫面就不是加強對比的 GEI 圖了
+    if (buttonType != "contrast"){
         document.getElementsByClassName("contrast")[0].style.backgroundColor = "#F3E9DD";
     }
-    // 如果還沒選 file 的話，分群的按鈕不可以變深
+    // 分群按鈕
+    if (buttonType == "dataButton"){
+        document.getElementsByClassName("clustering")[0].style.backgroundColor = "#F3E9DD";
+    }
 }
