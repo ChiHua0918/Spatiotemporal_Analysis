@@ -34,16 +34,15 @@
     align-items:center;
     margin:auto;
 }
-/* GIF */
+/* contain gif, speed button... */
 #gif{
     z-index: 2;
     position: fixed;
 }
 /* PM2.5彩色圖 */
 #modal {
-    width: 90%;
-    max-height: 600px;
-    margin-left: 50px;
+    width: 500px;
+    height: 500px;
     background-color: none;
     /*paleturquoise*/
     position: fixed;

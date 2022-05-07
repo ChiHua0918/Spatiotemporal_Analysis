@@ -12,7 +12,7 @@ var picture = "";
 // GEI也多少照片
 var GEINum;
 //所有原始圖片的檔名(.png)
-var imgData = [];
+// var imgData = [];
 //每一張GEI所屬的分類
 var cluster;
 //每一張GEI資料(NO.1,分群,10筆)
@@ -64,7 +64,7 @@ function contrast(){
     console.log("contrast boardGEI",boardGEI);
     console.log("now folder is",memory);
     for (var i = 0; i < boardGEI.length; i++) {
-        imgName = boardGEI[i];
+        let imgName = boardGEI[i];
         id = imgName.slice(3,imgName.length);
         img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
@@ -72,6 +72,7 @@ function contrast(){
             img += "</tr><tr>";
         }
     }
+    console.log(boardGEI);
     showPicture.innerHTML = img;
 }
 // 按下分群
@@ -82,6 +83,11 @@ function clickCluster() {
     let filterDirect = document.getElementById('filterDirect').value;
     // filter 大小
     let filterSize = document.getElementById('filterSize').value;
+    // 沒有選取檔案
+    if (clusterFile.length == 0){
+        alert("請先選取檔案");
+        return
+    }
     // BOW 要選擇 filter 的方向和大小
     if (clusterFile.split('_')[0] == "bow" && (filterDirect == "" || filterSize == "")){
         alert('bow 須選擇 filter 方向以及 filter 大小');
@@ -142,15 +148,15 @@ function everyGEI(k) {
         if (cluster[i] == k) {
             // GEI id 數字
             let id = GEIName[i].slice(3, GEIName[i].length);
+            let imgName = GEIName[i]+".png";
             console.log("cluterID:",id)
-            html += `<td><img src="./static/image/GEI/${memory}/${GEIName[i]}.png" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            html += `<td><img src="./static/image/GEI/${memory}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
             // 換行
             if (n % 5 == 4) {
                 html += "</tr><tr>";
             }
             n += 1;
-            boardGEI.push(GEIName[i]);
-            console.log("everyGEI GEIName",GEIName[i]);
+            boardGEI.push(imgName);
         }
     }
     showPicture.innerHTML = html;
@@ -207,12 +213,8 @@ function hide() {
 function setPos() {
     let height = document.documentElement.scrollHeight;
     let width = document.documentElement.scrollWidth;
-    modal.style.marginTop = (height - 350)/2 + "px";
+    modal.style.marginTop = (height - 700)/2 + "px";
     modal.style.marginLeft = (width - 700)/2 + "px";
-    // // button 置中
-    // let functionButton = document.getElementById("functionButton");
-    // functionButton.style.marginLeft = (width-1100)/2+"px";
-    // console.log(width);
 }
 // button change color
 function changeColor(buttonType,order){

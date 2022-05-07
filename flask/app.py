@@ -34,7 +34,7 @@ def cluster():
         folder = clusterFile.split('_')[1]
         path = f"./static/data/clusterData/bow/{folder}/{memory}_bow_{filterSize}_{filterDirect}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = "./static/data/clusterData/cnn/"+memory+"_cluster.csv"
+        path = f"./static/data/clusterData/cnn/imagenet/{memory}_cnn.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :
@@ -54,7 +54,7 @@ def clusterUI(cluster,memory):
     # 每一群所有 GEI 堆疊成一個代表的 GEI
     print("make clusterUI")
     readData = []
-    with open(f"./static/data/GEI_data/{memory}.csv", newline= '') as csvfile :
+    with open(f"./static/data/GEI_regular/{memory}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             try:
@@ -64,6 +64,8 @@ def clusterUI(cluster,memory):
     print("cluster length",len(cluster))
     print("readData length",len(readData))
     clusterData = []
+    print("num",max(cluster))
+    print("cluster",cluster)
     for k in range(max(cluster)+1):
         # 堆疊的 GEI 數據
         stackData = np.array([float(0) for i in range(len(readData[0]))])
@@ -78,8 +80,9 @@ def clusterUI(cluster,memory):
         stackData = stackData / n
         stackData = stackData.tolist()
         stackData.insert(0,k)
-        print(k)
-        print(stackData)
+        print("k",k)
+        print("n",n)
+        print("stackData",stackData)
         clusterData.append(stackData)
     file = "clusterUI.csv"
     with open("./static/data/"+file, 'w', newline='') as _file:
