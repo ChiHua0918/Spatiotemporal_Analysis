@@ -65,8 +65,8 @@ function contrast(){
     console.log("contrast boardGEI",boardGEI);
     console.log("now folder is",memory);
     for (var i = 0; i < boardGEI.length; i++) {
+        let id = GEIName[i].slice(3, GEIName[i].length);
         let imgName = boardGEI[i];
-        id = imgName.slice(3,imgName.length);
         img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
@@ -132,7 +132,7 @@ function clusterUI(maxCluster) {
     console.log("clusterUI");
     var html = "";
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i});changeColor(${null},0);">`;
+        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i})">`;
     }
     tmp = html;
     showPicture.innerHTML = html;
@@ -214,7 +214,7 @@ function hide() {
 function setPos() {
     let height = document.documentElement.scrollHeight;
     let width = document.documentElement.scrollWidth;
-    modal.style.marginTop = (height - 700)/2 + "px";
+    modal.style.marginTop = (height - 1000)/2 + "px";
     modal.style.marginLeft = (width - 700)/2 + "px";
 }
 // button change color

@@ -41,8 +41,6 @@
 }
 /* PM2.5彩色圖 */
 #modal {
-    width: 500px;
-    height: 500px;
     background-color: none;
     /*paleturquoise*/
     position: fixed;
@@ -136,9 +134,19 @@ select{
     background-color: #F3E9DD;
 }
 /* 回到頂端 */
-#top{
-    position: fixed;
-    margin-left: 95%;
-    margin-right: 3%;
-    margin-bottom: 50px;
+#return{
+    position:fixed;
+    bottom:0;
+    right:0;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: #CEAB93;
+    /* 字 */
+    white-space: pre-line;
+    font-size: 20px;
+    color: #876445;
+    text-decoration: none;
+    background-color: #F3E9DD;
 }
