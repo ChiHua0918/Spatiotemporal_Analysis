@@ -48,41 +48,19 @@ def bowAccumulateScore(img,filters,size):
         # for pos in filter_index:
         #     bag[pos] += 1
     return scores
-# def grid(img):
-#     average_grid = [] # 2*2方塊的最大數字
-#     Dimension = 10
-#     num = []
-#     for r in range(0,Dimension,2):
-#         for c in range(0,Dimension,2):
-#             pos = 10*r+c
-#             num.append(pos)
-
-#     relativePos = [0,1,10,11]
-#     catch = []
-#     for pos in num:
-#         for j in relativePos:
-#             catch.append(img[pos+j])
-#         average_grid.append(max(catch))
-#     return average_grid
-
+# =================================
 # 採用 ?*? 的 filter
 # size: filter 的大小
 def choiceFilter(size):
     match size:
         case 2:
             return np.array([[1,1,-1,-1]
-                            ,[-1,-1,1,1]
-                            ,[-1,1,-1,1]
                             ,[1,-1,1,-1]
                             ,[1,-1,-1,1]
                             ,[-1,1,1,-1]])
         case 3:
-            return np.array([[1,1,1,-1,-1,-1,-1,-1,-1]
-                            ,[-1,-1,-1,1,1,1,-1,-1,-1]
-                            ,[-1,-1,-1,-1,-1,-1,1,1,1]
-                            ,[1,-1,-1,1,-1,-1,1,-1,-1]
+            return np.array([[-1,-1,-1,1,1,1,-1,-1,-1]
                             ,[-1,1,-1,-1,1,-1,-1,1,-1]
-                            ,[-1,-1,1,-1,-1,1,-1,-1,1]
                             ,[1,-1,-1,-1,1,-1,-1,-1,1]
                             ,[-1,-1,1,-1,1,-1,1,-1,-1]])
         case _:
@@ -118,10 +96,19 @@ def main(argv,size):
         print(name[i])
     # 資料輸出
     index = inputData.find("_regular")
-    outputData = "./data/"+inputData[:index]+f"_bow_{size}.csv"
-    with open(outputData, 'w', newline='') as _file:
-            writer = csv.writer(_file)
-            writer.writerows(result)
+    # 4 種 filter 個別累加 -> 產出 4 種 csv
+    filter_name = ["row","col","rightDown","leftDown"]
+    for i in range(len(filter_name)):
+        outputData = "./data/quadrant/"+inputData[:index]+f"_bow_{size}_{filter_name[i]}.csv"
+        with open(outputData, 'w', newline='') as _file:
+                writer = csv.writer(_file)
+                for key,value in result[i].items():
+                    writer.writerow([key,*value])
+    # 4 種 filter 累加分數
+    # outputData = "./data/"+inputData[:index]+f"_bow_{size}.csv"
+    # with open(outputData, 'w', newline='') as _file:
+    #         writer = csv.writer(_file)
+    #         writer.writerows(result)
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
     # main()

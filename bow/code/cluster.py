@@ -28,7 +28,7 @@ def selectK(distortions):
     for i in range(1,len(distortions)):
         diff.append(distortions[i] - distortions[i-1])
     # average
-    average = abs((diff[0]+diff[len(diff)-1])/len(diff))
+    average = abs((diff[0]+diff[len(diff)-1])/2)
     print("average",average)
     # select k
     for i in range(len(diff)):

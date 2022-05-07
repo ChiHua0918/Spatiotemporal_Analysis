@@ -1,4 +1,3 @@
-from fileinput import filename
 import os
 # 分群
 def cluster(size,folder):
@@ -11,7 +10,7 @@ def cluster(size,folder):
         # path = "../make_GEI/data/GEI_regular/"
         print(f"python ./code/cluster.py {file} {folder}")
         os.system(f"python ./code/cluster.py {file} {folder}")
-# 累加 filter 分數
+# 累加 filter 分數，所有的 filter 一起累計
 def AccumulateScore(size):
     source = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
     for file in source:
@@ -27,6 +26,15 @@ def strengthenEdge(size):
         print(f"python ./code/bowStrengthenEdge.py {file} {size}")
         os.system(f"python ./code/bowStrengthenEdge.py {file} {size}")
     return "strengthenEdge"
+# =================================
+# 分 4 個象限，每一個象限產生一個分數，每一個 filter 以這 4 個象限分數做分群
+def bowAccumulate(size):
+    source = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
+    for file in source:
+        # path = "../make_GEI/data/GEI_regular/"
+        print(f"python ./code/bowAccumulate.py {file} {size}")
+        os.system(f"python ./code/bowAccumulate.py {file} {size}")
+    return "accumulate"
 def bowFilterScore(size):
     source = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
     for file in source:
@@ -65,8 +73,10 @@ def main():
     size = int(input())
     # folder = AccumulateScore(size)
     # folder = strengthenEdge(size) # 每一個 filter 分數分開
+    # ===========================
+    folder = bowAccumulate(size)
     # folder = bowFilterScore(size)
-    folder = bowFilterScore_quadrant(size)
+    # folder = bowFilterScore_quadrant(size)
     cluster(size,folder)
     # folder = "quadrant"
     # hierarchical(folder,size)
