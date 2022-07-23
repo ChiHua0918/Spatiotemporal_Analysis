@@ -17,4 +17,4 @@ test.csv
 cnnContent.txt
 cnn/data
 flask/static/image
-flask/static/data/clusterUI.csv
+flask/static/data
