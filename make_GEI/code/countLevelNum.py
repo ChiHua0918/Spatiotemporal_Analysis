@@ -6,16 +6,15 @@ import sys
 def HD(data) :
     HisData = []
     for r in range(len(data)):
-        # print(data[r][0])
         His = list(plt.hist(data[r][1:], bins=16, range=[0, 16]))
-        # print("His",His)
         oneData = list(His[0])
+        # 插入名字 (2018/1/1 00:00)
         oneData.insert(0,data[r][0])
         HisData.append(oneData)
     return HisData
 
-# 0~9 級
-def part(data) :
+# 數據轉為 0~9 級
+def convert(data) :
     # 各計數的上界
     levelList = [7.5,15.5,25.5,35.5,45.5,54.5,102.5,150.5,250.5]
     for r in range(len(data)):
@@ -28,34 +27,34 @@ def part(data) :
                 if (levelList[i] >= data[r][c]) :
                     data[r][c] = i
                     break
-def main(argv):
+    return data
+def main(argv,form):
     inputData = argv
-    inputFile = inputData
-    # 如果是正規化後的數據，正規化後的數據放在 GEI_regular 資料夾裡面
-    regularData = argv.split("_")
-    try:
-        if regularData[2][:-4] == "regular":
-            inputFile = "./data/GEI_regular/"+inputData
-    except:
-        pass
+    if form == "begin": # 原檔案 2018micro.csv
+        path = "./"+inputData
+    elif form == "regular": # 已正規化數據
+        path = "./data/GEI_regular/"+inputData
+
     readData = []
-    with open(inputFile, newline= '') as csvfile :
+    with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
+            # 去掉標題
             try:
                 readData.append([row[0]]+list(map(float,row[1:])))
             except:
                 pass
-    part(readData)
+    # 轉換等級
+    readData = convert(readData)
     HisData = HD(readData)
-    index = inputData.find('.csv')
-    outputData = inputData[:index]+"_countNum"+inputData[index:]
-    outputFile = "./data/countLevelNum/" + outputData
+    # index = inputData.find('.csv')
+    # outputData = inputData[:index]+"_countNum"+inputData[index:]
+    outputFile = "./data/countLevelNum/" + inputData
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["number","data"])
+        writer.writerow(["time","data"])
         writer.writerows(HisData)
     print("countLevelNum.py 完成")
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])

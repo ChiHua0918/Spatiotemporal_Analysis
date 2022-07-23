@@ -13,22 +13,18 @@ def squareRoot(readData):
             readData[r][c] = readData[r][c]**0.5
 def main(argv):
     inputData = argv
-    inputFile = "./data/GEI_data/"+inputData
+    path = "./data/GEI_data/"+inputData
     readData = []
     maxValue = 0
     minValue = sys.maxsize
-    with open(inputFile, newline= '') as csvfile :
+    with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             try:
                 data = list(map(float,row[1:]))
                 readData.append([row[0]]+data)
-                # 最大
-                if maxValue < max(data):
-                    maxValue = max(data)
-                # 最小
-                if minValue > min(data):
-                    minValue = min(data)
+                maxValue = max(maxValue,max(data))
+                minValue = min(minValue,min(data))
             except:
                 pass
     index = inputData.find('.csv')
@@ -40,8 +36,8 @@ def main(argv):
     print("最大值",maxValue)
     print("最小值",minValue)
     regular(readData,minValue,maxValue)
-    outputData = inputData[:index]+"_regular"+inputData[index:]
-    outputFile = "./data/GEI_regular/"+ outputData
+    # outputData = inputData[:index]+"_regular"+inputData[index:]
+    outputFile = "./data/GEI_regular/"+ inputData
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","data"])

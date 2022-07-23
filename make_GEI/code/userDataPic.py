@@ -41,17 +41,19 @@ def segment(data):
 
 def drawColor(GEI,folder):
     ax = plt.subplot(111)
-
     name = GEI[0] #name
+    name = name.replace("/","-")
+    name = name.replace(":","-")
+    name = name.replace(" ","-")
     data = GEI[1:] #data
     tmp = data
     for j in range(len(tmp)):
+        if tmp[j] > 255:
+            tmp[j] = 255
         x = np.linspace(10 * int((j%10)), 10 * int((j%10)) + 10, 10)
         ax.fill_between(x,90 - 10 * int((j/10)), 100 - 10 * int((j/10)), facecolor = segment(tmp[j]))
-
     plt.xlim(0, 100)
     plt.ylim(0, 100)
-    
     ax.xaxis.set_major_locator(MultipleLocator(10)) # 數字間隔 10
     ax.yaxis.set_major_locator(MultipleLocator(10)) # 設定 y 數字間隔 10
     ax.xaxis.grid(False,which='major') # major,color='black'
@@ -62,30 +64,31 @@ def drawColor(GEI,folder):
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
+    # plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
-    # plt.show()
 
 def main(argv):
     # print(len(argv))
-    global plt
+    # global plt
     inputData = argv
-    inputFile =  "./data/GEI_regular/"+inputData
+    path =  "./data/GEI_regular/"+inputData
     readData = []
-    with open(inputFile, newline= '') as csvfile :
+    with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             try:
                 readData.append([row[0]]+list(map(float,row[1:])))
             except:
                 pass
-    index = inputData.find('_regular')
+    index = inputData.find('.csv')
     folder = inputData[:index]
+    # folder = "PM2.5數據灰階圖"
     for GEI in readData:
         print(drawColor(GEI,folder))
 
 if __name__ == '__main__':
-    # main(sys.argv[1:])
     main(sys.argv[1])
+    # main("../2018micro.csv")

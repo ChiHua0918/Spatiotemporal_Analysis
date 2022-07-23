@@ -6,25 +6,26 @@ def draw(result):
     plt.bar(result.keys(), result.values(), width=2, bottom=None, align='center', data=None)
     # plt.xticks(rotation='統計圖')
     # plt.axhline(y=100, c="r", ls="--", lw=2)
+    print("total of GEI is",sum(result.values()))
     plt.title("shot of statistical diagram")
     plt.xlabel("shot")
     plt.ylabel("number")
     plt.show()
 def main():
     result = dict()
-    shot = 1
+    shot = 0
     time = 0
-    with open("./cut~3.csv") as file:
+    with open("./cut~3~test.csv") as file:
         for line in file:
             time += 1
             line = line.strip().split(",")
             # cut
-            if line[1] == "1" and shot != 1:
+            if line[1] == "1" and shot != 0:
                 if shot in result.keys():
                     result[shot] += 1
                 else:
                     result[shot] = 1
-                shot = 1
+                shot = 0
                 continue
             elif line[1] == "0":
                 shot += 1

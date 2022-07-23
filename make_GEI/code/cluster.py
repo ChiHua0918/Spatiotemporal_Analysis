@@ -2,33 +2,41 @@ from sklearn.metrics import silhouette_score
 from sklearn.cluster import KMeans
 import csv
 import sys
-# k-means分類
+import matplotlib.pyplot as plt #畫圖
+# 畫圖
+def draw(k,scores):
+    # 母畫布
+    fig = plt.figure()
+    # 輪廓係數
+    plt.title('Silhouette scores',fontsize=10)
+    plt.plot(range(2,11),scores)
+    plt.plot(k+2,scores[k],"go")
+    plt.show()
 def k_means(data):
-    scores = []      # 輪廓係數分數
+    scores = []      # 輪廓係數分數 (silhouette score)
     results = []     # 分群結果
-    # 找出最好的分群數
     for k in range(2,11):
         # n_clusters: 分為 k 群 n_init: 運行 k-menas 多少次(每一次的初始群心皆不同) max_iter: 最多迭代幾次
         # .fit 計算 k-means 的分群
         kmeans = KMeans(n_clusters=k,n_init=10,max_iter=50).fit(data)
-        # 分群結果
         results.append(kmeans)
-        # 輪廓係數
         scores.append(silhouette_score(data, kmeans.predict(data)))
     # 取結果分數最好的
-    k = scores.index(max(scores))+2
+    k = scores.index(max(scores))
     cluster = results[k].predict(data)
-    print("群心",KMeans(n_clusters=k,n_init=10,max_iter=50).fit(data).cluster_centers_)
-    print(f"分 {k} 類")
+    print("群心",KMeans(n_clusters=k+2,n_init=10,max_iter=50).fit(data).cluster_centers_)
+    print(f"分 {k+2} 類")
+    print("score of silhouette score is",scores[k])
+    # draw(k,scores)
     return cluster
 
 def main(argv):
     # 數據
     inputData = argv
-    inputFile =  "./data/countLevelNum/"+inputData
+    path =  "./data/countLevelNum/"+inputData
     readData = []
     name = []
-    with open(inputFile, newline= '') as csvfile :
+    with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             try:
@@ -40,11 +48,11 @@ def main(argv):
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    outputData = inputData.split("_countNum")[0]+"_cluster.csv"
-    outputFile = "./data/clustering/"+ outputData
+    # outputData = inputData.split("_countNum")[0]+"_cluster.csv"
+    outputFile = "./data/clustering/"+ inputData
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["name","cluster","LevelNum"])
+        writer.writerow(["time","cluster","LevelNum"])
         writer.writerows(readData)
 
 if __name__ == '__main__':
