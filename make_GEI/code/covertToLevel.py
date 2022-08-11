@@ -31,6 +31,6 @@ def main(argv):
         writer = csv.writer(_file)
         writer.writerow(["time","data"])
         writer.writerows(data)
-    print("covertToLevel.py 完成")
+    print("======= covertToLevel.py 完成 =======")
 if __name__ == "__main__":
     main(sys.argv[1])

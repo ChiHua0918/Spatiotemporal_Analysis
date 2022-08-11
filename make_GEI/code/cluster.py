@@ -54,6 +54,6 @@ def main(argv):
         writer = csv.writer(_file)
         writer.writerow(["time","cluster","LevelNum"])
         writer.writerows(readData)
-
+    print("======= 分群完成 =======")
 if __name__ == '__main__':
     main(sys.argv[1])

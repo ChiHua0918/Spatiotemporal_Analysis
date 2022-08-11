@@ -51,5 +51,6 @@ def main(source,cutFile,output):
         writer = csv.writer(_file)
         writer.writerow(["number","data"])
         writer.writerows(GEIData)
+    print("======= GEI.py 完成 =======")
 if __name__ == "__main__":
     main(sys.argv[1],sys.argv[2],sys.argv[3])

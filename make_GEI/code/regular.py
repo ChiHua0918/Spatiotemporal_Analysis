@@ -42,6 +42,6 @@ def main(argv):
         writer = csv.writer(_file)
         writer.writerow(["name","data"])
         writer.writerows(readData)
-    print("regular.py 完成")
+    print("======= regular.py 完成 =======")
 if __name__ == "__main__":
     main(sys.argv[1])

@@ -71,8 +71,6 @@ def drawColor(GEI,folder):
     return name
 
 def main(argv):
-    # print(len(argv))
-    # global plt
     inputData = argv
     path =  "./data/GEI_regular/"+inputData
     readData = []
@@ -88,7 +86,7 @@ def main(argv):
     # folder = "PM2.5數據灰階圖"
     for GEI in readData:
         print(drawColor(GEI,folder))
-
+    print("======= userDataPic.py 完成 =======")
 if __name__ == '__main__':
     main(sys.argv[1])
     # main("../2018micro.csv")

@@ -30,7 +30,7 @@ def convert(data) :
     return data
 def main(argv,form):
     inputData = argv
-    if form == "begin": # 原檔案 2018micro.csv
+    if form == "begin": # 2018micro.csv
         path = "./"+inputData
     elif form == "regular": # 已正規化數據
         path = "./data/GEI_regular/"+inputData
@@ -54,7 +54,7 @@ def main(argv,form):
         writer = csv.writer(_file)
         writer.writerow(["time","data"])
         writer.writerows(HisData)
-    print("countLevelNum.py 完成")
+    print("======= countLevelNum.py 完成 =======")
 
 if __name__ == "__main__":
     main(sys.argv[1],sys.argv[2])

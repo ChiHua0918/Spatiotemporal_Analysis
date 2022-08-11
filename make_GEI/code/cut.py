@@ -35,13 +35,14 @@ def main(argv):
             except:
                 pass
     print("shot 數量至少為(請填入整數):",end = " ")
-    cut_shot = cut(readData,int(input()))
+    least = int(input())
+    cut_shot = cut(readData,least)
     print("number of source:",len(readData))
     print("number of output:",len(cut_shot))
-    with open("cut~3.csv", 'w', newline='') as _file:
+    with open(f"cut~{least}.csv", 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","cut_shot"])
         writer.writerows(cut_shot)
-    print("cut.py 完成")
+    print("======= cut.py 完成 =======")
 if __name__ == "__main__":
     main(sys.argv[1])
