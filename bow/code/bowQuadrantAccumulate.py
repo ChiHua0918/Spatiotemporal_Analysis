@@ -75,7 +75,7 @@ def main(argv,size):
     # 讀取 GEI 資料
     name,readData = [],[] # GEI 名字，GEI 10*10 資料
     inputData = argv
-    inputFile = "../make_GEI/data/GEI_regular/"+inputData
+    inputFile = f"../make_GEI/data/GEI_regular/{inputData}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
@@ -86,26 +86,32 @@ def main(argv,size):
                 pass
 
     result = []
-    for filter in filters:
-        score = dict()
-        for i in range(len(readData)):
+    for i in range(len(readData)):
+        score = [name[i]]
+        for filter in filters:
             # 計算每個 GEI filter 的分數
             feature = calculateScore(readData[i],filter,size)
             # 轉型態，因為 slice 必須同型態，所以先轉為 string
             # feature = np.array(feature,dtype="str")
             # feature = np.insert(feature,0,name[i])
-            score[name[i]] = feature
+            score += feature
+            # score[name[i]] = feature
         result.append(score)
     # 資料輸出
-    index = inputData.find("_regular")
-    # 4 種 filter 個別累加 -> 產出 4 種 csv
-    filter_name = ["row","col","rightDown","leftDown"]
-    for i in range(len(filter_name)):
-        outputData = "./data/accumulate/"+inputData[:index]+f"_bow_{size}_{filter_name[i]}.csv"
-        with open(outputData, 'w', newline='') as _file:
-                writer = csv.writer(_file)
-                for key,value in result[i].items():
-                    writer.writerow([key,*value])
+    outputData = f"./data/quadrantAccumulate/{inputData}_{size}.csv"
+    with open(outputData, 'w', newline='') as _file:
+        writer = csv.writer(_file)
+        writer.writerows(result)
+    # 資料輸出
+    # index = inputData.find("_regular")
+    # # 4 種 filter 個別累加 -> 產出 4 種 csv
+    # filter_name = ["row","col","rightDown","leftDown"]
+    # for i in range(len(filter_name)):
+    #     outputData = "./data/accumulate/"+inputData[:index]+f"_bow_{size}_{filter_name[i]}.csv"
+    #     with open(outputData, 'w', newline='') as _file:
+    #             writer = csv.writer(_file)
+    #             for key,value in result[i].items():
+    #                 writer.writerow([key,*value])
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
     # main()

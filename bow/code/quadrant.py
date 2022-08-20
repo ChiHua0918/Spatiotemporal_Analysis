@@ -65,9 +65,7 @@ def choiceFilter(size):
                             ,[1,-1,-1,-1,1,-1,-1,-1,1]
                             ,[-1,-1,1,-1,1,-1,1,-1,-1]])
         case _:
-            print("目前沒有設定此大小的 filter")
-            print("請再輸入一次 filter 大小:",end = " ")
-            size = int(input())
+            size = input("目前沒有設定此大小的 filter,請再輸入一次 filter 大小:")
             choiceFilter(size)
 def main(argv,size):
     size = int(size)
@@ -84,28 +82,23 @@ def main(argv,size):
                 name.append(row[0])
             except:
                 pass
-    result = []
-    # 計算圖片在每一個 filter 占比多少
-    for  filter in filters: # 計算 4 種 filter 的分數
-        score = dict()
-        for i in range(len(readData)):
+    
+    # word: 4 個象限
+    width = len(readData[0])**0.5//2 # 10*10 的數據寬度
+    num = width-size+1 # 每一個象限,filter scan 後產生的數量
+    result = dict()
+    for i in range(len(readData)):
+        score = np.zeros(int(num*num*4)) # 每一個象限 scan 過後, 產生 num*num 數據。總共有 4 個象限
+        for  filter in filters:
             # 計算每個 GEI filter 的分數
-            feature = multiplyFilter(readData[i],filter,size)
-            # 轉型態，因為 slice 必須同型態，所以先轉為 string
-            # feature = np.array(feature,dtype="str")
-            # feature = np.insert(feature,0,name[i])
-            score[name[i]] = feature
-        result.append(score)
-    # 資料輸出
-    index = inputData.find("_regular")
-    # 4 種 filter 計算出的分數分成 4 個 csv
-    filter_name = ["row","col","rightDown","leftDown"]
-    for i in range(len(filter_name)):
-        outputData = "./data/quadrant/"+inputData[:index]+f"_bow_{size}_{filter_name[i]}.csv"
-        with open(outputData, 'w', newline='') as _file:
-                writer = csv.writer(_file)
-                for key,value in result[i].items():
-                    writer.writerow([key,*value])
+            score += multiplyFilter(readData[i],filter,size)
+        result[name[i]] = score
+    # 寫進檔案
+    outputData = f"./data/quadrant/{inputData}_{size}.csv"
+    with open(outputData, 'w', newline='') as _file:
+        writer = csv.writer(_file)
+        for key,value in result.items():
+            writer.writerow([key,*value])
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
     # main()

@@ -55,20 +55,21 @@ def k_means(fileName,data):
         # SSE
         distortions.append(kmeans.inertia_) 
     # 取結果分數最好的
-    # k = scores.index(max(scores))+least
-    k = selectK(distortions)+least
+    k = scores.index(max(scores))+least
+    # k = selectK(distortions)+least
     cluster = KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).predict(data)
     print("群心",KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).cluster_centers_)
     print(f"分 {k} 類")
-    draw(fileName,[i for i in range(least,most)],scores,distortions)
+    # draw(fileName,[i for i in range(least,most)],scores,distortions)
     return cluster
 
 def main(argv,folder):
     # 數據
     inputData = argv
-    inputFile =  f"./data/{folder}/"+inputData
+    inputFile =  f"./data/{folder}/{inputData}.csv"
     readData = []
     name = []
+
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
@@ -83,11 +84,11 @@ def main(argv,folder):
         readData[i].insert(1,cluster[i])
     # index = inputData.find("_bow")
     # outputData = inputData[:index]+"_cluster.csv"
-    outputFile = f"./data/clustering/{folder}/"+ inputData
+    outputFile = f"./clustering/{folder}/{inputData}.csv"
     print("outpuFilte:",outputFile)
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["name","cluster","LevelNum"])
+        writer.writerow(["name","cluster","data"])
         writer.writerows(readData)
     plt.show()
 if __name__ == '__main__':

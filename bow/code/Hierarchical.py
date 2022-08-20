@@ -29,8 +29,7 @@ def plot_dendrogram(model):
 def main(inputFile):
     title = inputFile.split("/")[-1]
     # 要分多少群
-    print("要分多少群", end =" ")
-    k =  int(input())
+    k =  int(input("要分多少群"))
     readData = []
     name = []
     with open(inputFile, newline= '') as csvfile :
@@ -47,8 +46,8 @@ def main(inputFile):
     # plot the top three levels of the dendrogram
     plot_dendrogram(model)
     plt.title(title)
-    # plt.show()
+    plt.show()
 if __name__ == "__main__":
-    inputFile = "../data/quadrant/GEI_Level_bow_2_col.csv"
+    inputFile = "../data/accumulate/GEI_level_2.csv"
     main(inputFile)
     # main(sys.argv[1])
