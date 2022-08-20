@@ -1,20 +1,29 @@
 other
+# 秉君學長空污
 airDeal
+# make_GEI
 make_GEI/picture
 make_GEI/data
-make_GEI/2018level.csv
 make_GEI/cut~3_old.csv
 make_GEI/statistics_shot_length.py
+# 加強對比
 contrast/image
+# flask
+flask/static/image
+flask/static/data
+# bow
+bow/clustering
+bow/data
+bow/test.py
+bow/openCV_edge.py
+bow/Compare.py
 
+# 其他
 test.py
 test1.py
 Histogram.py
 Hierarchical.py
 cnnTakeFeature.py
-bow/data
 test.csv
 cnnContent.txt
 cnn/data
-flask/static/image
-flask/static/data
