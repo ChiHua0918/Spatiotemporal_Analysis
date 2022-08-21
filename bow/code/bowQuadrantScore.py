@@ -23,7 +23,18 @@ import sys
 #     return score
 # 調整 word 順序, feature:GEI x filter 後的結果 scoreWidth: 象限的數據寬度
 def adjust(feature,scoreWidth):
-    return np.reshape(feature,(len(feature)//scoreWidth,scoreWidth))
+    feature = np.reshape(feature,(len(feature)//scoreWidth,scoreWidth))
+    result = []
+    pos = 0
+    while len(result) != len(feature):
+        # 說明在 bow 共筆 -> 四個象限（象限分數）
+        # 第二象限和第三象限已經加完了
+        if pos >= len(feature):
+            pos = 1
+        result.append(feature[pos])
+        pos += 2
+    return result
+
 # img:GEI filters:直橫斜 size: filter 大小
 def multiplyFilter(img,size,relativePos,score):
     r = 0

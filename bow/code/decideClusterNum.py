@@ -9,12 +9,11 @@ def k_means(data,k):
     print(f"分 {k} 類")
     return kmeans.predict(data)
 
-def main(argv,fileName):
+def main(folder,inputData,size):
     # 數據
-    inputData = fileName
-    inputFile =  argv
     readData = []
     name = []
+    inputFile = f"./data/{folder}/{inputData}_{size}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
@@ -23,21 +22,17 @@ def main(argv,fileName):
                 name.append(row[0])
             except:
                 pass
-    print("要分多少群",end=" ")
-    k = int(input())
+    k = int(input("要分多少群: "))
     cluster = k_means(readData,k)
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    # index = inputData.find("_bow")
-    # outputData = inputData[:index]+"_decideClusterNum.csv"
-    outputData = inputData
-    outputFile = "./data/clustering/quadrantDecideNum/"+ outputData
+    outputFile = f"./clustering/quadrantDecideNum/{folder}/{inputData}_{size}.csv"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["name","cluster","LevelNum"])
+        writer.writerow(["time","cluster","data"])
         writer.writerows(readData)
 
 if __name__ == '__main__':
     # main()
-    main(sys.argv[1],sys.argv[2])
+    main(sys.argv[1],sys.argv[2],sys.argv[3])

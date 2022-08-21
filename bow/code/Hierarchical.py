@@ -26,12 +26,11 @@ def plot_dendrogram(model):
     # Plot the corresponding dendrogram
     dendrogram(linkage_matrix,color_threshold=max(model.distances_)*0.2)
 
-def main(inputFile):
-    title = inputFile.split("/")[-1]
+def main(folder,inputData,size):
     # 要分多少群
-    k =  int(input("要分多少群"))
     readData = []
     name = []
+    inputFile = f"./data/{folder}/{inputData}_{size}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
@@ -41,13 +40,13 @@ def main(inputFile):
             except:
                 pass
     # setting distance_threshold=0 ensures we compute the full tree.
-    model = AgglomerativeClustering(n_clusters=k,compute_distances=True)
+    model = AgglomerativeClustering(compute_distances=True)
     model = model.fit(readData)
     # plot the top three levels of the dendrogram
     plot_dendrogram(model)
-    plt.title(title)
+    plt.title(f"{inputData}_{size}.csv")
     plt.show()
 if __name__ == "__main__":
-    inputFile = "../data/accumulate/GEI_level_2.csv"
-    main(inputFile)
-    # main(sys.argv[1])
+    # inputFile = "../data/accumulate/GEI_level_2.csv"
+    # main(inputFile)
+    main(sys.argv[1],sys.argv[2],sys.argv[3])
