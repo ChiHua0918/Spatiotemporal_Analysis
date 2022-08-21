@@ -6,7 +6,7 @@ import numpy as np
 #創建Flask物件app并初始化
 app = Flask(__name__)
 
-#通過python裝飾器的方法定義路由地址
+#通過python3裝飾器的方法定義路由地址
 @app.route("/")
 #定義方法 用jinjia2引擎來渲染頁面，并回傳一個index.html頁面
 def root():
@@ -29,10 +29,10 @@ def cluster():
     filterSize = request.args.get("filterSize")
     print(f"memory:{memory} clusterFile:{clusterFile} filterDirect:{filterDirect} filterSize:{filterSize}")
     if clusterFile.split('_')[0] == "countLevel":
-        path = "./static/data/clusterData/countLevel/"+memory+"_regular_cluster.csv"
+        path = f"./static/data/clusterData/countLevel/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
-        path = f"./static/data/clusterData/bow/{folder}/{memory}_bow_{filterSize}_{filterDirect}.csv"
+        path = f"./static/data/clusterData/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
         path = f"./static/data/clusterData/cnn/imagenet/{memory}_cnn.csv"
     cluster = [] # GEI 所屬群
@@ -90,11 +90,10 @@ def clusterUI(cluster,memory):
         writer.writerow(["name","data"])
         writer.writerows(clusterData)
     # 正規化
-    # os.system(f"python ./make_clusterUI/regular.py {file}")
+    # os.system(f"python3 ./make_clusterUI/regular.py {file}")
     # 畫圖
-    file = "clusterUI.csv"
     # file = "clusterUI_regular.csv"
-    os.system(f"python ./make_clusterUI/userDataPic.py {file}")
+    os.system(f"python3 ./make_clusterUI/userDataPic.py {file}")
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖
@@ -118,7 +117,7 @@ def gif():
 # 找要疊加的圖片
 def findPictureName(id):
     readData = []
-    with open("./static/data/cut~3.csv", newline= '') as csvfile :
+    with open("./static/data/cut.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             try:
@@ -132,9 +131,6 @@ def findPictureName(id):
     for data in readData:
         # cut
         if data[1] == 1 and statckList != []:
-        #     if order > 930:
-        #         print("order",order)
-        #         print("stackList",statckList)
             # 確認是疊加的原始圖片
             if order == int(id):
                 return statckList
@@ -146,4 +142,4 @@ def findPictureName(id):
             statckList.append(data[0])
     return statckList
 if __name__ == "__main__":
-    app.run(port=8000)
+    app.run(port=8085)

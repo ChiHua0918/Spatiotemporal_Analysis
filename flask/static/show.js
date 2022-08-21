@@ -6,7 +6,8 @@ var modalBtn = document.getElementById('modalBtn');
 var speed = document.getElementById('speed');
 var speedBtn = document.getElementById('speedBtn');
 setPos();
-
+// 副標題
+var subtitle = document.getElementById('subtitle');
 // 紀錄目前選取的照片
 var picture = "";
 // GEI也多少照片
@@ -38,6 +39,7 @@ function getGEINum() {
 
 // 顯示GEI
 function GEI(folder) {
+    subtitle.innerHTML = folder;
     let img = "<tr>";
     for (var i = 0; i < GEINum; i++) {
         imgName = "NO." + i + ".png";
@@ -54,6 +56,7 @@ function GEI(folder) {
 
 // 返回鑑
 function back() {
+    subtitle.innerHTML = "分群結果";
     showPicture.innerHTML = tmp;
     picture = "";
     changeColor('back','0');
@@ -78,6 +81,7 @@ function contrast(){
 }
 // 按下分群
 function clickCluster() {
+    subtitle.innerHTML = "分群結果";
     // 要顯示哪一個檔案的 GEI 分群
     let clusterFile = document.getElementById('clusterFile').value;
     // filter 方向
@@ -90,8 +94,8 @@ function clickCluster() {
         return
     }
     // BOW 要選擇 filter 的方向和大小
-    if (clusterFile.split('_')[0] == "bow" && (filterDirect == "" || filterSize == "")){
-        alert('bow 須選擇 filter 方向以及 filter 大小');
+    if (clusterFile.split('_')[0] == "bow" && filterSize == ""){
+        alert('bow 須選擇 filter 大小');
         return;
     }
     picture = "";
@@ -130,15 +134,21 @@ function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
 // 顯示分群的圖示
 function clusterUI(maxCluster) {
     console.log("clusterUI");
-    var html = "";
+    var html = "<table><tr>";
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<img src="./static/image/clusterUI/${i}.png" width="300px" onclick = "everyGEI(${i})">`;
+        html += `<td><img src="./static/image/clusterUI/${i}.png" width="${(window.innerWidth-200)/5}px" onclick = "everyGEI(${i})"></br>第 ${i} 群</td>`;
+        // 換行
+        if (i % 5 == 4){
+            html += "</tr><tr>";
+        }
     }
+    html += "</tr>";
     tmp = html;
     showPicture.innerHTML = html;
 }
 // 每一群的GEI
 function everyGEI(k) {
+    subtitle.innerHTML = `分群結果 - 第 ${k} 群`;
     console.log("everyGEI");
     picture = "";
     let html = "<tr/>";

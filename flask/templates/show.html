@@ -14,25 +14,21 @@
 
 <body class="bg">
   <div id="container">
+    {% include 'bs_css.html' %}
+    {% include 'bs_js.html' %}
+    {% include 'navbar.html' %}
+
     <div class="text">
       <h2>GEI 分群觀察</h2>
-      <p>目前數據資料採用 2018micro.csv，為 PM2.5 的"原始數據"，等級數據為依照環保署的空汙劃分規定將原始數據轉換成"等級數據"<br /></p>
-      <h4>操作流程</h4>
-      <p>點擊右邊按鈕即可查看對應的 GEI 圖片</p>
-      <p>請先選擇<b>數據</b> (GEI_origin or GEI_Level)，若要分群請先選擇<b>檔案</b>再按下<b>分群</b></p>
-      <p>▲ 若為 BOW 檔案，請再選擇 filter direct 以及 filter size</p>
-      <p>▲ 分群因為要製作每一群的代表圖片，所以會跑比較久，請耐心等候</p>
-      <li>GEI_origin: 將原始數據做資料前處理後，將 shot 疊加成 GEI<br /></li>
-      <li>GEI_Level: 將等級數據做資料前處理後，將 shot 疊加成 GEI<br /></li>
-      <li>加強對比: 將 GEI 單張正規化。由於有些 GEI 對比不明顯，不易觀察 GEI 中的隱藏訊息，所以加強單張對比輔助觀察<br /></li>
-      <li>分群:將目前的 GEI 依照下列選取的模式進行分群<br /></li>
+      <p>之後會放流程圖以及操作手冊，敬請期待</p>
+      <h4 id="subtitle"></h4>
     </div>
     <div id="functionButton">
       <!-- 按鈕-原始按鈕 -->
       <button class="dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button>
       <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
       <!-- 按鈕-等級按鈕 -->
-      <button class="dataButton" onclick="GEI('GEI_Level');changeColor('dataButton','1')">GEI_Level</button>
+      <button class="dataButton" onclick="GEI('GEI_level');changeColor('dataButton','1')">GEI_Level</button>
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
       <!-- GEI 加強對比 -->
       <button class="contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
@@ -42,11 +38,13 @@
       <!-- <button class="mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
       <button class="mode" onclick="cluster_pattern('space');changeColor('mode','1')">BOW</button> -->
       <select id="clusterFile">
-        <option value="" selected="selected">請選擇檔案</option>
+        <option value="" selected="selected">請選擇方法</option>
         <option value="countLevel">計算等級塊數</option>
-        <option value="bow_accumulate">filter 累加 - BOW</option>
-        <option value="bow_quadrant">分 4 個象限 - BOW</option>
-        <option value="bow_decideNum">人工決定分群數 - BOW</option>
+        <option value="bow_accumulate">BOW - filter 累加</option>
+        <option value="bow_quadrantAccumulate">BOW - 分 4 個象限(filter 累加分數)</option>
+        <option value="bow_quadrantScore">BOW - 分 4 個象限(象限分數)</option>
+        <option value="bow_quadrantAccumulateDecideNum">BOW - 人工決定分群數,分 4 個象限(filter 累加分數)</option>
+        <option value="bow_quadrantScoreDecideNum">BOW - 人工決定分群數,分 4 個象限(象限分數)</option>
         <option value="cnn">CNN</option>
       </select>
       <!-- <button onclick="cluster_pattern('cnn')">CNN</button> -->
@@ -57,7 +55,7 @@
       <button class="filter" onclick="filterMode('rightDown');changeColor('filter','3')">右下斜</button> -->
       <!-- filter 模式 -->
       <select id="filterDirect">
-        <option value="" selected="selected">filter direct</option>
+        <option value="" selected="selected">filter direction</option>
         <option value="col">col</option>
         <option value="row">row</option>
         <option value="rightDown">rightDown</option>
@@ -70,15 +68,14 @@
         <option value="3">3 * 3</option>
       </select>
       <!-- 返回按鈕 -->
-      <button onclick="back()">返回</button>
-
+      <button onclick="back()">返回分群代表圖</button>
     </div>
     <div id="gif">
       <!-- gif 空汙動畫 -->
       <div id="modal" style="overflow: overflow-y"></div>
-      <button id="modalBtn" onclick="hide()">確認</button>
       <input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)">
       <button id="speedBtn" onclick="gif()">開始製作gif</button>
+      <button id="modalBtn" onclick="hide()">停止播放</button>
     </div>
     <input type="button" id="return" value="回
     到
