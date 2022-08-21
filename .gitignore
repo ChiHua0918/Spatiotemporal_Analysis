@@ -8,9 +8,16 @@ make_GEI/cut~3_old.csv
 make_GEI/statistics_shot_length.py
 # 加強對比
 contrast/image
+contrast/GEI_level_singleRegular.csv
+contrast/GEI_origin_singleRegular.csv
 # flask
 flask/static/image
-flask/static/data
+flask/static/data/clusterData
+flask/static/data/GEI_regular
+flask/static/data/clusterData
+flask/static/data/cut.csv
+flask/static/data/cut~3.csv
+flask/static/data/clusterUI.csv
 # bow
 bow/clustering
 bow/data
