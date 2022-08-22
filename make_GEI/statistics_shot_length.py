@@ -15,7 +15,7 @@ def main():
     result = dict()
     shot = 0
     time = 0
-    with open("./cut~3~test.csv") as file:
+    with open("./cut~3.csv") as file:
         for line in file:
             time += 1
             line = line.strip().split(",")

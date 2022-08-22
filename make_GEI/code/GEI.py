@@ -11,7 +11,7 @@ def GEI(data,cut_shot):
     number = 0 # 第幾張 GEI
     GEIData = []
     for i in range(len(cut_shot)):
-        # cut -> 結算
+        # cut -> 結算（平均）
         if int(cut_shot[i][0]) == 1 and n != 0:
             energy = [j/n for j in energy]
             name = f"NO.{number}"
