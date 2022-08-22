@@ -5,16 +5,19 @@ import csv
 def findPictureName(id):
     # 要疊加的照片
     statckList = []
+    order = 0
     print("GEI ID:",id)
     for data in cut_shot:
         # cut
         if data[1] == 1 and statckList != []:
-            break
+            if order == id:
+                break
+            order += 1
+            statckList.clear()
         # shot
         elif data[1] == 0:
             # data[0]: 彩色 PM2.5 圖片名字
             statckList.append(data[0])
-            cut_shot.remove(data)
     return statckList
 def makeGif(folder,id,speed):
     # 要疊成 gif 的圖片
