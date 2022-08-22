@@ -70,16 +70,15 @@
       <!-- 返回按鈕 -->
       <button onclick="back()">返回分群代表圖</button>
     </div>
-    <div id="gif">
-      <!-- gif 空汙動畫 -->
-      <div id="modal" style="overflow: overflow-y"></div>
-      <table>
-        <tr><td><input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)" maxlength="3" size="10"></td></tr>
-        <tr><td><button id="speedBtn" onclick="gif()">開始製作gif</button></td></tr>
-        <tr><td><button id="modalBtn" onclick="hide()">停止播放</button></td></tr>
-      </table>
-
-    </div>
+    <!-- gif 空汙動畫 -->
+    <table id="gif">
+      <tr>
+        <td rowspan="5" width="600x"><div id="modal" style="overflow: overflow-y"></td>
+        <td><input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)" maxlength="3" size="10"></td>
+      </tr>
+      <tr><td><button id="speedBtn" onclick="gif()">開始製作gif</button></td></tr>
+      <tr><td><button id="modalBtn" onclick="hide()">停止播放</button></td></tr>
+    </table>
     <input type="button" id="return" value="回
     到
     頂

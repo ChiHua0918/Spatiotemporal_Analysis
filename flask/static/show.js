@@ -1,6 +1,7 @@
 // 顯示GEI
 var showPicture = document.getElementById("frame");
 // 位置設定
+var gifModal = document.getElementById('gif');
 var modal = document.getElementById('modal');
 var modalBtn = document.getElementById('modalBtn');
 var speed = document.getElementById('speed');
@@ -142,7 +143,7 @@ function clusterUI(maxCluster) {
             html += "</tr><tr>";
         }
     }
-    html += "</tr>";
+    html += "</tr></table>";
     tmp = html;
     showPicture.innerHTML = html;
 }
@@ -176,7 +177,7 @@ function everyGEI(k) {
 // 點擊顯示gif(原始連續 PM2.5 彩色空汙圖)
 function ShowModal(id) {
     show();
-    modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="500px"><br/>${id}.gif`;
+    modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="${(window.innerWidth/4)}px"><br/>${id}.gif`;
     // 讓上一個的邊框消失
     if (picture.length != 0) {
         var chooseImg = document.getElementById(picture);
@@ -200,7 +201,7 @@ function gif(){
         /*result為后端函式回傳的json*/
         success: function (result) {
             console.log(result);
-            modal.innerHTML = `<img src="${result.gif}" width="500px">`;
+            modal.innerHTML = `<img src="${result.gif}" width="${(window.innerWidth)/4}px">`;
         }
     });
 }
@@ -208,17 +209,19 @@ function gif(){
 
 // 顯示 gif 視窗
 function show() {
-    modal.style.display = 'block';
-    modalBtn.style.display = 'block';
-    speed.style.display = 'block';
-    speedBtn.style.display = 'block';
+    gifModal.style.display = 'block'
+    // modal.style.display = 'block';
+    // modalBtn.style.display = 'block';
+    // speed.style.display = 'block';
+    // speedBtn.style.display = 'block';
 }
 // 隱藏 gif 視窗
 function hide() {
-    modal.style.display = 'none';
-    modalBtn.style.display = 'none';
-    speed.style.display = 'none';
-    speedBtn.style.display = 'none';
+    gifModal.style.display = 'none';
+    // modal.style.display = 'none';
+    // modalBtn.style.display = 'none';
+    // speed.style.display = 'none';
+    // speedBtn.style.display = 'none';
 }
 
 // 設定modal位置

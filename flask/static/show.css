@@ -38,37 +38,17 @@
 #gif{
     z-index: 2;
     position: fixed;
+    display: none;
+    /* margin-left:calc(100%/4);  */
+    margin-right:auto;
+    margin-top: calc(100%/10);
+    vertical-align: middle;
+    text-align: center;
 }
 /* PM2.5彩色圖 */
 #modal {
-    background-color: none;
-    /*paleturquoise*/
-    position: fixed;
-    display: block;
     overflow: auto;
     overscroll-behavior-y: contain;
-}
-
-#modalBtn {
-    position: fixed;
-    margin-top: 0px;
-    margin-left: 10px;
-    display: none;
-}
-
-#speed {
-    position: fixed;
-    margin-top: 60px;
-    margin-left: 10px;
-    display: none;
-    font-size: 20px;
-}
-
-#speedBtn {
-    position: fixed;
-    margin-top: 100px;
-    margin-left: 10px;
-    display: none;
 }
 
 /* 顯示分群圖示 */
