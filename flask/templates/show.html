@@ -39,7 +39,7 @@
       <button class="mode" onclick="cluster_pattern('space');changeColor('mode','1')">BOW</button> -->
       <select id="clusterFile">
         <option value="" selected="selected">請選擇方法</option>
-        <option value="countLevel">計算等級塊數</option>
+        <option value="countLevelNum">計算等級塊數</option>
         <option value="bow_accumulate">BOW - filter 累加</option>
         <option value="bow_quadrantAccumulate">BOW - 分 4 個象限(filter 累加分數)</option>
         <option value="bow_quadrantScore">BOW - 分 4 個象限(象限分數)</option>
@@ -73,9 +73,12 @@
     <div id="gif">
       <!-- gif 空汙動畫 -->
       <div id="modal" style="overflow: overflow-y"></div>
-      <input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)">
-      <button id="speedBtn" onclick="gif()">開始製作gif</button>
-      <button id="modalBtn" onclick="hide()">停止播放</button>
+      <table>
+        <tr><td><input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)" maxlength="3" size="10"></td></tr>
+        <tr><td><button id="speedBtn" onclick="gif()">開始製作gif</button></td></tr>
+        <tr><td><button id="modalBtn" onclick="hide()">停止播放</button></td></tr>
+      </table>
+
     </div>
     <input type="button" id="return" value="回
     到

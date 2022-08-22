@@ -5,7 +5,10 @@ airDeal
 make_GEI/picture
 make_GEI/data
 make_GEI/cut~3_old.csv
+make_GEI/cut.csv
 make_GEI/statistics_shot_length.py
+# make_gif
+make_gif/image
 # 加強對比
 contrast/image
 contrast/GEI_level_singleRegular.csv
@@ -16,7 +19,7 @@ flask/static/data/clusterData
 flask/static/data/GEI_regular
 flask/static/data/clusterData
 flask/static/data/cut.csv
-flask/static/data/cut~3.csv
+flask/static/data/cut~3(old).csv
 flask/static/data/clusterUI.csv
 # bow
 bow/clustering
@@ -24,6 +27,7 @@ bow/data
 bow/test.py
 bow/openCV_edge.py
 bow/Compare.py
+
 # 其他
 test.py
 test1.py

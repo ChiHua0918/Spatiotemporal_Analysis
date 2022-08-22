@@ -68,7 +68,7 @@ function contrast(){
     console.log("contrast boardGEI",boardGEI);
     console.log("now folder is",memory);
     for (var i = 0; i < boardGEI.length; i++) {
-        let id = GEIName[i].slice(3, GEIName[i].length);
+        let id = boardGEI[i].slice(3, boardGEI[i].length);
         let imgName = boardGEI[i];
         img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
@@ -176,6 +176,7 @@ function everyGEI(k) {
 // 點擊顯示gif(原始連續 PM2.5 彩色空汙圖)
 function ShowModal(id) {
     show();
+    modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="500px"><br/>${id}.gif`;
     // 讓上一個的邊框消失
     if (picture.length != 0) {
         var chooseImg = document.getElementById(picture);
@@ -199,20 +200,20 @@ function gif(){
         /*result為后端函式回傳的json*/
         success: function (result) {
             console.log(result);
-            modal.innerHTML = `<td><img src="${result.gif}" width="500px"></td>`;
+            modal.innerHTML = `<img src="${result.gif}" width="500px">`;
         }
     });
 }
 
 
-// 顯示視窗
+// 顯示 gif 視窗
 function show() {
     modal.style.display = 'block';
     modalBtn.style.display = 'block';
     speed.style.display = 'block';
     speedBtn.style.display = 'block';
 }
-// 視窗隱藏
+// 隱藏 gif 視窗
 function hide() {
     modal.style.display = 'none';
     modalBtn.style.display = 'none';
