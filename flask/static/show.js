@@ -210,18 +210,10 @@ function gif(){
 // 顯示 gif 視窗
 function show() {
     gifModal.style.display = 'block'
-    // modal.style.display = 'block';
-    // modalBtn.style.display = 'block';
-    // speed.style.display = 'block';
-    // speedBtn.style.display = 'block';
 }
 // 隱藏 gif 視窗
 function hide() {
     gifModal.style.display = 'none';
-    // modal.style.display = 'none';
-    // modalBtn.style.display = 'none';
-    // speed.style.display = 'none';
-    // speedBtn.style.display = 'none';
 }
 
 // 設定modal位置
