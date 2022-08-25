@@ -69,7 +69,7 @@ function contrast(){
     console.log("contrast boardGEI",boardGEI);
     console.log("now folder is",memory);
     for (var i = 0; i < boardGEI.length; i++) {
-        let id = boardGEI[i].slice(3, boardGEI[i].length);
+        let id = boardGEI[i].split('.')[1];
         let imgName = boardGEI[i];
         img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
@@ -149,11 +149,10 @@ function clusterUI(maxCluster) {
 }
 // 每一群的GEI
 function everyGEI(k) {
-    subtitle.innerHTML = `分群結果 - 第 ${k} 群`;
     console.log("everyGEI");
     picture = "";
     let html = "<tr/>";
-    let n = 0;//該行有幾張
+    let n = 0;   // 屬於這群有多少張 GEI
     boardGEI = [];
     console.log(cluster);
     for (let i = 0; i < cluster.length; i++) {
@@ -172,6 +171,7 @@ function everyGEI(k) {
         }
     }
     showPicture.innerHTML = html;
+    subtitle.innerHTML = `分群結果 - 第 ${k} 群<br/> 總共有 ${n} 張 GEI`;
 }
 
 // 點擊顯示gif(原始連續 PM2.5 彩色空汙圖)

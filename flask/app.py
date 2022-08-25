@@ -28,8 +28,9 @@ def cluster():
     filterDirect = request.args.get("filterDirect")
     filterSize = request.args.get("filterSize")
     print(f"memory:{memory} clusterFile:{clusterFile} filterDirect:{filterDirect} filterSize:{filterSize}")
-    if clusterFile.split('_')[0] == "countLevel":
-        path = f"./static/data/clusterData/countLevel/{memory}.csv"
+    if clusterFile.split('_')[0] == "countLevelNum":
+        folder = clusterFile
+        path = f"./static/data/clusterData/{folder}/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
         path = f"./static/data/clusterData/bow/{folder}/{memory}_{filterSize}.csv"
