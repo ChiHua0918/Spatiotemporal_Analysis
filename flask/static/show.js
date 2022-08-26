@@ -36,7 +36,8 @@ function getGEINum() {
 }
 
 // 顯示GEI
-function GEI(folder) {
+function GEI() {
+    folder = document.getElementById('data').value;
     subtitle.innerHTML = folder;
     let img = "<tr>";
     for (var i = 0; i < GEINum; i++) {
