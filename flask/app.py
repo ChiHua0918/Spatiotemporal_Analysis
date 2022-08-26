@@ -91,17 +91,7 @@ def clusterUI(cluster,memory):
         # print("stackData",stackData)
         clusterData.append(stackData)
         print(drawColor(stackData,"clusterUI"))
-    # return render_template("show.html")
-    # file = "clusterUI.csv"
-    # with open("./static/data/"+file, 'w', newline='') as _file:
-    #     writer = csv.writer(_file)
-    #     writer.writerow(["name","data"])
-    #     writer.writerows(clusterData)
-    # 正規化
-    # os.system(f"python3 ./make_clusterUI/regular.py {file}")
-    # 畫圖
-    # file = "clusterUI_regular.csv"
-    # os.system(f"python3 ./make_clusterUI/userDataPic.py {file}")
+    print("cluster UI 繪製完成")
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖
@@ -111,8 +101,8 @@ def gif():
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
     print(stackList)
-    putPlace = "./static/image/gif/"# gif要存取的地方
-    path = putPlace+id+".gif"
+    # gif要存取的地方，和一開始點擊 GEI，所存取的地方不同，因為 static 為靜態檔案，如果同名字有發生變動不會重新抓取
+    path = f"./image/gif/{id}.gif"
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")

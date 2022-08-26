@@ -133,7 +133,7 @@ function clusterUI(maxCluster) {
     console.log("clusterUI");
     var html = "<table><tr>";
     for (let i = 0; i <= maxCluster; i++) {
-        html += `<td><img src="./static/image/clusterUI/${i}.png" width="${(window.innerWidth-200)/5}px" onclick = "everyGEI(${i})"></br>第 ${i} 群</td>`;
+        html += `<td><img src="./image/clusterUI/${i}.png" width="${(window.innerWidth-200)/5}px" onclick = "everyGEI(${i})"></br>第 ${i} 群</td>`;
         // 換行
         if (i % 5 == 4){
             html += "</tr><tr>";
@@ -189,11 +189,16 @@ function ShowModal(id) {
     console.log("after choose:",id);
 }
 function gif(){
+    let speed = $("#speed").val();
+    if (speed == ""){
+        alert("請輸入動圖速度");
+        return;
+    }
     // 傳送資料給gif.py
     $.ajax({
         url: "gif", /*資料提交到submit處*/
         type: "GET",  /*用GET方法提交*/
-        data: {"id":picture,"speed":$("#speed").val()},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
+        data: {"id":picture,"speed":speed},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
         /*result為后端函式回傳的json*/
         success: function (result) {
             console.log(result);
