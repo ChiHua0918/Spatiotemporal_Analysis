@@ -101,8 +101,7 @@ def gif():
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
     print(stackList)
-    # gif要存取的地方，和一開始點擊 GEI，所存取的地方不同，因為 static 為靜態檔案，如果同名字有發生變動不會重新抓取
-    path = f"./image/gif/{id}.gif"
+    path = f"./static/image/gif/{id}.gif"
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")

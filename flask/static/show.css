@@ -41,7 +41,7 @@
     display: none;
     /* margin-left:calc(100%/4);  */
     /* margin-right:auto; */
-    margin-top: calc(100%/10);
+    margin-top: calc(100%/20);
     vertical-align: middle;
     text-align: center;
 }
