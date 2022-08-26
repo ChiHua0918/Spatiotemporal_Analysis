@@ -14,7 +14,11 @@ contrast/image
 contrast/GEI_level_singleRegular.csv
 contrast/GEI_origin_singleRegular.csv
 # flask
-flask/static/image
+flask/static/image/GEI
+flask/static/image/GEI_contrast
+flask/static/image/sis
+flask/static/image/gif
+flask/image
 flask/static/data/clusterData
 flask/static/data/GEI_regular
 flask/static/data/clusterData
