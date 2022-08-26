@@ -1,11 +1,8 @@
 // 顯示GEI
 var showPicture = document.getElementById("frame");
-// 位置設定
+// gif modal 位置設定
 var gifModal = document.getElementById('gif');
 var modal = document.getElementById('modal');
-var modalBtn = document.getElementById('modalBtn');
-var speed = document.getElementById('speed');
-var speedBtn = document.getElementById('speedBtn');
 setPos();
 // 副標題
 var subtitle = document.getElementById('subtitle');
@@ -57,7 +54,7 @@ function GEI(folder) {
 
 // 返回鑑
 function back() {
-    subtitle.innerHTML = "分群結果";
+    subtitle.innerHTML = "分群結果 - "+ document.getElementById('clusterFile').name;
     showPicture.innerHTML = tmp;
     picture = "";
     changeColor('back','0');
@@ -82,7 +79,7 @@ function contrast(){
 }
 // 按下分群
 function clickCluster() {
-    subtitle.innerHTML = "分群結果";
+    subtitle.innerHTML = "分群結果 - "+document.getElementById('clusterFile').name;
     // 要顯示哪一個檔案的 GEI 分群
     let clusterFile = document.getElementById('clusterFile').value;
     // filter 方向
@@ -117,10 +114,8 @@ function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
     $.ajax({
         url: 'cluster',
         type: "GET",
-        // dataType: 'json',
-        // contentType:'application/json',
         data: {"memory":memory,"clusterFile":clusterFile,"filterDirect":filterDirect,"filterSize":filterSize},
-        async: false, // 同步 -> 等到拿到後端回傳的資料再做 clusterUI
+        async: true,
         /*result為后端函式回傳的json*/
         success: function (result) {
             clusterObject = result.cluster;  // GEI 依序所屬分群
@@ -128,9 +123,9 @@ function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
             GEIName = result.GEIName;        // 目前資料夾中所有 GEI 名字(NO.0.png...)
             maxCluster = result.maxCluster;  // 總共分多少群
             console.log(`分 ${maxCluster} 群`);
+            clusterUI(maxCluster);
         }
     });
-    clusterUI(maxCluster);
 }
 // 顯示分群的圖示
 function clusterUI(maxCluster) {

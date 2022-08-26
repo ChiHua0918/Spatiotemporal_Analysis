@@ -32,8 +32,6 @@
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
       <!-- GEI 加強對比 -->
       <button class="contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
-      <!-- 分群按鈕 -->
-      <button class="clustering" onclick="clickCluster()">分群</button>
       <!-- GEI 分群檔案 -->
       <!-- <button class="mode" onclick="cluster_pattern('level');changeColor('mode','0')">等級</button>
       <button class="mode" onclick="cluster_pattern('space');changeColor('mode','1')">BOW</button> -->
@@ -41,8 +39,8 @@
         <option value="" selected="selected">請選擇方法</option>
         <option value="countLevelNum">計算等級塊數</option>
         <option value="bow_accumulate">BOW - filter 累加</option>
-        <option value="bow_quadrantAccumulate">BOW - 分 4 個象限(filter 累加分數)</option>
-        <option value="bow_quadrantScore">BOW - 分 4 個象限(象限分數)</option>
+        <option value="bow_quadrantAccumulate" >BOW - 分 4 個象限(filter 累加分數)</option>
+        <option value="bow_quadrantScore" >BOW - 分 4 個象限(象限分數)</option>
         <option value="bow_quadrantAccumulateDecideNum">BOW - 人工決定分群數,分 4 個象限(filter 累加分數)</option>
         <option value="bow_quadrantScoreDecideNum">BOW - 人工決定分群數,分 4 個象限(象限分數)</option>
         <option value="cnn">CNN</option>
@@ -67,6 +65,8 @@
         <option value="2">2 * 2</option>
         <option value="3">3 * 3</option>
       </select>
+      <!-- 分群按鈕 -->
+      <button class="clustering" onclick="clickCluster()">分群</button>
       <!-- 返回按鈕 -->
       <button onclick="back()">返回分群代表圖</button>
     </div>

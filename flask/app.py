@@ -3,6 +3,8 @@ import os
 import csv
 import imageio
 import numpy as np
+
+from make_clusterUI.userDataPic import drawColor
 #創建Flask物件app并初始化
 app = Flask(__name__)
 
@@ -62,39 +64,44 @@ def clusterUI(cluster,memory):
                 readData.append(list(map(float,row[1:])))
             except:
                 pass
-    print("cluster length",len(cluster))
-    print("readData length",len(readData))
+    # print("cluster length",len(cluster))
+    # print("readData length",len(readData))
     clusterData = []
-    print("num",max(cluster))
-    print("cluster",cluster)
+    # print("num",max(cluster))
+    # print("cluster",cluster)
     for k in range(max(cluster)+1):
         # 堆疊的 GEI 數據
-        stackData = np.array([float(0) for i in range(len(readData[0]))])
+        stackData = np.zeros(len(readData[0]))
         # 堆疊的張數
         n = 0
         while k in cluster:
             n += 1
-            pos = cluster.index(k) # 找對應群的 GEI
+            # 找對應群的 GEI
+            pos = cluster.index(k)
             stackData += readData[pos]
-            cluster.remove(k) # 把剛剛已經加到 stackList 的 GEI 移除
+            # 把剛剛已經加到 stackList 的 GEI 移除
+            cluster.pop(pos)
+            readData.pop(pos)
         # 名字
         stackData = stackData / n
         stackData = stackData.tolist()
         stackData.insert(0,k)
-        print("k",k)
-        print("n",n)
-        print("stackData",stackData)
+        # print("k",k)
+        # print("n",n)
+        # print("stackData",stackData)
         clusterData.append(stackData)
-    file = "clusterUI.csv"
-    with open("./static/data/"+file, 'w', newline='') as _file:
-        writer = csv.writer(_file)
-        writer.writerow(["name","data"])
-        writer.writerows(clusterData)
+        print(drawColor(stackData,"clusterUI"))
+    # return render_template("show.html")
+    # file = "clusterUI.csv"
+    # with open("./static/data/"+file, 'w', newline='') as _file:
+    #     writer = csv.writer(_file)
+    #     writer.writerow(["name","data"])
+    #     writer.writerows(clusterData)
     # 正規化
     # os.system(f"python3 ./make_clusterUI/regular.py {file}")
     # 畫圖
     # file = "clusterUI_regular.csv"
-    os.system(f"python3 ./make_clusterUI/userDataPic.py {file}")
+    # os.system(f"python3 ./make_clusterUI/userDataPic.py {file}")
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖

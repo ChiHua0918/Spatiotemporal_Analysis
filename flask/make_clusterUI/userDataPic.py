@@ -1,13 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import MultipleLocator, FormatStrFormatter
-# import pandas as pd
+from matplotlib.ticker import MultipleLocator
 import csv
 import sys
-# from collections import defaultdict
-# import matplotlib.colors
-# import sys
-# import time
+
 
 def segment(data):
     replaceNum = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
@@ -16,6 +12,7 @@ def segment(data):
     num = replaceNum[data//16]+replaceNum[data%16]
     color = "#"+num+num+num
     return color
+# GEI：GEI 數據, folder: 存放圖片的位置
 def drawColor(GEI,folder):
     ax = plt.subplot(111)
     name = GEI[0] #name
@@ -43,25 +40,25 @@ def drawColor(GEI,folder):
     return name
     # plt.show()
 
-def main(inputData):
-    # print(len(argv))
-    global plt
-    inputFile =  "./static/data/"+inputData
-    # inputFile =  "./static/data/GEI_regular/"+inputData
-    readData = []
-    with open(inputFile, newline= '') as csvfile :
-        rows = csv.reader(csvfile, delimiter = ',')
-        for row in rows :
-            try:
-                readData.append([row[0]]+list(map(float,row[1:])))
-            except:
-                pass
-    # index = inputData.find('_regular')
-    index = inputData.find('.csv')
-    folder = inputData[:index]
-    for GEI in readData:
-        print(drawColor(GEI,folder))
+# def main(inputData):
+#     # print(len(argv))
+#     global plt
+#     inputFile =  "./static/data/"+inputData
+#     # inputFile =  "./static/data/GEI_regular/"+inputData
+#     readData = []
+#     with open(inputFile, newline= '') as csvfile :
+#         rows = csv.reader(csvfile, delimiter = ',')
+#         for row in rows :
+#             try:
+#                 readData.append([row[0]]+list(map(float,row[1:])))
+#             except:
+#                 pass
+#     # index = inputData.find('_regular')
+#     index = inputData.find('.csv')
+#     folder = inputData[:index]
+#     for GEI in readData:
+#         print(drawColor(GEI,folder))
 
-if __name__ == '__main__':
-    # main(sys.argv[1:])
-    main(sys.argv[1])
+# if __name__ == '__main__':
+#     # main(sys.argv[1:])
+#     main(sys.argv[1])
