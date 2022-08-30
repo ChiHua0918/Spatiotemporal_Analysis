@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from crypt import methods
+from flask import Flask, render_template, request, send_from_directory
 import os
 import csv
 import imageio
@@ -98,6 +99,12 @@ def clusterUI(cluster,memory):
         clusterData.append(stackData)
         print(drawColor(stackData,"clusterUI"))
     print("cluster UI 繪製完成")
+# 動態圖片
+@app.route("/dynamicImage",methods=["GEI"])
+def dynamicImage():
+    directory = request.args.get("directory")
+    path = request.args.get("path")
+    return send_from_directory(directory, path)
 #app的路由地址"/submit"即為ajax中定義的url地址，采用POST、GET方法均可提交
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖
