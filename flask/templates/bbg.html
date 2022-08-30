@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="../static/show.css">
   <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
   <!--引入jQuery包用于使用ajax-->
-  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <title>GEI</title>
 </head>
 
@@ -19,9 +18,8 @@
     {% include 'navbar.html' %}
 
     <div class="text">
-      <h2>GEI 分群觀察</h2>
+      <h2>{{title}}</h2>
       <a href="https://hackmd.io/@chi-hua/rykWwzByo">流程內容</a><br/>
-      <img src="../static/image/simple_flow.jpg" width="700px" alt="">
       <h4 id="subtitle"></h4>
     </div>
     <div id="functionButton">
@@ -30,7 +28,7 @@
         <!-- <option value="" selected="selected">請選擇年份</option> -->
         <option value="2018">2018</option>
       </select>
-      <!-- 選擇 cut 方法 -->
+        <!-- 選擇 cut 方法 -->
       <select id="cut">
         <!-- <option value="" selected="selected">請選擇 cut 方式</option> -->
         <option value="KMeans">KMeans</option>
@@ -41,44 +39,10 @@
         <option value="GEI_origin">GEI_origin</option>
         <option value="GEI_level">GEI_level</option>
       </select>
-      <!-- 按鈕-原始按鈕 -->
-      <!-- <button class="dataButton" onclick="GEI('GEI_origin');changeColor('dataButton','0')">GEI_origin</button> -->
-      <!-- <button onclick="GEI('GEI_origin_average')">原始數據GEI(平均->開根號)</button> -->
-      <!-- 按鈕-等級按鈕 -->
-      <!-- <button class="dataButton" onclick="GEI('GEI_level');changeColor('dataButton','1')">GEI_Level</button> -->
-      <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
-      <select id="clusterFile">
-        <option value="" selected="selected">請選擇方法</option>
-        <option value="countLevelNum">計算等級塊數</option>
-        <option value="bow_accumulate">BOW - filter 累加</option>
-        <option value="bow_quadrantAccumulate" >BOW - 分 4 個象限(filter 累加分數)</option>
-        <option value="bow_quadrantScore" >BOW - 分 4 個象限(象限分數)</option>
-        <option value="bow_quadrantAccumulateDecideNum">BOW - 人工決定分群數,分 4 個象限(filter 累加分數)</option>
-        <option value="bow_quadrantScoreDecideNum">BOW - 人工決定分群數,分 4 個象限(象限分數)</option>
-        <option value="cnn">CNN</option>
-      </select>
-      <!-- filter 模式 -->
-      <select id="filterDirect">
-        <option value="" selected="selected">filter direction</option>
-        <option value="col">col</option>
-        <option value="row">row</option>
-        <option value="rightDown">rightDown</option>
-        <option value="leftDown">leftDown</option>
-      </select>
-      <!-- filter 大小 -->
-      <select id="filterSize">
-        <option value="" selected="selected">filter size</option>
-        <option value="2">2 * 2</option>
-        <option value="3">3 * 3</option>
-      </select>
-      <!-- 分群按鈕 -->
-      <button class="clustering" onclick="clickCluster()">分群</button>
       <!-- GEI 加強對比 -->
       <button class="contrast" onclick="contrast();changeColor('contrast','0')">加強對比</button>
-      <!-- 返回按鈕 -->
-      <button onclick="back()">返回分群代表圖</button>
-      <!-- browse by GEI -->
-      <button onclick="location.href = '/bbg'">BBG</button>
+      <!-- browse by cluster -->
+      <button onclick="location.href = '/bbc'">BBC</button>
     </div>
     <!-- gif 空汙動畫 -->
     <table id="gif">

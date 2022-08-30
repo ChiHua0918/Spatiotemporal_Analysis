@@ -34,7 +34,6 @@ function getGEINum() {
         }
     });
 }
-
 // 顯示GEI
 function GEI() {
     folder = document.getElementById('data').value;

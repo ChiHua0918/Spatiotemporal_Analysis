@@ -12,7 +12,13 @@ app = Flask(__name__)
 @app.route("/")
 #定義方法 用jinjia2引擎來渲染頁面，并回傳一個index.html頁面
 def root():
-    return render_template("show.html")
+    return render_template("show.html",title="Browse By Cluster")
+@app.route("/bbg")
+def bbg():
+    return render_template("bbg.html",title="Browse By GEI")
+@app.route("/bbc")
+def bbc():
+    return render_template("show.html",title="Browse By Cluster")
 
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
