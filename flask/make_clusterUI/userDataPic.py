@@ -31,7 +31,7 @@ def drawColor(GEI,folder):
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
-    plt.savefig(f"./dynamicPic/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
+    plt.savefig(f"./static/image/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
