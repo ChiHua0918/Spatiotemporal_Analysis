@@ -27,7 +27,7 @@ def main(folder,inputData,size):
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    outputFile = f"./clustering/quadrantDecideNum/{folder}/{inputData}_{size}.csv"
+    outputFile = f"./clustering/{folder}/{inputData}_{size}.csv"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["time","cluster","data"])

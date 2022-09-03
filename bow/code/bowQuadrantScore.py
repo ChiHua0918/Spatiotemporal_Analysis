@@ -63,23 +63,23 @@ def multiplyFilter(img,size,relativePos,score):
 # size: filter 的大小
 def choiceFilter(size):
     match size:
-        case 2:
+        case '2':
             return np.array([[1,1,-1,-1] # 上橫 row
                             ,[1,-1,1,-1] # 左豎 col
                             ,[1,-1,-1,1] # 右下斜 rightdowm
                             ,[-1,1,1,-1]]) # 左下斜 leftdown
-        case 3:
-            return np.array([[-1,-1,-1,1,1,1,-1,-1,-1]
-                            ,[-1,1,-1,-1,1,-1,-1,1,-1]
-                            ,[1,-1,-1,-1,1,-1,-1,-1,1]
-                            ,[-1,-1,1,-1,1,-1,1,-1,-1]])
+        case '3':
+            return np.array([[-1,-1,-1,2,2,2,-1,-1,-1]
+                            ,[-1,2,-1,-1,2,-1,-1,2,-1]
+                            ,[2,-1,-1,-1,2,-1,-1,-1,2]
+                            ,[-1,-1,2,-1,2,-1,2,-1,-1]])
         case _:
             size = int(input("目前沒有設定此大小的 filter,請再輸入一次 filter 大小:"))
             choiceFilter(size)
 def main(argv,size):
     global filters,width
-    size = int(size)
     filters = choiceFilter(size)
+    size = int(size)
     # 讀取 GEI 資料
     name,readData = [],[] # GEI 名字，GEI 10*10 資料
     inputData = argv
