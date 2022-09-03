@@ -29,12 +29,15 @@ def bowQuadrantScore(source,size):
         os.system(f"python3 ./code/bowQuadrantScore.py {file} {size}")
     return "quadrantScore"
 # 階層式分析
-def hierarchical(source,folder,size):
-    for data in source:
-        print(f"python3 ./code/Hierarchical.py {folder} {data} {size}")
-        os.system(f"python3 ./code/Hierarchical.py {folder} {data} {size}")
-        print(f"python3 ./code/decideClusterNum.py {folder} {data} {size}")
-        os.system(f"python3 ./code/decideClusterNum.py {folder} {data} {size}")
+def hierarchical(source,folderList,size):
+    for folder in folderList:
+        if folder == "accumulate":
+            continue
+        for data in source:
+            print(f"python3 ./code/Hierarchical.py {folder} {data} {size}")
+            os.system(f"python3 ./code/Hierarchical.py {folder} {data} {size}")
+            print(f"python3 ./code/decideClusterNum.py {folder} {data} {size}")
+            os.system(f"python3 ./code/decideClusterNum.py {folder} {data} {size}")
 
 # 階層式分析 --- 決定要分多少群
 # def decideHierarchical(source,folder,size):
@@ -49,11 +52,11 @@ def main():
     source = ["GEI_origin","GEI_level"]
     size = input("請輸入 filter 大小(輸入數字為整數):")
     folderList = []
-    folderList.append(AccumulateScore(source,size))
+    # folderList.append(AccumulateScore(source,size))
     folderList.append(bowQuadrantAccumulate(source,size))
     folderList.append(bowQuadrantScore(source,size))
-    cluster(size,folderList)
-    # hierarchical(source,folder,size)
+    # cluster(size,folderList)
+    hierarchical(source,folderList,size)
     # ===== 未整理 =====
     # decideHierarchical(source,folder,size)
 if __name__ == '__main__':
