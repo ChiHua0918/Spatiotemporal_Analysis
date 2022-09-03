@@ -52,22 +52,21 @@ def calculateScore(img,filter,size):
 # 採用 ?*? 的 filter
 # size: filter 的大小
 def choiceFilter(size):
-    match size:
-        case '2':
+    while True:
+        if size == '2':
             return np.array([[1,1,-1,-1]
                             ,[1,-1,1,-1]
                             ,[1,-1,-1,1]
                             ,[-1,1,1,-1]])
-        case '3':
+        elif size == '3':
             return np.array([[-1,-1,-1,2,2,2,-1,-1,-1]
                             ,[-1,2,-1,-1,2,-1,-1,2,-1]
                             ,[2,-1,-1,-1,2,-1,-1,-1,2]
                             ,[-1,-1,2,-1,2,-1,2,-1,-1]])
-        case _:
-            print("目前沒有設定此大小的 filter")
-            print("請再輸入一次 filter 大小:",end = " ")
-            size = int(input())
-            choiceFilter(size)
+        print("目前沒有設定此大小的 filter")
+        print("請再輸入一次 filter 大小:",end = " ")
+        size = int(input())
+        choiceFilter(size)
 def main(argv,size):
     # 輸入 filter 大小
     filters = choiceFilter(size)

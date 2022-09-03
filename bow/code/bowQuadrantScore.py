@@ -62,20 +62,21 @@ def multiplyFilter(img,size,relativePos,score):
 # 採用 ?*? 的 filter
 # size: filter 的大小
 def choiceFilter(size):
-    match size:
-        case '2':
-            return np.array([[1,1,-1,-1] # 上橫 row
-                            ,[1,-1,1,-1] # 左豎 col
-                            ,[1,-1,-1,1] # 右下斜 rightdowm
-                            ,[-1,1,1,-1]]) # 左下斜 leftdown
-        case '3':
+    while True:
+        if size == '2':
+            return np.array([[1,1,-1,-1]
+                            ,[1,-1,1,-1]
+                            ,[1,-1,-1,1]
+                            ,[-1,1,1,-1]])
+        elif size == '3':
             return np.array([[-1,-1,-1,2,2,2,-1,-1,-1]
                             ,[-1,2,-1,-1,2,-1,-1,2,-1]
                             ,[2,-1,-1,-1,2,-1,-1,-1,2]
                             ,[-1,-1,2,-1,2,-1,2,-1,-1]])
-        case _:
-            size = int(input("目前沒有設定此大小的 filter,請再輸入一次 filter 大小:"))
-            choiceFilter(size)
+        print("目前沒有設定此大小的 filter")
+        print("請再輸入一次 filter 大小:",end = " ")
+        size = int(input())
+        choiceFilter(size)
 def main(argv,size):
     global filters,width
     filters = choiceFilter(size)
