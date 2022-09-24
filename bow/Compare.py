@@ -1,5 +1,6 @@
 # 計算每一種方法的分群結果好壞，進行比較
 # ---------------------------------
+from tkinter import Canvas
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import calinski_harabasz_score
 from sklearn.metrics import davies_bouldin_score
@@ -11,24 +12,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 # 折線圖
 def draw(scoreData,pos,fileName):
-    canvas = plt.figure()
-    width = int(len(scoreData)**0.5)
-    pos = 1
-    for data in scoreData:
-        subCanvas = canvas.add_subplot(width,width,pos)
-        subCanvas.set_title(fileName)
-        # 折線圖
-        yData = [k for key,k in data.items()]
-        xData = [value for Silhouette_Coefficient,value in data.items()]
-        plt.plot(xData, yData, marker='o', linestyle='--', color='r', label='Silhouette_Coefficient') 
-        xData = [value for Calinski_Harabaz_Index,value in data.items()]
-        plt.plot(xData, yData, marker='o', linestyle='--', color='b', label='Calinski_Harabaz_Index') 
-        xData = [value for Davies_Bouldin_Index,value in data.items()]
-        plt.plot(xData, yData, marker='o', linestyle='--', color='g', label='Davies_Bouldin_Index') 
-        plt.xlabel('k')
-        plt.ylabel('score')
-    # 相同群數在同一個子畫布
-    # pos = 0
+    # width = int(len(scoreData)**0.5)
+    subCanvas = canvas.add_subplot(3,2,pos)
+    subCanvas.set_title(fileName)
+    plt.xlabel('k')
+    plt.ylabel('score')
+    xData = [k for k in scoreData.keys()]
+    data = [i for i in scoreData.values()]
+    # 折線圖
+    yData = [i['Silhouette_Coefficient'] for i in data]
+    subCanvas.plot(xData, yData, marker='o', linestyle='-', color='r', label='Silhouette_Coefficient') 
+    yData = [i['Calinski_Harabaz_Index'] for i in data]
+    subCanvas.plot(xData, yData, marker='o', linestyle='-', color='b', label='Calinski_Harabaz_Index') 
+    yData = [i['Davies_Bouldin_Index'] for i in data]
+    subCanvas.plot(xData, yData, marker='o', linestyle='-', color='g', label='Davies_Bouldin_Index') 
 # Davies-Bouldin Index(戴維森堡丁指數)(分類適確性指標)(DB)(DBI)
 def DBIndex(data):
     labels = kmeans.labels_
@@ -61,33 +58,40 @@ def main(size):
     # print("quadrant、quadrantDecideNum")
     # print("請問要選取哪一個資料夾:",end = " ")
     # folder = input()
-    pos = 0
+    # 畫布
+    pos = 1
+    global canvas
+    canvas = plt.figure()
+    plt.subplots_adjust(hspace=1) # 子畫布間距
+    canvas.tight_layout()
+    # 數據
     for folder in folderList:
         for file in data:
             # 分群數
             readData = readFile(folder,file,size)
             # k = max(cluster)+1
             fileName = f"{folder}_{file}_{size}"
-            result[fileName] = []
+            result[fileName] = dict()
             for k in range(2,10):
                 kmeans = KMeans(n_clusters=k).fit(readData)
                 # 評估指標
                 fileScore = {
-                                'k':k,
+                                # 'k':k,
                                 # 'file':f"{folder}_{file}_{size}",
                                 'Silhouette_Coefficient':SC(readData),
-                                'Calinski_Harabaz_Index':CHIndex(readData),
+                                'Calinski_Harabaz_Index':CHIndex(readData)/100,
                                 'Davies_Bouldin_Index':DBIndex(readData)
                             }
                 # record.append(fileScore)
-                result[fileName].append(fileScore)
+                result[fileName][k] = fileScore
+            # print(result)
             draw(result[fileName],pos,fileName)
             pos += 1
     show = pd.DataFrame(result)
-            # .sort_values(by=['k'])
+    # .sort_values(by=['k'])
     # show.set_index("k",inplace=True)
     print(show)
-    plt.legend()
+    plt.legend(loc="upper right", fontsize=10)
     plt.show()
 
     # print(result)
