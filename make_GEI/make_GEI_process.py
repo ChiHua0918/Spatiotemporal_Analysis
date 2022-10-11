@@ -17,9 +17,9 @@ def cut():
 
 # GEI 製作流程
 def GEI():
-    cutFile = "cut~3.csv"
+    cutFile = "cut.csv"
     sourceData = ["2018micro.csv","2018level.csv"]
-    outputData = ["GEI_origin.csv","GEI_level.csv"]
+    outputData = data
     # 數據疊成GEI
     for i in range(len(sourceData)):
         print(f"python3 ./code/GEI.py {sourceData[i]} {cutFile} {outputData[i]}")
@@ -29,15 +29,12 @@ def GEI():
         print(f"python3 ./code/regular.py {file}")
         os.system(f"python3 ./code/regular.py {file}")
     # 劃出GEI圖
-    # drawData = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
     for file in outputData:
         print(f"python3 ./code/userDataPic.py {file}")
         os.system(f"python3 ./code/userDataPic.py {file}")
 # GEI 分群
 def GEIcluster():
     # GEI 正規化後(0~255)的數據
-    # data = ["GEI_origin_regular.csv","GEI_Level_regular.csv"]
-    data = ["GEI_origin.csv","GEI_level.csv"]
     for file in data:
         print(f"python3 ./code/countLevelNum.py {file} regular")
         os.system(f"python3 ./code/countLevelNum.py {file} regular")
@@ -53,6 +50,8 @@ def microToLevel():
     os.system(f"python3 ./code/covertToLevel.py {file}")
 
 def main():
+    global data
+    data = ["GEI_origin.csv","GEI_level.csv"]
     cut()
     # 資料 --- 1. 原始數據 2. 等級數據
     # microToLevel()

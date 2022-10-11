@@ -33,7 +33,8 @@ bow/data
 bow/test.py
 bow/openCV_edge.py
 bow/Compare.py
-
+# find Best Way 線下資料評估，無須放到網頁
+findBestWay
 # 其他
 test.py
 test1.py

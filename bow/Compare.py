@@ -1,6 +1,5 @@
 # 計算每一種方法的分群結果好壞，進行比較
 # ---------------------------------
-from tkinter import Canvas
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import calinski_harabasz_score
 from sklearn.metrics import davies_bouldin_score
@@ -37,6 +36,11 @@ def CHIndex(data):
 # 輪廓係數  Silhouette Coefficient
 def SC(data):
     return silhouette_score(data, kmeans.predict(data))
+def writeInFile(data,file):
+    with open(f"../findBestWay/bowScores_{file}.csv", 'w', newline='') as _file:
+        writer = csv.writer(_file)
+        writer.writerow(["k","file","Silhouette_Coefficient","Calinski_Harabaz_Index","Davies_Bouldin_Index"])
+        writer.writerows(data)
 # read file
 def readFile(folder,file,size):
     with open(f"./data/{folder}/{file}_{size}.csv", newline= '') as csvfile :
@@ -48,16 +52,13 @@ def readFile(folder,file,size):
             except:
                 pass
     return readData
+# write in file
+# def writeInFile(data):
+#     data.to_csv
 def main(size):
     global kmeans
     folderList = ["accumulate","quadrantAccumulate","quadrantScore"]
     data = ["GEI_origin","GEI_level"]
-    result = dict()
-    # scores = [] # 輪廓係數分數
-    # chi_value = [] # calinski_harabaz_score 分數
-    # print("quadrant、quadrantDecideNum")
-    # print("請問要選取哪一個資料夾:",end = " ")
-    # folder = input()
     # 畫布
     pos = 1
     global canvas
@@ -65,34 +66,26 @@ def main(size):
     plt.subplots_adjust(hspace=1) # 子畫布間距
     canvas.tight_layout()
     # 數據
-    for folder in folderList:
-        for file in data:
+    for file in data:
+        result = []
+        for folder in folderList:
             # 分群數
             readData = readFile(folder,file,size)
             # k = max(cluster)+1
             fileName = f"{folder}_{file}_{size}"
-            result[fileName] = dict()
             for k in range(2,10):
                 kmeans = KMeans(n_clusters=k).fit(readData)
-                # 評估指標
-                fileScore = {
-                                # 'k':k,
-                                # 'file':f"{folder}_{file}_{size}",
-                                'Silhouette_Coefficient':SC(readData),
-                                'Calinski_Harabaz_Index':CHIndex(readData)/100,
-                                'Davies_Bouldin_Index':DBIndex(readData)
-                            }
-                # record.append(fileScore)
-                result[fileName][k] = fileScore
-            # print(result)
-            draw(result[fileName],pos,fileName)
+                # 評估指標 :分群數,Silhouette_Coefficient,Calinski_Harabaz_Index,Davies_Bouldin_Index
+                # Davies_Bouldin_Index 因為只有 DBI 的指標越小代表分群越合理，所以將倒數
+                result.append([k,fileName,SC(readData),CHIndex(readData),1/DBIndex(readData)])
+            # draw(result[fileName],pos,fileName)
             pos += 1
-    show = pd.DataFrame(result)
-    # .sort_values(by=['k'])
-    # show.set_index("k",inplace=True)
-    print(show)
-    plt.legend(loc="upper right", fontsize=10)
-    plt.show()
+        writeInFile(result,file)
+    # result.index = ["k","Silhouette_Coefficient","Calinski_Harabaz_Index","Davies_Bouldin_Index"]
+    # result.to_csv("../findBestWay/bowScores.csv")
+    # print(show)
+    # plt.legend(loc="upper right", fontsize=10)
+    # plt.show()
 
     # print(result)
 if __name__ == "__main__":

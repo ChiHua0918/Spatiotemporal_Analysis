@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*
 # rom keras.applications.vgg16 import VGG16
-from keras.preprocessing import image
+# from keras.preprocessing import image
 from keras.applications.vgg16 import preprocess_input, decode_predictions
 import numpy as np
 import csv
@@ -15,9 +16,8 @@ import sys
 # model = VGG19( weights= "imagenet" , include_top= True ,input_tensor=Input( shape= ( 100 , 100 , 1 )))
 
 def writeCSV(result,folder,source):
-    # with open("./flask/static/cnn/GEI_origin_average_cnn.csv","w",newline="") as csvfile:
-    outputFile = source+"_cnn.csv"
-    with open(f"./data/{folder}/{outputFile}","w",newline="") as csvfile:
+    outputFile = f"./data/{folder}/{source}.csv"
+    with open(outputFile,"w",newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(result)
 # 每一張GEI該類別的關係程度，如果此 GEI 沒有該類別，則該類別關係程度 = 0
@@ -59,8 +59,8 @@ def vgg16(model,path):
     for pic in picture:
     # Input：要辨識的影像
         img_path = path+pic
-        img = image.load_img(img_path, target_size=(224, 224))
-        x = image.img_to_array(img)
+        img = tf.keras.utils.load_img(img_path, target_size=(224, 224))
+        x = tf.keras.utils.img_to_array(img)
         x = np.expand_dims(x, axis=0)
         x = preprocess_input(x)
         # 預測，取得feature map，維度為 (1,3,3,512)
@@ -99,8 +99,7 @@ def main(source,outputFolder):
         # classifier_activation=None,
     )
     # GEI 圖片路徑
-    inputData = source
-    inputFile = "../make_GEI/picture/"+inputData+"/"
+    inputFile = "../make_GEI/picture/"+source+"/"
     classNum, every_GEI_extent = vgg16(model,inputFile) # cnn
     classification = take(classNum)
     # random.shuffle(classification) # 把順序打亂
