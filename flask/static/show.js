@@ -22,12 +22,12 @@ var boardGEI = [];
 var tmp;
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
 var memory = "";
-getGEINum()
-function getGEINum() {
+async function getGEINum() {
     $.ajax({
         url: "GEINum", 
         type: "GET",
         data:null,
+        async:false,
         /*result為后端函式回傳的json*/
         success: function (result) {
             GEINum = result.num;
@@ -35,22 +35,25 @@ function getGEINum() {
     });
 }
 // 顯示GEI
-function GEI() {
-    folder = document.getElementById('data').value;
-    subtitle.innerHTML = folder;
-    let img = "<tr>";
-    for (var i = 0; i < GEINum; i++) {
-        imgName = "NO." + i + ".png";
-        img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
-        // 換行
-        if (i % 5 == 4) {
-            img += "</tr><tr>";
-        }
-        boardGEI.push(imgName);
-    }
-    showPicture.innerHTML = img;
-    memory = folder;
-}
+// function GEI() {
+//     folder = document.getElementById('data').value;
+//     console.log(folder);
+//     subtitle.innerHTML = folder;
+//     let img = "<tr>";
+//     for (var i = 0; i < GEINum; i++) {
+//         imgName = "NO." + i + ".png";
+//         img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+//         // 換行
+//         if (i % 5 == 4) {
+//             img += "</tr><tr>";
+//         }
+//         boardGEI.push(imgName);
+//     }
+//     console.log(boardGEI);
+//     console.log(GEINum);
+//     showPicture.innerHTML = img;
+//     memory = folder;
+// }
 
 // 返回鑑
 function back() {
@@ -82,8 +85,6 @@ function clickCluster() {
     subtitle.innerHTML = "分群結果 - "+document.getElementById('clusterFile').name;
     // 要顯示哪一個檔案的 GEI 分群
     let clusterFile = document.getElementById('clusterFile').value;
-    // filter 方向
-    let filterDirect = document.getElementById('filterDirect').value;
     // filter 大小
     let filterSize = document.getElementById('filterSize').value;
     // 沒有選取檔案
@@ -91,20 +92,26 @@ function clickCluster() {
         alert("請先選取檔案");
         return
     }
-    // BOW 要選擇 filter 的方向和大小
+    // BOW 要選擇 filter 的大小
     if (clusterFile.split('_')[0] == "bow" && filterSize == ""){
         alert('bow 須選擇 filter 大小');
         return;
     }
+    // CNN 目前只有 3*3
+    else if (filterSize == "2"){
+        alert("目前 CNN 只有 filter 3*3");
+        // 更改 filter 大小
+        document.getElementById('filterSize').getElementsByTagName('option')[2].selected = 'selected';
+        filterSize = 3;
+    }
     picture = "";
     alert("圖片製作中，請稍等");
     // 紀錄目前的模式是 等級 or 空間
-    clusterGEI(memory,clusterFile,filterDirect,filterSize);
-    // console.log("memory",memory,"\t","filter type:",filterDirect);
+    clusterGEI(memory,clusterFile,filterSize);
     changeColor('clustering','0');
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
-function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
+function clusterGEI(memory,clusterFile,filterSize) {
     var maxCluster;
     // user 沒有選擇檔案
     if (clusterFile.length == 0){
@@ -114,7 +121,7 @@ function clusterGEI(memory,clusterFile,filterDirect,filterSize) {
     $.ajax({
         url: 'cluster',
         type: "GET",
-        data: {"memory":memory,"clusterFile":clusterFile,"filterDirect":filterDirect,"filterSize":filterSize},
+        data: {"memory":memory,"clusterFile":clusterFile,"filterSize":filterSize},
         async: true,
         /*result為后端函式回傳的json*/
         success: function (result) {

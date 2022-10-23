@@ -35,8 +35,7 @@
       </select>
       <!-- 選擇 GEI 資料 -->
       <select id="data" onchange="GEI()">
-        <option value="" selected="selected">請選擇資料</option>
-        <option value="GEI_origin">GEI_origin</option>
+        <option value="GEI_origin" selected="selected">GEI_origin</option>
         <option value="GEI_level">GEI_level</option>
       </select>
       <!-- GEI 加強對比 -->
@@ -48,7 +47,7 @@
     <table id="gif">
       <tr>
         <td rowspan="10"><div id="modal" style="overflow: overflow-y"></td>
-        <td><input type="text" id="speed" name="speed" placeholder="速度(輸入0.0~5.0)" maxlength="3" size="10"></td>
+        <td><input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20"></td>
       </tr>
       <tr><td><button id="speedBtn" onclick="gif()">開始製作gif</button></td></tr>
       <tr><td><button id="modalBtn" onclick="hide()">停止播放</button></td></tr>
@@ -62,8 +61,10 @@
     <!-- GEI 畫面 -->
     <table id="frame"></table>
   </div>
+  <!-- 網頁載入，資料選擇 GEI_origin -->
   <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="../static/show.js"></script>
+  <script src="../static/bbg.js"></script>
 </body>
 
 </html>

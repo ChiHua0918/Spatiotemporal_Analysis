@@ -44,3 +44,5 @@ cnnTakeFeature.py
 test.csv
 cnnContent.txt
 cnn/data
+draw_origin
+flask/make_clusterUI/__pycache__

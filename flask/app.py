@@ -19,7 +19,7 @@ def bbg():
     return render_template("bbg.html",title="Browse By GEI")
 @app.route("/bbc")
 def bbc():
-    return render_template("show.html",title="Browse By Cluster")
+    return render_template("bbc.html",title="Browse By Cluster")
 
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
@@ -34,17 +34,16 @@ def cluster():
     # 從前端拿到的資料
     memory = request.args.get("memory")
     clusterFile = request.args.get("clusterFile")
-    filterDirect = request.args.get("filterDirect")
     filterSize = request.args.get("filterSize")
-    print(f"memory:{memory} clusterFile:{clusterFile} filterDirect:{filterDirect} filterSize:{filterSize}")
-    if clusterFile.split('_')[0] == "countLevelNum":
+    print(f"memory:{memory} clusterFile:{clusterFile} filterSize:{filterSize}")
+    if clusterFile.split('_')[0] == "histogram":
         folder = clusterFile
         path = f"./static/data/clusterData/{folder}/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
         path = f"./static/data/clusterData/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clusterData/cnn/imagenet/{memory}_cnn.csv"
+        path = f"./static/data/clusterData/cnn/imagenet/{memory}.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :

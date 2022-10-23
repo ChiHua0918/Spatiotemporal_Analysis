@@ -19,7 +19,7 @@
     {% include 'navbar.html' %}
 
     <div class="text">
-      <h2>GEI 分群觀察</h2>
+      <h2>{{title}}</h2>
       <a href="https://hackmd.io/@chi-hua/rykWwzByo">流程內容</a><br/>
       <img src="../static/image/simple_flow.jpg" width="700px" alt="">
       <h4 id="subtitle"></h4>
@@ -37,8 +37,7 @@
       </select>
       <!-- 選擇 GEI 資料 -->
       <select id="data" onchange="GEI()">
-        <option value="" selected="selected">請選擇資料</option>
-        <option value="GEI_origin">GEI_origin</option>
+        <option value="GEI_origin" selected="selected">GEI_origin</option>
         <option value="GEI_level">GEI_level</option>
       </select>
       <!-- 按鈕-原始按鈕 -->
@@ -48,8 +47,7 @@
       <!-- <button class="dataButton" onclick="GEI('GEI_level');changeColor('dataButton','1')">GEI_Level</button> -->
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
       <select id="clusterFile">
-        <option value="" selected="selected">請選擇方法</option>
-        <option value="histogram">Histogram</option>
+        <option value="histogram" selected="selected">Histogram</option>
         <option value="bow_accumulate">BOW - raster scan (accumulate)</option>
         <option value="bow_quadrantAccumulate" >BOW - 四個個象限 feature value</option>
         <option value="bow_quadrantScore" >BOW - 四個象限 feature map</option>
@@ -92,6 +90,7 @@
   </div>
   <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="../static/show.js"></script>
+  <script src="../static/bbc.js"></script>
 </body>
 
 </html>
