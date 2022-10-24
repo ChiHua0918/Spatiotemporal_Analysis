@@ -35,25 +35,13 @@ async function getGEINum() {
     });
 }
 // 顯示GEI
-// function GEI() {
-//     folder = document.getElementById('data').value;
-//     console.log(folder);
-//     subtitle.innerHTML = folder;
-//     let img = "<tr>";
-//     for (var i = 0; i < GEINum; i++) {
-//         imgName = "NO." + i + ".png";
-//         img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
-//         // 換行
-//         if (i % 5 == 4) {
-//             img += "</tr><tr>";
-//         }
-//         boardGEI.push(imgName);
-//     }
-//     console.log(boardGEI);
-//     console.log(GEINum);
-//     showPicture.innerHTML = img;
-//     memory = folder;
-// }
+function GEI() {
+    folder = document.getElementById('data').value;
+    subtitle.innerHTML = folder;
+    memory = folder;
+    showPicture.innerHTML = "";
+    changeColor("dataButton","none")
+}
 
 // 返回鑑
 function back() {
@@ -235,10 +223,13 @@ function hide() {
 
 // 設定modal位置
 function setPos() {
-    let height = document.documentElement.scrollHeight;
-    let width = document.documentElement.scrollWidth;
-    modal.style.marginTop = (height - 1000)/2 + "px";
-    modal.style.marginLeft = (width - 700)/2 + "px";
+    // let height = document.documentElement.scrollHeight;
+    // let width = document.documentElement.scrollWidth;
+    let height = document.body.clientHeight;
+    let width = document.body.clientWidth;
+    // modal.style.marginTop = ($('#functionButton')[0].offsetHeight)/2 + "px";
+    // modal.style.marginLeft = ($('#functionButton')[0].offsetWidth)/2 + "px";
+    // console.log(document.getElementsByClassName('text')[0].offsetHeight );
 }
 // button change color
 function changeColor(buttonType,order){
@@ -259,8 +250,9 @@ function changeColor(buttonType,order){
     if (buttonType != "contrast"){
         document.getElementsByClassName("contrast")[0].style.backgroundColor = "#F3E9DD";
     }
-    // 分群按鈕
+    // 取消分群按鈕
     if (buttonType == "dataButton"){
         document.getElementsByClassName("clustering")[0].style.backgroundColor = "#F3E9DD";
+        showPicture.innerHTML = "";
     }
 }

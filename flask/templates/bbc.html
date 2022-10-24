@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/show.css">
+  <link rel="stylesheet" href="../static/navbar.css">
   <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
   <!--引入jQuery包用于使用ajax-->
   <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -14,14 +15,11 @@
 
 <body class="bg">
   <div id="container">
-    {% include 'bs_css.html' %}
-    {% include 'bs_js.html' %}
     {% include 'navbar.html' %}
-
     <div class="text">
       <h2>{{title}}</h2>
       <a href="https://hackmd.io/@chi-hua/rykWwzByo">流程內容</a><br/>
-      <img src="../static/image/simple_flow.jpg" width="700px" alt="">
+      <img src="../static/image/simple_flow.png" width="700px" alt="">
       <h4 id="subtitle"></h4>
     </div>
     <div id="functionButton">
@@ -46,7 +44,7 @@
       <!-- 按鈕-等級按鈕 -->
       <!-- <button class="dataButton" onclick="GEI('GEI_level');changeColor('dataButton','1')">GEI_Level</button> -->
       <!-- <button onclick="GEI('GEI_Level_average')">等級GEI(平均)</button> -->
-      <select id="clusterFile">
+      <select id="clusterFile" onchange="changeColor('dataButton','none')">
         <option value="histogram" selected="selected">Histogram</option>
         <option value="bow_accumulate">BOW - raster scan (accumulate)</option>
         <option value="bow_quadrantAccumulate" >BOW - 四個個象限 feature value</option>
@@ -56,7 +54,7 @@
         <option value="cnn">CNN</option>
       </select>
       <!-- filter 大小 -->
-      <select id="filterSize">
+      <select id="filterSize" onchange="changeColor('dataButton','none')">
         <option value="" selected="selected">filter size</option>
         <option value="2">2 * 2</option>
         <option value="3">3 * 3</option>
@@ -71,13 +69,17 @@
     <!-- gif 空汙動畫 -->
     <table id="gif">
       <tr>
-        <td rowspan="10"><div id="modal" style="overflow: overflow-y"></td>
+        <td rowspan="10"><div id="modal" style="overflow: overflow-y"></div></td>
+      </tr>
+      <tr>
         <td><input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20"></td>
       </tr>
-      <tr><td><button id="speedBtn" onclick="gif()">開始製作gif</button></td></tr>
-      <tr><td><button id="modalBtn" onclick="hide()">停止播放</button></td></tr>
-      <!-- 排版需求 -->
-      <tr><td height="200px"></td></tr>
+      <tr>
+        <td><button id="speedBtn" onclick="gif()">開始製作gif</button></td>
+      </tr>
+      <tr>
+        <td><button id="modalBtn" onclick="hide()">停止播放</button></td>
+      </tr>
     </table>
     <input type="button" id="return" value="回
     到

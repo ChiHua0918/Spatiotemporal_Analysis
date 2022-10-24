@@ -36,19 +36,20 @@
 }
 /* contain gif, speed button... */
 #gif{
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     display: none;
-    /* margin-left:calc(100%/4);  */
+    left:calc(100%/3);
     /* margin-right:auto; */
-    margin-top: calc(100%/20);
-    vertical-align: middle;
+    top: calc(100%/4);
+    /* vertical-align: middle; */
     text-align: center;
 }
 /* PM2.5彩色圖 */
 #modal {
     overflow: auto;
     overscroll-behavior-y: contain;
+    /* z-index: 2; */
 }
 
 /* 顯示分群圖示 */
@@ -66,10 +67,12 @@
     display: none;
 }
 
-
-img {
+.frame,img {
     border: 2px solid white;
     border-color: white;
+}
+#simpleFlow{
+    border: 0px solid white;
 }
 p{
     font-size: 16px;
@@ -129,4 +132,7 @@ select{
     color: #876445;
     text-decoration: none;
     background-color: #F3E9DD;
+}
+input{
+    line-height: 30px;
 }

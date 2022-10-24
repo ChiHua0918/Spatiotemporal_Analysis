@@ -6,4 +6,6 @@ function GEI() {
     folder = document.getElementById('data').value;
     subtitle.innerHTML = folder;
     memory = folder;
+    showPicture.innerHTML = "";
+    changeColor("dataButton","none")
 }
