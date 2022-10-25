@@ -42,7 +42,7 @@ def cluster():
         folder = clusterFile.split('_')[1]
         path = f"./static/data/clusterData/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clusterData/cnn/imagenet/{memory}.csv"
+        path = f"./static/data/clusterData/cnn/imagenet/{memory}_imagenet.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :
