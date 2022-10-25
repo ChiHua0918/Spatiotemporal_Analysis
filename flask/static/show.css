@@ -67,7 +67,7 @@
     display: none;
 }
 
-.frame,img {
+img {
     border: 2px solid white;
     border-color: white;
 }

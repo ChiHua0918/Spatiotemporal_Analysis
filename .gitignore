@@ -20,7 +20,7 @@ flask/static/image/sis
 flask/static/image/gif
 flask/static/image/clusterUI
 flask/image
-flask/static/data/clusterData
+# flask/static/data/clusterData
 flask/static/data/GEI_regular
 flask/static/data/clusterData
 flask/static/data/cut.csv

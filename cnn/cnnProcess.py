@@ -10,9 +10,9 @@ def cnn():
     #         print(f"python cnn.py {source[j]} {outputFolder[i]}")
     #         os.system(f"python cnn.py {source[j]} {outputFolder[i]}")
     for file in source:
-        print(f"python3 ./code/cnn.py {file} imagenat")
+        print(f"python3 ./code/cnn.py {file} imagenet")
         os.system(f"python3 ./code/cnn.py {file} imagenet")
-        print(f"python3 ./code/cluster.py {file} imagenat")
+        print(f"python3 ./code/cluster.py {file} imagenet")
         os.system(f"python3 ./code/cluster.py {file} imagenet")
 
 def main():
