@@ -21,4 +21,5 @@ function GEI() {
     console.log(GEINum);
     showPicture.innerHTML = img;
     memory = folder;
+    changeColor("dataButton","none");
 }
