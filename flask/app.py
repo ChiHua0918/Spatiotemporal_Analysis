@@ -19,7 +19,22 @@ def bbg():
 @app.route("/bbc")
 def bbc():
     return render_template("bbc.html",title="Browse By Cluster")
-
+# =========== 婷誼的部份 =============
+@app.route("/shot")
+def home():
+    return render_template("index.html")
+# 讀取csv獲取每一張 GEI 所屬的群
+@app.route("/readFile",methods = ["POST"])
+def readFile():
+    # 從前端拿到的資料
+    path = request.form.get("path")
+    cut_shot = [] # 0: shot, 1:cut
+    with open(path, newline= '') as csvfile :
+        rows = csv.reader(csvfile, delimiter = ',')
+        for row in rows :
+            cut_shot.append(int(row[0]))
+    return {"data":cut_shot}
+# ================================
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
 def GEINum():
