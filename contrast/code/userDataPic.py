@@ -41,8 +41,10 @@ def segment(data):
 
 def drawColor(GEI,folder):
     ax = plt.subplot(111)
-
     name = GEI[0] #name
+    name = name.replace("/","-")
+    name = name.replace(":","-")
+    name = name.replace(" ","-")
     data = GEI[1:] #data
     tmp = data
     for j in range(len(tmp)):
@@ -75,11 +77,9 @@ def main(argv):
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows)
         for row in rows :
-            try:
-                readData.append([row[0]]+list(map(float,row[1:])))
-            except:
-                pass
+            readData.append([row[0]]+list(map(float,row[1:])))
     index = inputData.find('_singleRegular')
     folder = inputData[:index]
     for GEI in readData:

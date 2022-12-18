@@ -14,7 +14,7 @@ def regular(readData):
                 readData[r][c] = 0
 def main(argv):
     inputData = argv
-    inputFile = "../make_GEI/data/GEI_data/"+inputData
+    inputFile = "../make_GEI/"+inputData
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')

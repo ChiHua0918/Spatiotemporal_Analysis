@@ -1,3 +1,4 @@
+# Accunulate BOW CNN 三種方法的比較
 # 計算每一種方法的分群結果好壞，進行比較
 # ---------------------------------
 from sklearn.metrics import silhouette_score
@@ -36,14 +37,16 @@ def CHIndex(data):
 # 輪廓係數  Silhouette Coefficient
 def SC(data):
     return silhouette_score(data, kmeans.predict(data))
-def writeInFile(data,file,size):
-    with open(f"../findBestWay/bowScores_{file}_{size}.csv", 'w', newline='') as _file:
+def writeInFile(data,file):
+    with open(f"./threeWay/bowScores_{file}.csv", 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["k","file","Silhouette_Coefficient","Calinski_Harabaz_Index","Davies_Bouldin_Index"])
         writer.writerows(data)
 # read file
-def readFile(folder,file,size):
-    with open(f"./data/{folder}/{file}_{size}.csv", newline= '') as csvfile :
+def readFile(folder,file):
+    if "accumulate" in folder:
+        file = file+"_3"
+    with open(f"{folder}/{file}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         readData = [] # 數據
         for row in rows :
@@ -55,9 +58,9 @@ def readFile(folder,file,size):
 # write in file
 # def writeInFile(data):
 #     data.to_csv
-def main(size):
+def main():
     global kmeans
-    folderList = ["accumulate","quadrantAccumulate","quadrantScore"]
+    folderList = ["../cnn/data/imagenet","../bow/data/accumulate","../make_GEI/data/countLevelNum"]
     data = ["GEI_origin","GEI_level"]
     # 畫布
     pos = 1
@@ -70,9 +73,9 @@ def main(size):
         result = []
         for folder in folderList:
             # 分群數
-            readData = readFile(folder,file,size)
+            readData = readFile(folder,file)
             # k = max(cluster)+1
-            fileName = f"{folder}_{file}_{size}"
+            fileName = f"{folder}_{file}"
             for k in range(2,10):
                 kmeans = KMeans(n_clusters=k).fit(readData)
                 # 評估指標 :分群數,Silhouette_Coefficient,Calinski_Harabaz_Index,Davies_Bouldin_Index
@@ -80,7 +83,11 @@ def main(size):
                 result.append([k,fileName,SC(readData),CHIndex(readData),1/DBIndex(readData)])
             # draw(result[fileName],pos,fileName)
             pos += 1
-        writeInFile(result,file,size)
+        writeInFile(result,file)
+        print(f"============== {file} ==============")
+        result = pd.DataFrame(result,columns=["k","file","Silhouette_Coefficient","Calinski_Harabaz_Index","Davies_Bouldin_Index"])
+        print(result)
+    # print()
     # result.index = ["k","Silhouette_Coefficient","Calinski_Harabaz_Index","Davies_Bouldin_Index"]
     # result.to_csv("../findBestWay/bowScores.csv")
     # print(show)
@@ -89,5 +96,4 @@ def main(size):
 
     # print(result)
 if __name__ == "__main__":
-    size = int(input('請輸入 filter 大小：'))
-    main(size)
+    main()
