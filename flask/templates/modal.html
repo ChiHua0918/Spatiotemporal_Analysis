@@ -1,0 +1,58 @@
+<!-- gif 空汙動畫 -->
+<div id="gif">
+    <div class="row">
+        <!-- <img src="../static/image/clusterUI/0.png" id = "modal" > -->
+        <div id="modal" style="overflow: overflow-y"></div>
+        <span id = "gifName"></span>
+    </div>
+    <div class="row" id = "gifButton">
+      <input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20">
+      <button id="speedBtn" onclick="gif()">開始製作gif</button>
+      <button id="modalBtn" onclick="hide()">停止播放</button>
+      <button class="btn btn-primary" id="qbeBtn">
+        <div class="row">
+          <!-- <a> -->
+            <img src="/static/search.svg" id = "search" onclick = "openQBE" height="25px" class="searchIcon">QBG
+          <!-- </a> -->
+        </div>
+      </button>
+    </div>
+</div>
+  <!-- <table id="gif">
+    <tr>
+      <td rowspan="10"><div id="modal" style="overflow: overflow-y"></div></td>
+    </tr>
+    <tr>
+      <td><input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20"></td>
+    </tr>
+    <tr>
+      <td><button id="speedBtn" onclick="gif()">開始製作gif</button></td>
+    </tr>
+    <tr>
+      <td><button id="modalBtn" onclick="hide()">停止播放</button></td>
+    </tr>
+  </table> -->
+<script>
+  // 到 QBE 檢索畫面
+  function openQBE(){
+    let selectName = $("#gifName").text();
+    $.ajax({
+      url: "qbgResult", /*資料提交到submit處*/
+      type: "GET",  /*用GET方法提交*/
+      data: {
+              "selectName":selectName,
+              "GEIfolder":memory // 現在選擇的 GEI 類型為 GEI_origin or GEI_level
+            }
+            ,
+      /*result為后端函式回傳的json*/
+      // success: function (result) {
+          
+      // }
+      // ,
+      error: function (jqXHR, textStatus, errorThrown) {
+          /*https://shiyousan.com/post/635433082130309661*/
+      }
+    });
+  }
+</script>
+  

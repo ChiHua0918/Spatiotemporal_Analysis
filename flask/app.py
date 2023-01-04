@@ -3,7 +3,6 @@ import os
 import csv
 import imageio
 import numpy as np
-
 from make_clusterUI.userDataPic import drawColor
 #創建Flask物件app并初始化
 app = Flask(__name__)
@@ -19,6 +18,9 @@ def bbg():
 @app.route("/bbc")
 def bbc():
     return render_template("bbc.html",title="Browse By Cluster")
+# @app.route("/qbgResult")
+# def qbgResult():
+#     return render_template("qbgResult.html",title="Query by GEI")
 # =========== 婷誼的部份 =============
 @app.route("/shot")
 def home():
@@ -34,6 +36,27 @@ def readFile():
         for row in rows :
             cut_shot.append(int(row[0]))
     return {"data":cut_shot}
+# 計算 GEI 的排名
+@app.route("/qbgResult",methods = ["GET"])
+def qbgResult():
+    selectName = request.args.get("selectName") # NO.1
+    GEIfolder = request.args.get("GEIfolder")
+    command = "python3 rasterScan_D_GEI.py " + selectName
+    print(command)
+    return render_template("test.html")
+    # 建立 process，將執行結果用 readlines 讀取
+    sourceDatase = os.popen(command).readlines()
+    print("=========== rank & score =============")
+    print(sourceDatase)
+    # scoreData = []
+    # rank = []
+    # allName = []
+    # for i in sourceDatase:
+        
+    return render_template("qbgResult.html",sourceDatase = sourceDatase,\
+                                            sourceDataset = GEIfolder,\
+                                            sourceImage = selectName\
+                                            )
 # ================================
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
@@ -165,4 +188,7 @@ def findPictureName(id):
             statckList.append(data[0])
     return statckList
 if __name__ == "__main__":
+    # from gevent import pywsgi
+    # server = pywsgi.WSGIServer(("localhost", 8085), app)
+    # server.serve_forever()
     app.run(port=8085)

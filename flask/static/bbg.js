@@ -11,6 +11,7 @@ function GEI() {
     for (var i = 0; i < GEINum; i++) {
         imgName = "NO." + i + ".png";
         img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+        $("#qbeBtn").click(function(){openQBE(i)});
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";

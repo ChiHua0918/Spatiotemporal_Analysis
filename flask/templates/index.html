@@ -66,21 +66,18 @@
     <option value="XY_Moment4">XY_Moment4</option>
   </select>
   <button id="up-btn">確認</button>
+  <button id="alert-btn">說明</button>
   <!--<input type="text" name="user" id="user">-->
+  <img id="key" src="../static/sis/image_level.png" alt="">
   <div class="container">
     <table id="frame"></table>
-
   </div>
   <div id="buttons">
     <button id="moreback">BackMore</button>
-    <button id="back">Back</button>
-
-    <button id="Fin">Download</button>
-    <button id="foward">Foward</button>
+    <!-- <button id="back">Back</button> -->
+    <!-- <button id="Fin">Download</button> -->
+    <!-- <button id="foward">Foward</button> -->
     <button id="morefoward">FowardMore</button>
-  </div>
-  <div>
-    <img id="key" src="./image_2021-06-14_15-59-14.png" alt="">
   </div>
   </div>
   <script src="interface.js"></script>
@@ -89,6 +86,7 @@
 <style>
   .container {
     text-align: center;
+    font-size: medium;
   }
 
   img {
@@ -102,8 +100,8 @@
 
   #buttons {
     position: absolute;
-    left: 35%;
-    top: 100%;
+    left: 40%;
+    top: 115%;
   }
 
   button {
@@ -128,24 +126,24 @@
   }
 
   #key {
-    width: 80%;
+    width: 50%;
     position: absolute;
-    left: 10%;
-    top: 110%;
+    left: 50%;
+    top: 1%;
   }
 
   .isCut {
-    border: 5px solid red;
+    border: 4px solid red;
   }
 
   .checkCut {
     background-color: black;
-    padding: 5px;
+    padding: 4px;
   }
 
   .unknown {
     background-color: gray;
-    padding: 5px;
+    padding: 4px;
   }
 </style>
 <script>
@@ -159,6 +157,9 @@
   let data = new Array(366 * 24);
   let checkdata = new Array(366 * 24);
 
+  function Click_Alert() {
+    alert("選擇方法後按確認 \n將埔里上空的空汙分佈當成一張張圖片，利用影片分鏡來觀察空汙的變化\n沒有標示的當成shot\n紅色框代表標示的cut，黑色框代表計算出的cut");
+  }
   function incut(id) {
     let thisPos = id;
     console.log(thisPos);
@@ -173,13 +174,13 @@
 
   function BackMore() {
     console.log("backMore");
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       Back();
     }
   }
   function FowardMore() {
     console.log("forwardMore");
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       Foward();
     }
   }
@@ -194,6 +195,9 @@
         if (date < 1) {
           month = month - 1;
           date = dateList[month - 1];
+          if (month <= 0) {
+            return;
+          }
         }
       }
     }
@@ -211,6 +215,9 @@
         if (date > dateList[month - 1]) {
           date = 1;
           month = month + 1;
+          if (month > 12) {
+            return;
+          }
         }
       }
     }
@@ -258,24 +265,24 @@
       html += "<td>";
       if (data[newpos] == 1) {
         if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="isCut checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" class="isCut checkCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 0) {
-          html += `<img id="${newpos}" class="isCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" class="isCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="isCut unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" class="isCut unknown" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       else {
         if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" class="unknown" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" class="checkCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else {
-          html += `<img id="${newpos}" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${newpos}`;
+          html += `<img id="${newpos}" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       html += "</td>";
@@ -289,8 +296,9 @@
     pic.innerHTML = html;
   }
   function change() {
-    document.getElementById("back").onclick = Back;
-    document.getElementById("foward").onclick = Foward;
+    // document.getElementById("back").onclick = Back;
+    // document.getElementById("foward").onclick = Foward;
+    document.getElementById("alert-btn").onclick = Click_Alert;
     document.getElementById("moreback").onclick = BackMore;
     document.getElementById("morefoward").onclick = FowardMore;
     document.getElementById("Fin").onclick = createCsvFile;
@@ -316,7 +324,7 @@
   // document.getElementById("upload-btn").onclick = upLoad;
   function upLoad() {
     console.log("files files ________");
-    let path = "./static/data/cut_shot/cutOrNot2.csv";
+    let path = "./static/data/cutOrNot2.csv";
     $.ajax({
       url: "readFile",
       type: "POST",
@@ -335,7 +343,7 @@
   function up() {
     upLoad()
     var file = document.getElementById("method").value;
-    let path = "./static/data/cut_shot/" + file + ".csv";
+    let path = "./static/data/" + file + ".csv";
     $.ajax({
       url: "readFile",
       type: "POST",

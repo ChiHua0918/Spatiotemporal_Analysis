@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/css/show.css">
-  <link rel="stylesheet" href="../static/css/navbar.css">
   <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
   <!--引入jQuery包用于使用ajax-->
   <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -16,6 +15,7 @@
 <body class="bg">
   <div id="container">
     {% include 'navbar.html' %}
+    {% include 'modal.html' %}
     <div class="text">
       <h2>{{title}}</h2>
       <a href="https://hackmd.io/@chi-hua/rykWwzByo">流程內容</a><br/>
@@ -66,21 +66,6 @@
       <!-- 返回按鈕 -->
       <button onclick="back()">返回分群代表圖</button>
     </div>
-    <!-- gif 空汙動畫 -->
-    <table id="gif">
-      <tr>
-        <td rowspan="10"><div id="modal" style="overflow: overflow-y"></div></td>
-      </tr>
-      <tr>
-        <td><input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20"></td>
-      </tr>
-      <tr>
-        <td><button id="speedBtn" onclick="gif()">開始製作gif</button></td>
-      </tr>
-      <tr>
-        <td><button id="modalBtn" onclick="hide()">停止播放</button></td>
-      </tr>
-    </table>
     <input type="button" id="return" value="回
     到
     頂

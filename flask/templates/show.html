@@ -15,6 +15,7 @@
 <body class="bg">
   <div id="container">
     {% include 'navbar.html' %}
+    {% include 'modal.html' %}
 
     <div class="text">
       <h2>GEI 分群觀察</h2>
@@ -68,21 +69,6 @@
       <!-- 返回按鈕 -->
       <button onclick="back()">返回分群代表圖</button>
     </div>
-    <!-- gif 空汙動畫 -->
-    <table id="gif">
-      <tr>
-        <td rowspan="10"><div id="modal" style="overflow: overflow-y"></div></td>
-      </tr>
-      <tr>
-        <td><input type="text" id="speed" name="speed" placeholder="預設速度 2.0" maxlength="3" size="20"></td>
-      </tr>
-      <tr>
-        <td><button id="speedBtn" onclick="gif()">開始製作gif</button></td>
-      </tr>
-      <tr>
-        <td><button id="modalBtn" onclick="hide()">停止播放</button></td>
-      </tr>
-    </table>
     <input type="button" id="return" value="回
     到
     頂

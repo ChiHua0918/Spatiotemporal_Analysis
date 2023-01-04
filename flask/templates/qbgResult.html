@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/qbgResult.css">
+
+  <title>QBG</title>
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+  {% include 'modal.html' %}
+  <!-- <h2>{{title}}</h2> -->
+  <!-- description of query -->
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-8 mt-5">
+        <div>
+          <p id="method" style="color: gray;">Ranking method: </p>
+        </div>
+        <!-- <h4 class="mb-3">{{ sourceDate }}</h4> -->
+        <div class="row">
+          <div class="col-md-12">
+            <form class="needs-validation" novalidate action="score" method="post">{% csrf_token %}
+              <label>time range : </label> {{ sourceID }}<br />
+            </form>
+            <div class="form-group row" id="contrastDiv">
+              <div class="col-sm-12">
+                <input type="checkbox" name="contrast" id="contrast" onchange="loadContrast()">
+                <label for="contrast"> Contrast Enhancement </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- image of query -->
+      <div id="userPic" class="col-md-4"></div>
+      <!-- show result images -->
+      <div class="row mt-3" id="matchPic"></div>
+      <!-- page bar -->
+      <div class="row" id="pageBar">
+        <ul class="pagination justify-content-center" id="page" style="margin: auto;">
+        </ul>
+        <div class="show"></div>
+      </div>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="/static/js/pagination.js"></script>
+  <script>
+    /* get search result from backend*/
+    // there are 100 search result
+    // let date_data = "{{ resultDate }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    // let hour_data = "{{ resultHour }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    // let image_data = "{{ resultImage }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    // let score_data = "{{ resultScore }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    // let rank_data = "{{ resultRank }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    // let sourceDataset = "{{ sourceDatase }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+    let GEIRankData = "{{ sourceDatase }}";
+    console.log(GEIRankData);
+
+
+    /* get__(): get information of each result by index*/
+    // index: from 0 to 100
+    // function getDate(index) {
+    //   // return date_data[index].substring(0, date_data[index].length - 10);
+    //   return date_data[index];
+    // }
+  //   function getScore(index) {
+  //     return score_data[index];
+  //   }
+  //   function getRank(index) {
+  //     return rank_data[index];
+  //   }
+  //   function getFileName(index) {
+  //     // there are 3 type of frame: level, origin and origin_contrast, 
+  //     // images showed by different type based on the dataset(level/origin) and contrast emhancement(true/false)
+  //     if (sourceDataset == "level") {
+  //       return "/static/sis/" + image_data[index];
+  //     } else {
+  //       if (document.getElementById('contrast').checked) {
+  //         return "/static/sis_origin_contrast/" + image_data[index];
+  //       } else {
+  //         return "/static/sis_origin/" + image_data[index];
+  //       }
+  //     }
+  //   }
+    // getUserPic(): show the frame of user's query
+    function getUserPic() {
+      // let sourceImage = `{{sourceDataset}}`;
+      path = "./static/image";
+      if (document.getElementById('contrast').checked) {
+          path += "/GEI_contrast";
+      }
+      else{
+        path += "/GEI";
+      }
+      path += `/{{sourceDataset}}`;
+      return path + `/{{ sourceImage }}`
+      // if (sourceDataset == "GEI_level") {
+      //   if (document.getElementById('contrast').checked) {
+      //     return "/static/GEI_contrast/GEI_level/" + sourceImage;
+      //   } else {
+      //     return "/static/image/GEI/GEI_level/" + sourceImage;
+      //   }
+      // } else {
+      //   if (document.getElementById('contrast').checked) {
+      //     return "/static/GEI_contrast/GEI_origin/" + sourceImage;
+      //   } else {
+      //     return "/static/image/GEI/GEI_origin/" + sourceImage;
+      //   }
+      // }
+    }
+
+  //   // findParams(): find parameters which will send to mask
+  //   // date: the date of result
+  //   // time: the time of result
+  //   function findParams(date, time) {
+  //     // current day
+  //     day = new Date(date);
+
+  //     // previous day
+  //     yesterday = new Date(date);
+  //     yesterday.setDate(yesterday.getDate() - 1);
+
+  //     // next day
+  //     tomorrow = new Date(date);
+  //     tomorrow.setDate(tomorrow.getDate() + 1);
+
+  //     hour = parseInt(time.split('-')[0]);
+
+  //     let year = day.getFullYear();
+  //     let startMonth = yesterday.getMonth() + 1;
+  //     let startDay = yesterday.getDate();
+  //     let startHour = 0;
+  //     let endMonth = tomorrow.getMonth() + 1;
+  //     let endDay = tomorrow.getDate();
+  //     let endHour = 23;
+
+  //     // return the params
+  //     return "year=" + year + "&startMonth=" + startMonth + "&startDay=" +
+  //       startDay + "&startHour=" + startHour +
+  //       "&endMonth=" + endMonth + "&endDay=" + endDay + "&endHour=" + endHour;
+  //   }
+
+    /* init page*/
+    // show image of the user's query
+    userPic = document.getElementById("userPic");
+    // userPic.innerHTML += `<img src=/static/sis/{{ sourceImage }}>`;
+    userPic.innerHTML += `<img src=${getUserPic()} id="sisUserPic">`;
+
+  //   // show the text of method by the query and 
+  //   // show/hide by the query dataset
+  //   let method = document.getElementById('method');
+  //   let contrastDiv = document.getElementById('contrastDiv');
+  //   if (sourceDataset == "level") {
+  //     method.innerHTML += "HD_A";
+  //     contrastDiv.style.display = "none";
+  //   } else {
+  //     method.innerHTML += "rasterScan_D";
+  //   }
+  // </script>
+  <script>
+    // place 100 results
+    // there are 5 pages, each page can show 24 results
+    let count = 0;
+
+    // insert 3 rows in 'matchPic' called 'containerPic'
+    let placeOfPic = document.getElementById("matchPic");
+    for (let index = 0; index < 3; index++) {
+      placeOfPic.innerHTML += `
+      <div class="containerPic"></div>
+      `;
+    }
+    // insert 8 grids in each 'containerPic' called 'card'
+    let placeOfCard = document.getElementsByClassName("containerPic");
+    for (let index = 0; index < placeOfCard.length; index++) {
+      for (let j = 0; j < 8; j++) {
+        placeOfCard[index].innerHTML += `
+          <div class="card"><div class="info"></div></div>
+        `;
+      }
+    }
+
+    // showPicture(): show information(image, decription and url) of results
+    // currentPage: current page, from 1 to 5
+    function showPicture(currentPage) {
+      console.log("currentPage", currentPage);
+      let elements = document.getElementsByClassName("card");
+      let elementsInfo = document.getElementsByClassName("info");
+      var num = 0;
+      // clear data of previous page (這裡可能有 bug)
+      // index: which number of card (24 totally)
+      if (count != 0) {
+        for (let index = 0; index < elements.length; index++) {
+          elements[index].innerHTML = "";
+        }
+      }
+
+      // show weather info
+      // Xst: which number of data (100 totally)
+      // index != Xst
+      for (let index = 0; index < elements.length; index++) {
+        Xst = num + (currentPage - 1) * 24
+        console.log("Xst: ", Xst, "index: ", index);
+        // there are 100 result total, so if Xst >= 100, then stop show weather info
+        if (Xst >= 100) {
+          break;
+        }
+
+        // weather info
+        elements[index].innerHTML = `<img src="${getFileName(Xst)}" id=${Xst} class="sis">
+        <p><strong>NO.${getRank(Xst)} / ${getScore(Xst).substring(0, 8)}</strong></p>
+        `;
+        // <p>${getDate(Xst)} ${getHour(Xst).substring(0, 2)}H</p>
+        num = num + 1;
+      }
+
+      // show link to mask (這裡有 bug 顯示不出來)
+      for (let index = 1; index <= elementsInfo.length; index++) {
+        var num = 0;
+        Xst = num + (currentPage - 1) * 24
+        if (Xst >= 100) {
+          break;
+        }
+
+        url = "http://pyyin-mask.im.ncnu.edu.tw/mask.html?" + findParams(getDate(index - 1), getHour(index - 1));
+        elementsInfo[index - 1].innerHTML += `
+        <button class="btn btn-light"><a href="${url}">View More</a></button>
+        <p> NO. ${index + (currentPage - 1) * 24}</p>
+        `;
+      }
+      $("li").addClass("page-item");
+      $("li").addClass("page-link");
+      count += 1;
+    }
+
+
+    // loadContrast(): change pictures between origin and origin_contrast
+    function loadContrast() {
+      userPic = document.getElementById("sisUserPic");
+      userPic.src = getUserPic();
+
+      let sisList = document.getElementsByClassName('sis');
+      for (let i = 0; i < sisList.length; i++) {
+        let sisID = sisList[i].id
+        document.getElementById(sisID).src = getFileName(sisID);
+      }
+    }
+
+
+    $('#page').pagination({
+      total: 100, // 总数据条数
+      current: 1, // 当前页码
+      length: 24, // 每页数据量
+      size: 3, // 显示按钮个数
+      prev: 'Prev ',
+      next: 'Next ',
+      /**
+      * [click description]
+      * @param  {[object]} options = {
+      *      current: options.current,
+      *      length: options.length,
+      *      total: options.total
+      *  }
+      * @param  {[object]} $target [description]
+      * @return {[type]}         [description]
+      */
+      click: function (options, $target) { // 点击按钮事件
+        console.log(options);
+        if (options.current == 1) {
+          showPicture(1);
+        } else {
+          showPicture(options.current);
+        }
+        // $target.next(".show").text('Current Page：Page '+options.current);
+      }
+    });
+    showPicture(1);
+  </script>
+</body>
+
+</html>

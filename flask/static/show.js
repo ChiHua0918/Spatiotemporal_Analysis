@@ -60,6 +60,7 @@ function contrast(){
         let id = boardGEI[i].split('.')[1];
         let imgName = boardGEI[i];
         img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        $("#qbeBtn").click(openQBE(id));
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -91,6 +92,8 @@ function clickCluster() {
         // 更改 filter 大小
         document.getElementById('filterSize').getElementsByTagName('option')[2].selected = 'selected';
         filterSize = 3;
+        // filter size 改為 3*3
+        $("#filterSize option[value='3']").attr("selected", true); 
     }
     picture = "";
     alert("圖片製作中，請稍等");
@@ -162,6 +165,8 @@ function everyGEI(k) {
             let imgName = GEIName[i]+".png";
             console.log("cluterID:",id)
             html += `<td><img src="./static/image/GEI/${memory}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            // 點擊 QBG 按鈕到搜尋 QBGResult 畫面
+            $("#qbeBtn").click(openQBE(id));
             // 換行
             if (n % 5 == 4) {
                 html += "</tr><tr>";
@@ -177,7 +182,8 @@ function everyGEI(k) {
 // 點擊顯示gif(原始連續 PM2.5 彩色空汙圖)
 function ShowModal(id) {
     show();
-    modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="${(window.innerWidth/4)}px"><br/>${id}.gif`;
+    modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="${(window.innerWidth/4)}px">`;
+    $("#gifName").text(`${id}`);
     // 讓上一個的邊框消失
     if (picture.length != 0) {
         var chooseImg = document.getElementById(picture);
