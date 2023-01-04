@@ -68,7 +68,7 @@
   <button id="up-btn">確認</button>
   <button id="alert-btn">說明</button>
   <!--<input type="text" name="user" id="user">-->
-  <img id="key" src="../static/sis/image_level.png" alt="">
+  <img id="key" src="../static/image/sis/image_level.png" alt="">
   <div class="container">
     <table id="frame"></table>
   </div>
@@ -265,24 +265,24 @@
       html += "<td>";
       if (data[newpos] == 1) {
         if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="isCut checkCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 0) {
-          html += `<img id="${newpos}" class="isCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="isCut unknown" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       else {
         if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="unknown" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="checkCut" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else {
-          html += `<img id="${newpos}" src="../static/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       html += "</td>";
@@ -343,7 +343,7 @@
   function up() {
     upLoad()
     var file = document.getElementById("method").value;
-    let path = "./static/data/" + file + ".csv";
+    let path = "./static/data/cut_shot/" + file + ".csv";
     $.ajax({
       url: "readFile",
       type: "POST",
