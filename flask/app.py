@@ -24,7 +24,7 @@ def qbgResult():
         selectName = request.form.get("selectName")
         GEIfolder = request.form.get("GEIfolder")
     else:
-        selectName = "NO.1"
+        selectName = "NO.0"
         GEIfolder = "GEI_origin"
     
     print("selectName:",selectName)
