@@ -15,7 +15,7 @@ function ShowModal(id) {
     let number = "NO."+id;
     $("#gifName").text(number);
     $("#selectName").val(number);
-    $("#GEIfolder").val(memory);
+    $("#GEIfolder").val(sourceDataset);
 
     // modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="${(window.innerWidth/4)}px">`;
     // 讓上一個的邊框消失

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory,url_for,redirect
+from flask import Flask, render_template, request, send_from_directory
 import os
 import csv
 import imageio
@@ -18,11 +18,15 @@ def bbg():
 @app.route("/bbc")
 def bbc():
     return render_template("bbc.html",title="Browse By Cluster")
-@app.route("/qbgResult",methods = ["POST"])
+@app.route("/qbgResult",methods = ["GET","POST"])
 def qbgResult():
-    # selectName = request.args.get("selectName") # NO.1
-    selectName = request.form.get("selectName") # NO.1
-    GEIfolder = request.form.get("GEIfolder")
+    if request.method == 'POST':
+        selectName = request.form.get("selectName")
+        GEIfolder = request.form.get("GEIfolder")
+    else:
+        selectName = "NO.1"
+        GEIfolder = "GEI_origin"
+    
     print("selectName:",selectName)
     print("GEIfolder:",GEIfolder)
     rankResult = directQBG(selectName,GEIfolder)
@@ -70,7 +74,7 @@ def GEINum():
 @app.route("/cluster",methods = ["GET"])
 def cluster():
     # 從前端拿到的資料
-    memory = request.args.get("memory")
+    memory = request.args.get("sourceDataset")
     clusterFile = request.args.get("clusterFile")
     filterSize = request.args.get("filterSize")
     print(f"memory:{memory} clusterFile:{clusterFile} filterSize:{filterSize}")

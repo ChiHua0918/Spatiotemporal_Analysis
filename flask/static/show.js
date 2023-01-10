@@ -18,7 +18,7 @@ var boardGEI = [];
 //存取上一個版面
 var tmp;
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
-var memory = "";
+var sourceDataset = "";
 async function getGEINum() {
     $.ajax({
         url: "GEINum", 
@@ -35,7 +35,7 @@ async function getGEINum() {
 function GEI() {
     folder = document.getElementById('data').value;
     subtitle.innerHTML = folder;
-    memory = folder;
+    sourceDataset = folder;
     showPicture.innerHTML = "";
     changeColor("dataButton","none")
 }
@@ -52,11 +52,11 @@ function contrast(){
     picture = "";
     let img = "<tr>";
     console.log("contrast boardGEI",boardGEI);
-    console.log("now folder is",memory);
+    console.log("now folder is",sourceDataset);
     for (var i = 0; i < boardGEI.length; i++) {
         let id = boardGEI[i].split('.')[1];
         let imgName = boardGEI[i];
-        img += `<td><img src='./static/image/GEI_contrast/${memory}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI_contrast/${sourceDataset}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -94,11 +94,11 @@ function clickCluster() {
     picture = "";
     alert("圖片製作中，請稍等");
     // 紀錄目前的模式是 等級 or 空間
-    clusterGEI(memory,clusterFile,filterSize);
+    clusterGEI(sourceDataset,clusterFile,filterSize);
     changeColor('clustering','0');
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
-function clusterGEI(memory,clusterFile,filterSize) {
+function clusterGEI(sourceDataset,clusterFile,filterSize) {
     var maxCluster;
     // user 沒有選擇檔案
     if (clusterFile.length == 0){
@@ -108,7 +108,7 @@ function clusterGEI(memory,clusterFile,filterSize) {
     $.ajax({
         url: 'cluster',
         type: "GET",
-        data: {"memory":memory,"clusterFile":clusterFile,"filterSize":filterSize},
+        data: {"sourceDataset":sourceDataset,"clusterFile":clusterFile,"filterSize":filterSize},
         async: true,
         /*result為后端函式回傳的json*/
         success: function (result) {
@@ -160,7 +160,7 @@ function everyGEI(k) {
             let id = GEIName[i].slice(3, GEIName[i].length);
             let imgName = GEIName[i]+".png";
             console.log("cluterID:",id)
-            html += `<td><img src="./static/image/GEI/${memory}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            html += `<td><img src="./static/image/GEI/${sourceDataset}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
             // 換行
             if (n % 5 == 4) {
                 html += "</tr><tr>";
