@@ -1,0 +1,39 @@
+/* contain gif, speed button... */
+#gif{
+    z-index: 3;
+    position: fixed;
+    display: none;
+    left:calc(100%/3);
+    /* margin-right:auto; */
+    top: calc(100%/4);
+    /* vertical-align: middle; */
+    text-align: center;
+}
+/* PM2.5彩色圖 */
+#modal {
+    overflow: auto;
+    overscroll-behavior-y: contain;
+}
+
+/* 顯示分群圖示 */
+#modalCluster {
+    width: 90%;
+    background-color: none;
+    position: fixed;
+    display: none;
+}
+
+#modalBtnReturn {
+    position: fixed;
+    margin-top: 100px;
+    margin-left: 300px;
+    display: none;
+}
+
+#gifName{
+    background-color: white;
+    color:black;
+    width: 100px;
+    border-radius: 50px 10px 50px 10px;
+    display: inline-block;
+}

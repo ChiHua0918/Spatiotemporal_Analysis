@@ -1,3 +1,4 @@
+/* All html files will import this css file */
 .bg {
     /* background-color:rgb(199, 164, 235); */
     background-color: #FDF6EC;
@@ -34,87 +35,12 @@
     align-items:center;
     margin:auto;
 }
-/* contain gif, speed button... */
-#gif{
-    z-index: 3;
-    position: fixed;
-    display: none;
-    left:calc(100%/3);
-    /* margin-right:auto; */
-    top: calc(100%/4);
-    /* vertical-align: middle; */
-    text-align: center;
-}
-/* PM2.5彩色圖 */
-#modal {
-    overflow: auto;
-    overscroll-behavior-y: contain;
-    /* z-index: 2; */
-}
 
-/* 顯示分群圖示 */
-#modalCluster {
-    width: 90%;
-    background-color: none;
-    position: fixed;
-    display: none;
-}
-
-#modalBtnReturn {
-    position: fixed;
-    margin-top: 100px;
-    margin-left: 300px;
-    display: none;
-}
-
-/* img {
-    border: 2px solid white;
-    border-color: white;
-} */
 #simpleFlow{
     border: 0px solid white;
 }
-p{
-    font-size: 16px;
-    /* line-height: 8px; */
-}
-li{
-    text-align:justify;
-}
-button:active {
-    transition-duration: 0.2s;
-}
-button:hover {
-    transform: scale(1.2);
-}
-button {
-    /*外框*/
-    border-radius: 5px;
-    border-color: #CEAB93;
-    /* 字 */
-    font-size: 20px;
-    color: #876445;
-    text-decoration: none;
-    /* border-color: rgb(175, 89, 255); */
-    /* color: rgb(32, 59, 133);        字的顏色 */
-    /* color: rgb(75, 52, 82); */
-    padding: 6px;
-    background-color: #F3E9DD;
-    display: inline;
-}
-select{
-    display: inline;
-    /*外框*/
-    border-radius: 10px;
-    border-color: #CEAB93;
-    /* 字 */
-    font-size: 20px;
-    color: #876445;
-    text-decoration: none;
-    margin: 5px;
-    padding: 10px;
-    background-color: #F3E9DD;
-}
+
+
 /* 回到頂端 */
 #return{
     position:fixed;
@@ -132,9 +58,7 @@ select{
     text-decoration: none;
     background-color: #F3E9DD;
 }
-input{
-    line-height: 30px;
-}
+
 /* Add Animation */
 /* .modal-content, #caption {  
     -webkit-animation-name: zoom;
@@ -155,11 +79,4 @@ input{
     float: left;
     margin-right: 0.3em;
     /* filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(306deg) brightness(106%) contrast(101%); */
-}
-#gifName{
-    background-color: white;
-    color:black;
-    width: 100px;
-    border-radius: 50px 10px 50px 10px;
-    display: inline-block;
 }

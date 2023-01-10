@@ -21,8 +21,19 @@ html {
   float: left;
   /* margin: 0.5ch; */
 }
+.my-page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+}
 
-img {
+.my-page-link a:hover {
+  color: rgb(255, 136, 0);
+  text-decoration: underline;
+}
+#sisUserPic{
   display: block;
   width: 100%;
   height: auto;

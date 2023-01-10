@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/css/show.css">
+  <link rel="stylesheet" href="../static/css/main.css">
   <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
   <!--引入jQuery包用于使用ajax-->
   <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -79,5 +80,17 @@
   <script src="../static/show.js"></script>
   <script src="../static/bbc.js"></script>
 </body>
-
+<script>
+  // BBG 一開始 load GEI_origin 圖片
+  $( document ).ready(function() {
+      getGEINum().then(setTimeout(GEI(),0)).then(clickCluster());
+  });
+  function GEI() {
+      folder = document.getElementById('data').value;
+      subtitle.innerHTML = folder;
+      memory = folder;
+      showPicture.innerHTML = "";
+      changeColor("dataButton","none")
+  }
+</script>
 </html>

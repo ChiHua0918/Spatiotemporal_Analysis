@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/css/show.css">
+  <link rel="stylesheet" href="../static/css/main.css">
   <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/show.css') }}"> -->
   <!--引入jQuery包用于使用ajax-->
   <title>GEI</title>
@@ -53,5 +54,32 @@
   <script src="../static/show.js"></script>
   <script src="../static/bbg.js"></script>
 </body>
-
+<script>
+  // BBG 一開始 load GEI_origin 圖片
+  $( document ).ready(function() {
+      getGEINum().then(setTimeout(GEI(),0));
+  });
+  // 顯示GEI
+  function GEI() {
+      folder = document.getElementById('data').value;
+      console.log(folder);
+      subtitle.innerHTML = folder;
+      let img = "<tr>";
+      for (var i = 0; i < GEINum; i++) {
+          imgName = "NO." + i + ".png";
+          img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+          $("#qbeBtn").click(function(){openQBE(i)});
+          // 換行
+          if (i % 5 == 4) {
+              img += "</tr><tr>";
+          }
+          boardGEI.push(imgName);
+      }
+      console.log(boardGEI);
+      console.log(GEINum);
+      showPicture.innerHTML = img;
+      memory = folder;
+      changeColor("dataButton","none");
+  }
+</script>
 </html>

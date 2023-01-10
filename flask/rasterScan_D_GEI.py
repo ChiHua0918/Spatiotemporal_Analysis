@@ -21,7 +21,7 @@ def Combine(Data, PicData) :
     return newdata
 
 def takeDataTime(data) :
-    print("data length check", len(data))
+    # print("data length check", len(data))
     newdata = []
     for i in range(1,len(data)) :
         newdata.append(data[i][0])
@@ -39,8 +39,8 @@ def turnScore(data) :
 def ranking(ans, dataSelect) :
     newdata = []
     # 先合併成一個 list
-    print("ans big big", len(ans))
-    print("dataSelect", len(dataSelect))
+    # print("ans big big", len(ans))
+    # print("dataSelect", len(dataSelect))
     for i in range(len(ans)) :
         newdata.append([ans[i], dataSelect[i]])
 
@@ -50,7 +50,7 @@ def ranking(ans, dataSelect) :
     finaldata = []
     for i in range(len(newdata)-1, len(newdata)-101, -1) :
         finaldata.append(newdata[i])
-    print(len(finaldata))
+    # print(len(finaldata))
     rank = 1
     backdataScore = finaldata[0][0]
     # manySame = 0
@@ -187,8 +187,8 @@ def main(argv) :
     ans = []
 
     ans = RasterScan(data, PicData)
-    print("ans", ans)
-    print("orignal", len(data))
+    # print("ans", ans)
+    # print("orignal", len(data))
 
     DataTime = takeDataTime(data)
     # print("get in change ans")
@@ -196,9 +196,10 @@ def main(argv) :
 
     # 排名
     result = ranking(ans, DataTime)
+    # print(len(result))
     # print(result)
     for time in result:
-        print(time)
+        print(*time)
 
 if __name__ == '__main__' :
     main(sys.argv[1:])

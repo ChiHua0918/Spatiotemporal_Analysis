@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory,url_for,redirect
 import os
 import csv
 import imageio
@@ -18,9 +18,21 @@ def bbg():
 @app.route("/bbc")
 def bbc():
     return render_template("bbc.html",title="Browse By Cluster")
-# @app.route("/qbgResult")
-# def qbgResult():
-#     return render_template("qbgResult.html",title="Query by GEI")
+@app.route("/qbgResult",methods = ["POST"])
+def qbgResult():
+    # selectName = request.args.get("selectName") # NO.1
+    selectName = request.form.get("selectName") # NO.1
+    GEIfolder = request.form.get("GEIfolder")
+    print("selectName:",selectName)
+    print("GEIfolder:",GEIfolder)
+    rankResult = directQBG(selectName,GEIfolder)
+    # GEIRankData = rankResult[1:]
+    GEIRankData = dict()
+    for i in range(len(rankResult[1:])):
+        GEIRankData[i] = rankResult[i+1].replace(",","").replace("'","").split()
+    return render_template("qbgResult.html",sourceImageName = selectName+".png",\
+                                            sourceDataset = GEIfolder,\
+                                            GEIRankData = GEIRankData)
 # =========== 婷誼的部份 =============
 @app.route("/shot")
 def home():
@@ -37,33 +49,22 @@ def readFile():
             cut_shot.append(int(row[0]))
     return {"data":cut_shot}
 # 計算 GEI 的排名
-@app.route("/qbgResult",methods = ["GET"])
-def qbgResult():
-    selectName = request.args.get("selectName") # NO.1
-    GEIfolder = request.args.get("GEIfolder")
+# @app.route("/directQBG",methods = ["GET"])
+def directQBG(selectName,GEIfolder):
     command = "python3 rasterScan_D_GEI.py " + selectName
+    print(GEIfolder)
     print(command)
-    return render_template("test.html")
     # 建立 process，將執行結果用 readlines 讀取
-    sourceDatase = os.popen(command).readlines()
-    print("=========== rank & score =============")
-    print(sourceDatase)
-    # scoreData = []
-    # rank = []
-    # allName = []
-    # for i in sourceDatase:
-        
-    return render_template("qbgResult.html",sourceDatase = sourceDatase,\
-                                            sourceDataset = GEIfolder,\
-                                            sourceImage = selectName\
-                                            )
+    rankResult = os.popen(command).readlines()
+    return rankResult
 # ================================
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
 def GEINum():
     path = "./static/image/GEI/GEI_origin"
     GEIName = os.listdir(path)
-    return {"num":len(GEIName)}
+    # return {"num":len(GEIName)}
+    return {"num":2}
 
 # 讀取csv獲取每一張 GEI 所屬的群
 @app.route("/cluster",methods = ["GET"])
