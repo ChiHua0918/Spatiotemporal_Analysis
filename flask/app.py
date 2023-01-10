@@ -67,8 +67,8 @@ def directQBG(selectName,GEIfolder):
 def GEINum():
     path = "./static/image/GEI/GEI_origin"
     GEIName = os.listdir(path)
-    # return {"num":len(GEIName)}
-    return {"num":2}
+    return {"num":len(GEIName)}
+    # return {"num":2}
 
 # 讀取csv獲取每一張 GEI 所屬的群
 @app.route("/cluster",methods = ["GET"])
