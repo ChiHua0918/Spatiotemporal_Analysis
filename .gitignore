@@ -46,3 +46,4 @@ cnn/data
 draw_origin
 flask/make_clusterUI/__pycache__
 flask/static/image/sis
+sis_old
