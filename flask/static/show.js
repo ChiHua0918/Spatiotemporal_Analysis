@@ -3,8 +3,7 @@ var showPicture = document.getElementById("frame");
 
 // 副標題
 var subtitle = document.getElementById('subtitle');
-// 紀錄目前選取的照片
-var picture = "";
+
 // GEI也多少照片
 var GEINum;
 //所有原始圖片的檔名(.png)

@@ -1,3 +1,5 @@
+// 紀錄目前選取的照片
+var picture = "";
 // setPos();
 // gif modal 位置設定
 var gifModal = document.getElementById('gif');
@@ -42,11 +44,14 @@ function gif(){
     $.ajax({
         url: "gif", /*資料提交到submit處*/
         type: "GET",  /*用GET方法提交*/
+        // async: false,
         data: {"id":picture,"speed":speed},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
         /*result為后端函式回傳的json*/
         success: function (result) {
             console.log(result);
-            modal.innerHTML = `<img src="${result.gif}" width="${(window.innerWidth)/4}px">`;
+            $("#modal").attr("src",result.gif);
+            // modal.innerHTML = `<img src="${result.gif}" width="${(window.innerWidth)/4}px">`;
+            console.log(modal.innerHTML);
         }
     });
 }

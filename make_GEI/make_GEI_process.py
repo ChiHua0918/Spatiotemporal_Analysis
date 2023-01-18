@@ -17,7 +17,7 @@ def cut():
 
 # GEI 製作流程
 def GEI():
-    cutFile = "cut.csv"
+    cutFile = input("cut file = ") #"cut.csv"
     sourceData = ["2018micro.csv","2018level.csv"]
     outputData = data
     # 數據疊成GEI
@@ -52,7 +52,7 @@ def microToLevel():
 def main():
     global data
     data = ["GEI_origin.csv","GEI_level.csv"]
-    cut()
+    # cut()
     # 資料 --- 1. 原始數據 2. 等級數據
     # microToLevel()
     GEI()
