@@ -56,6 +56,6 @@ def main():
     # 資料 --- 1. 原始數據 2. 等級數據
     # microToLevel()
     GEI()
-    GEIcluster()
+    # GEIcluster()
 if __name__ == '__main__':
     main()

@@ -45,7 +45,7 @@ def drawColor(GEI,folder):
     name = name.replace("/","-")
     name = name.replace(":","-")
     name = name.replace(" ","-")
-    data = GEI[1:] #data
+    data = GEI[3:] #data
     tmp = data
     for j in range(len(tmp)):
         if tmp[j] > 255:
@@ -76,11 +76,9 @@ def main(argv):
     readData = []
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows)
         for row in rows :
-            try:
-                readData.append([row[0]]+list(map(float,row[1:])))
-            except:
-                pass
+            readData.append(row[:3]+list(map(float,row[3:])))
     index = inputData.find('.csv')
     folder = inputData[:index]
     # folder = "PM2.5數據灰階圖"

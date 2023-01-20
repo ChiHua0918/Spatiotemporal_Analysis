@@ -29,7 +29,6 @@ def main(argv):
     data = covertToLevel(readData)
     with open("2018level.csv", 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["time","data"])
         writer.writerows(data)
     print("======= covertToLevel.py 完成 =======")
 if __name__ == "__main__":
