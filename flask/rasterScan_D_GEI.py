@@ -12,8 +12,8 @@ def Combine(Data, PicData) :
     newdata = []
     for r in range(len(Data)-1) :
         allcount = 0
-        for i in range(1,len(Data[r])) :
-            count = Data[r][i] - PicData[i-1]
+        for i in range(3,len(Data[r])) :
+            count = Data[r][i] - PicData[i-3]
             if count < 0 :
                 count = count * -1
             allcount = allcount + count
@@ -36,13 +36,13 @@ def turnScore(data) :
     # print(data)
     return data
 
-def ranking(ans, dataSelect) :
+def ranking(ans, dataSelect,sourceData):
     newdata = []
     # 先合併成一個 list
     # print("ans big big", len(ans))
     # print("dataSelect", len(dataSelect))
     for i in range(len(ans)) :
-        newdata.append([ans[i], dataSelect[i]])
+        newdata.append([ans[i], dataSelect[i],sourceData[i+1][1],sourceData[i+1][2]])
 
     # 拿 list 中的第 0 項排列
     newdata = sorted(newdata)#, key=itemgetter(0)
@@ -72,10 +72,10 @@ def takepm25(data, MainData) :
     for i in range(len(data)) :
         # print(data[i][0])
         if (data[i][0] == MainData) :
-            need = data[i][1:]
+            need = data[i][3:]
             # break
             # print("MainData", data[i][1:])
-            return data[i][1:]
+            return data[i][3:]
 
         # print("MainData", data[i][1:])
     return need
@@ -123,7 +123,7 @@ def backtoData(data) :
 
 def changeType(data) :
     for i in range(1, len(data)) :
-        for v in range(1, len(data[i])) :
+        for v in range(3, len(data[i])) :
             data[i][v] = int(data[i][v])
 def changeTypeOne(data) :
     for i in range(len(data)) :
@@ -182,7 +182,7 @@ def main(argv) :
     PicData = takepm25(data, MainData)
     changeType(data)
     changeTypeOne(PicData)
-    print("PicData PicData", PicData)
+    # print("PicData PicData", PicData)
 
     ans = []
 
@@ -193,9 +193,8 @@ def main(argv) :
     DataTime = takeDataTime(data)
     # print("get in change ans")
     ans = turnScore(ans)
-
     # 排名
-    result = ranking(ans, DataTime)
+    result = ranking(ans, DataTime,data)
     # print(len(result))
     # print(result)
     for time in result:

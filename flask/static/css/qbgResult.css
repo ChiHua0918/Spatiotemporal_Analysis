@@ -8,7 +8,7 @@ html {
 
 .containerPic {
   text-align: center;
-  width: 95%;
+  width: 100%;
   margin: 0px auto;
 }
 .containerPage{
@@ -92,4 +92,7 @@ button a {
 
 #contrastDiv {
   margin-top: 1em;
+}
+#timeRange{
+  font-size: small;
 }

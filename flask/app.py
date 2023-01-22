@@ -26,17 +26,21 @@ def qbgResult():
     else:
         selectName = "NO.0"
         GEIfolder = "GEI_origin"
-    
     print("selectName:",selectName)
     print("GEIfolder:",GEIfolder)
     rankResult = directQBG(selectName,GEIfolder)
+    # 排名結果的第一名一定是使用者選擇的 GEI
     # GEIRankData = rankResult[1:]
     GEIRankData = dict()
-    for i in range(len(rankResult[1:])):
-        GEIRankData[i] = rankResult[i+1].replace(",","").replace("'","").split()
+    for i in range(len(rankResult)):
+        GEIRankData[i] = rankResult[i].replace(",","").replace("'","").replace(":00","H").split()
+    start = GEIRankData[0][2]+" "+GEIRankData[0][3]
+    end = GEIRankData[0][4]+" "+GEIRankData[0][5]
     return render_template("qbgResult.html",sourceImageName = selectName+".png",\
                                             sourceDataset = GEIfolder,\
-                                            GEIRankData = GEIRankData)
+                                            GEIRankData = GEIRankData,\
+                                            start = start,\
+                                            end = end)
 # =========== 婷誼的部份 =============
 @app.route("/shot")
 def home():
@@ -49,6 +53,7 @@ def readFile():
     cut_shot = [] # 0: shot, 1:cut
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows)
         for row in rows :
             cut_shot.append(int(row[0]))
     return {"data":cut_shot}
@@ -107,11 +112,9 @@ def clusterUI(cluster,memory):
     readData = []
     with open(f"./static/data/GEI_regular/{memory}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows) # 跳過標題
         for row in rows :
-            try:
-                readData.append(list(map(float,row[1:])))
-            except:
-                pass
+            readData.append(list(map(float,row[3:])))
     # print("cluster length",len(cluster))
     # print("readData length",len(readData))
     clusterData = []

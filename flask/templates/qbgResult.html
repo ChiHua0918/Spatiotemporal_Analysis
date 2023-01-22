@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="../static/css/qbgResult.css">
   <link rel="stylesheet" href="../static/css/main.css">
   <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="../static/qbgResult.js"></script>
   <script src="../static/pagination.js"></script>
 
   <title>QBG</title>
@@ -41,12 +40,16 @@
               </div>
             </div>
           </div>
+          <div class="col-md-12 flexDisplay">
+            start : {{start}} <br/>
+            end: {{end}}
+          </div>
         </div>
       </div>
       <!-- image of query -->
       <div id="userPic" class="col-md-4"></div>
       <!-- show result images -->
-      <div class="row mt-3" id="matchPic"></div>
+      <div class="row mt-5" id="matchPic"></div>
       <!-- page bar -->
       <div class="row" id="pageBar">
         <ul class="pagination justify-content-center" id="page" style="margin: auto;">
@@ -63,13 +66,7 @@
     var sourceImageName = "{{sourceImageName}}";
     // var sourceDataset = "{{ sourceDataset }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
     var sourceDataset = "{{sourceDataset}}";
-    let sourceRank = "{{GEIRankData}}"
     var GEIRankData = JSON.parse('{{GEIRankData|tojson}}');
-    // var GEIRankData = "{{GEIRankData}}";
-    console.log("GEIRankData",GEIRankData[1][1]);
-    console.log("sourceDataset",sourceDataset);
-    console.log("sourceImageName",sourceImageName);
-
     /* get__(): get information of each result by index*/
     // index: from 0 to 100
     function getFileName(index) {
@@ -169,7 +166,10 @@
 
         // GEI info
         elements[index].innerHTML = `<img src="${getFileName(Xst)}" id=${Xst} class="sis"  onClick = "ShowModal(${GEIRankData[Xst][1].substring(3,GEIRankData[Xst][1].length)})">
-        <p><strong> ${GEIRankData[Xst][2]} <br/>  ${GEIRankData[Xst][0].substring(0, 8).padEnd(8,'0')} <br/></strong>  ${GEIRankData[Xst][1]}.png </p>
+        <p><strong>          NO.${GEIRankData[Xst][6]} / ${GEIRankData[Xst][0].substring(0, 8).padEnd(8,'0')} </strong> <br/></p>
+        <p id = "timeRange"> start ${GEIRankData[Xst][2]} ${GEIRankData[Xst][3]}<br/>
+                             end   ${GEIRankData[Xst][4]} ${GEIRankData[Xst][5]}<br/>
+                             ${GEIRankData[Xst][1]}.png</p>
         `;
         // <p>${getDate(Xst)} ${getHour(Xst).substring(0, 2)}H</p>
         num = num + 1;
