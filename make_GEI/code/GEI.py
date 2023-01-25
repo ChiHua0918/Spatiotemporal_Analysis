@@ -7,7 +7,7 @@ def GEI(data,cut_shot):
     if len(data) != len(cut_shot):
         print("error! Check the source file.")
     n = 0 # 目前疊加幾張
-    puliMapLength = len(data[0])-1 # length of data in puli map
+    puliMapLength = len(data[0])-3 # length of data in puli map
     energy = [0 for i in range(puliMapLength)]
     number = 0 # 第幾張 GEI
     GEIData = []
@@ -48,9 +48,12 @@ def main(source,cutFile,output):
     # cut
     inputFile = cutFile
     cut_shot = readCSV(cutFile)
+    print(data)
+    print(cut_shot)
+    return
     # 疊加 GEI
     GEIData = GEI(data,cut_shot)
-    outputFile = "./data/GEI_data/"+output
+    outputFile = f"./data/GEI_data/{cutFile[:cutFile.find('.csv')]}/{output}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["number","start","end","data"])

@@ -30,30 +30,29 @@ def k_means(data):
     # draw(k,scores)
     return cluster
 
-def main(argv):
+def main(argv,cutFile):
+    cutType = cutFile[:cutFile.find(".csv")]
     # 數據
     inputData = argv
-    path =  "./data/countLevelNum/"+inputData
+    path =  f"./data/countLevelNum/{cutType}/{inputData}"
     readData = []
     name = []
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows) # 跳過標題
         for row in rows :
-            try:
-                readData.append(list(map(float,row[1:])))
-                name.append(row[0])
-            except:
-                pass
+            readData.append(list(map(float,row[1:])))
+            name.append(row[0])
     cluster = k_means(readData)
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
     # outputData = inputData.split("_countNum")[0]+"_cluster.csv"
-    outputFile = "./data/clustering/"+ inputData
+    outputFile = f"./data/clustering/{cutType}/{inputData}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["time","cluster","LevelNum"])
         writer.writerows(readData)
     print("======= 分群完成 =======")
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])

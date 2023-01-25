@@ -39,7 +39,7 @@ def segment(data):
     # else:
     #     return 'brown'
 
-def drawColor(GEI,folder):
+def drawColor(GEI,cutType,folder):
     ax = plt.subplot(111)
     name = GEI[0] #name
     name = name.replace("/","-")
@@ -65,14 +65,15 @@ def drawColor(GEI,folder):
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
     # plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
-    plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
+    plt.savefig(f"./picture/{cutType}/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
 
-def main(argv):
+def main(argv,cutFile):
     inputData = argv
-    path =  "./data/GEI_regular/"+inputData
+    cutType = cutFile[:cutFile.find(".csv")]
+    path = f"./data/GEI_regular/{cutType}/{inputData}"
     readData = []
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
@@ -83,7 +84,7 @@ def main(argv):
     folder = inputData[:index]
     # folder = "PM2.5數據灰階圖"
     for GEI in readData:
-        print(drawColor(GEI,folder))
+        print(drawColor(GEI,cutType,folder))
     print("======= userDataPic.py 完成 =======")
 if __name__ == '__main__':
     main(sys.argv[1])
