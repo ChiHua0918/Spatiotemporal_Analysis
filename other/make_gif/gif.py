@@ -52,7 +52,7 @@ def main(folder,file,sourceCut):
         makeGif(folder,id,2)
 if __name__ == "__main__":
     # gif 存放在哪一個資料夾
-    folder = "KMeans"
     file = "GEI_origin"
-    sourceCut = "cut.csv"
+    sourceCut = "KMeans.csv"
+    folder = sourceCut[:sourceCut.find(".csv")]
     main(folder,file,sourceCut)
