@@ -29,8 +29,8 @@ def GEI(cutFile):
         os.system(f"python3 ./code/regular.py {file} {cutFile}")
     # 劃出GEI圖
     for file in outputData:
-        print(f"python3 ./code/userDataPic.py {file}")
-        os.system(f"python3 ./code/userDataPic.py {file}")
+        print(f"python3 ./code/userDataPic.py {file} {cutFile}")
+        os.system(f"python3 ./code/userDataPic.py {file} {cutFile}")
 # GEI 分群
 def GEIcluster(cutFile):
     # begin: 2018micro.csv 數據分群（目的為切 cut & shot） regular: 已正規化的數據
@@ -41,8 +41,8 @@ def GEIcluster(cutFile):
         os.system(f"python3 ./code/countLevelNum.py {file} {cutFile} {form}")
     # data = ["GEI_origin_regular_countNum.csv","GEI_Level_regular_countNum.csv"]
     for file in data:
-        print(f"python3 ./code/cluster.py {file}")
-        os.system(f"python3 ./code/cluster.py {file}")
+        print(f"python3 ./code/cluster.py {file} {cutFile}")
+        os.system(f"python3 ./code/cluster.py {file} {cutFile}")
 
 # 將原始 PM2.5 數據轉為等級
 def microToLevel():

@@ -87,5 +87,5 @@ def main(argv,cutFile):
         print(drawColor(GEI,cutType,folder))
     print("======= userDataPic.py 完成 =======")
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])
     # main("../2018micro.csv")

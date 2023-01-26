@@ -34,7 +34,7 @@ def main(argv,cutFile,form):
     if form == "begin": # 2018micro.csv
         path = "./"+inputData
     elif form == "regular": # 已正規化數據
-        path = f"./data/GEI_regular/{cutTpe}/{inputData}"
+        path = f"./data/GEI_regular/{cutType}/{inputData}"
 
     readData = []
     with open(path, newline= '') as csvfile :
@@ -50,7 +50,7 @@ def main(argv,cutFile,form):
     outputFile = f"./data/countLevelNum/{cutType}/{inputData}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
-        writer.writerow(["time","data"])
+        writer.writerow(["name","data"])
         writer.writerows(HisData)
     print("======= countLevelNum.py 完成 =======")
 

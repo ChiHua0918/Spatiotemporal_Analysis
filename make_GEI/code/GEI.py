@@ -48,9 +48,6 @@ def main(source,cutFile,output):
     # cut
     inputFile = cutFile
     cut_shot = readCSV(cutFile)
-    print(data)
-    print(cut_shot)
-    return
     # 疊加 GEI
     GEIData = GEI(data,cut_shot)
     outputFile = f"./data/GEI_data/{cutFile[:cutFile.find('.csv')]}/{output}"
