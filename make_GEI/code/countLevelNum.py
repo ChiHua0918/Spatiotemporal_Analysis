@@ -34,7 +34,8 @@ def main(argv,cutFile,form):
     if form == "begin": # 2018micro.csv
         path = "./"+inputData
     elif form == "regular": # 已正規化數據
-        path = f"./data/GEI_regular/{cutType}/{inputData}"
+        path = f"../make_GEI/data/GEI_regular/{cutType}/{inputData}"
+        # path = f"../make_GEI/data/GEI_regular/{cutType}/{inputData}"
 
     readData = []
     with open(path, newline= '') as csvfile :
@@ -47,7 +48,11 @@ def main(argv,cutFile,form):
     HisData = HD(readData)
     # index = inputData.find('.csv')
     # outputData = inputData[:index]+"_countNum"+inputData[index:]
-    outputFile = f"./data/countLevelNum/{cutType}/{inputData}"
+    if form == "begin": # 2018micro.csv
+        outputFile = f"./data/countLevelNum/{inputData}"
+    elif form == "regular": # 已正規化數據
+        outputFile = f"../make_GEI/data/countLevelNum/{cutType}/{inputData}"
+
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","data"])

@@ -7,7 +7,7 @@ def GEI(data,cut_shot):
     if len(data) != len(cut_shot):
         print("error! Check the source file.")
     n = 0 # 目前疊加幾張
-    puliMapLength = len(data[0])-3 # length of data in puli map
+    puliMapLength = len(data[0])-1 # length of data in puli map
     energy = [0 for i in range(puliMapLength)]
     number = 0 # 第幾張 GEI
     GEIData = []
