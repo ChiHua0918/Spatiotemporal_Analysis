@@ -18,11 +18,13 @@ var boardGEI = [];
 var tmp;
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
 var sourceDataset = "";
+// 目前切 cut 的方法
+var cutType;
 async function getGEINum() {
     $.ajax({
         url: "GEINum", 
         type: "GET",
-        data:null,
+        data:{"cutType":cutType},
         async:false,
         /*result為后端函式回傳的json*/
         success: function (result) {
@@ -55,7 +57,7 @@ function contrast(){
     for (var i = 0; i < boardGEI.length; i++) {
         let id = boardGEI[i].split('.')[1];
         let imgName = boardGEI[i];
-        img += `<td><img src='./static/image/GEI_contrast/${sourceDataset}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
+        img += `<td><img src='./static/image/GEI_contrast/${cutType}/${sourceDataset}/${imgName}' id = ${id} width="${(window.innerWidth-200)/5}px" onclick = "ShowModal(${id})" ><br/> ${imgName}</td>`;
         // 換行
         if (i % 5 == 4) {
             img += "</tr><tr>";
@@ -107,7 +109,7 @@ function clusterGEI(sourceDataset,clusterFile,filterSize) {
     $.ajax({
         url: 'cluster',
         type: "GET",
-        data: {"sourceDataset":sourceDataset,"clusterFile":clusterFile,"filterSize":filterSize},
+        data: {"cutType":cutType,"sourceDataset":sourceDataset,"clusterFile":clusterFile,"filterSize":filterSize},
         async: true,
         /*result為后端函式回傳的json*/
         success: function (result) {
@@ -159,7 +161,7 @@ function everyGEI(k) {
             let id = GEIName[i].slice(3, GEIName[i].length);
             let imgName = GEIName[i]+".png";
             console.log("cluterID:",id)
-            html += `<td><img src="./static/image/GEI/${sourceDataset}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
+            html += `<td><img src="./static/image/GEI/${cutType}/${sourceDataset}/${imgName}" width="${(window.innerWidth-200)/5}px" id = ${id} onclick = "ShowModal(${id})"  title = ${GEIName[i]} ><br/>${GEIName[i]}</td>`;
             // 換行
             if (n % 5 == 4) {
                 html += "</tr><tr>";
@@ -197,3 +199,9 @@ function changeColor(buttonType,order){
         showPicture.innerHTML = "";
     }
 }
+$( document ).ready(function() {
+    cutType = document.getElementById("cutTypeSelect").value;
+    $("#cutTypeSelect" ).change(function() {
+        cutType = document.getElementById("cutTypeSelect").value;
+    });
+});

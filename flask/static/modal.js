@@ -8,7 +8,7 @@ var modal = document.getElementById('modal');
 function ShowModal(id) {
     show();
     // 設置 gif
-    let gifPath = `../static/image/gif/KMeansCut/${id}.gif`;
+    let gifPath = `../static/image/gif/${cutType}/${id}.gif`;
     let widthSize = `${(window.innerWidth/4)}px`;
     modal.setAttribute("src",gifPath);
     modal.setAttribute("width",widthSize)
@@ -17,6 +17,7 @@ function ShowModal(id) {
     let number = "NO."+id;
     $("#gifName").text(number);
     $("#selectName").val(number);
+    $("#cutType").val(cutType);
     $("#GEIfolder").val(sourceDataset);
 
     // modal.innerHTML = `<img src="./static/image/gif/KMeansCut/${id}.gif" width="${(window.innerWidth/4)}px">`;
@@ -45,7 +46,7 @@ function gif(){
         url: "gif", /*資料提交到submit處*/
         type: "GET",  /*用GET方法提交*/
         // async: false,
-        data: {"id":picture,"speed":speed},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
+        data: {"cutType":cutType,"id":picture,"speed":speed},  /*提交的資料（json格式），從輸入框中獲取*///, "frames": $("#frames").val()
         /*result為后端函式回傳的json*/
         success: function (result) {
             console.log(result);

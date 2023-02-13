@@ -23,22 +23,29 @@ def qbgResult():
     if request.method == 'POST':
         selectName = request.form.get("selectName")
         GEIfolder = request.form.get("GEIfolder")
+        cutType = request.form.get("cutType")
+        print("method:POST")
     else:
         selectName = "NO.0"
         GEIfolder = "GEI_origin"
+        cutType = "KMeans"
+        print("method:GET")
     print("selectName:",selectName)
     print("GEIfolder:",GEIfolder)
-    rankResult = directQBG(selectName,GEIfolder)
+    print("cutType:",cutType)
+    rankResult = directQBG(selectName,GEIfolder,cutType)
     # 排名結果的第一名一定是使用者選擇的 GEI
     # GEIRankData = rankResult[1:]
     GEIRankData = dict()
     for i in range(len(rankResult)):
         GEIRankData[i] = rankResult[i].replace(",","").replace("'","").replace(":00","H").split()
+    print("=======================\nGEIRankData")
     start = GEIRankData[0][2]+" "+GEIRankData[0][3]
     end = GEIRankData[0][4]+" "+GEIRankData[0][5]
     return render_template("qbgResult.html",sourceImageName = selectName+".png",\
                                             sourceDataset = GEIfolder,\
                                             GEIRankData = GEIRankData,\
+                                            cutType = cutType,\
                                             start = start,\
                                             end = end)
 # =========== 婷誼的部份 =============
@@ -59,8 +66,9 @@ def readFile():
     return {"data":cut_shot}
 # 計算 GEI 的排名
 # @app.route("/directQBG",methods = ["GET"])
-def directQBG(selectName,GEIfolder):
-    command = "python3 rasterScan_D_GEI.py " + selectName
+def directQBG(selectName,GEIfolder,cutType):
+    print(cutType)
+    command = "python3 rasterScan_D_GEI.py " + selectName +" "+cutType
     print(GEIfolder)
     print(command)
     # 建立 process，將執行結果用 readlines 讀取
@@ -70,7 +78,8 @@ def directQBG(selectName,GEIfolder):
 # 現在GEI的數量
 @app.route("/GEINum",methods=["GET"])
 def GEINum():
-    path = "./static/image/GEI/GEI_origin"
+    cutType = request.args.get("cutType")
+    path = f"./static/image/GEI/{cutType}/GEI_origin"
     GEIName = os.listdir(path)
     return {"num":len(GEIName)}
     # return {"num":2}
@@ -79,18 +88,19 @@ def GEINum():
 @app.route("/cluster",methods = ["GET"])
 def cluster():
     # 從前端拿到的資料
+    cutType = request.args.get("cutType")
     memory = request.args.get("sourceDataset")
     clusterFile = request.args.get("clusterFile")
     filterSize = request.args.get("filterSize")
     print(f"memory:{memory} clusterFile:{clusterFile} filterSize:{filterSize}")
     if clusterFile.split('_')[0] == "histogram":
         folder = clusterFile
-        path = f"./static/data/clusterData/{folder}/{memory}.csv"
+        path = f"./static/data/clustering/{cutType}/{folder}/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
-        path = f"./static/data/clusterData/bow/{folder}/{memory}_{filterSize}.csv"
+        path = f"./static/data/clustering/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clusterData/cnn/imagenet/{memory}_imagenet.csv"
+        path = f"./static/data/clustering/{cutType}/cnn/imagenet/{memory}_imagenet.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :
@@ -103,14 +113,14 @@ def cluster():
                 pass
     k = max(cluster)
     tmp = cluster.copy()
-    clusterUI(tmp,memory)
+    clusterUI(tmp,memory,cutType)
     return {"cluster":cluster,"GEIName":GEIName,"maxCluster":k}
 # 製作每一群的代表 GEI
-def clusterUI(cluster,memory):
+def clusterUI(cluster,memory,cutType):
     # 每一群所有 GEI 堆疊成一個代表的 GEI
     print("make clusterUI")
     readData = []
-    with open(f"./static/data/GEI_regular/{memory}.csv", newline= '') as csvfile :
+    with open(f"./static/data/GEI_regular/{cutType}/{memory}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         next(rows) # 跳過標題
         for row in rows :
@@ -153,12 +163,13 @@ def dynamicImage():
 @app.route("/gif",methods=["GET"])
 # 顯示連續彩色PM2.5空汙圖
 def gif():
+    cutType = request.args.get("cutType") # GEI id
     id = request.args.get("id") # GEI id
     speed = request.args.get("speed") # gif 速度
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
     print(stackList)
-    path = f"./static/image/gif/{id}.gif"
+    path = f"./static/image/gif/{cutType}/{id}.gif"
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")
@@ -199,4 +210,4 @@ if __name__ == "__main__":
     # from gevent import pywsgi
     # server = pywsgi.WSGIServer(("localhost", 8085), app)
     # server.serve_forever()
-    app.run(port=8085)
+    app.run(port=8085,debug=True)

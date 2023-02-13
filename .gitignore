@@ -9,8 +9,7 @@ make_GEI/statistics_shot_length.py
 make_gif/image
 # 加強對比
 contrast/image
-contrast/GEI_level_singleRegular.csv
-contrast/GEI_origin_singleRegular.csv
+contrast/*.csv
 # flask
 flask/static/image/GEI
 flask/static/image/GEI_contrast
@@ -48,3 +47,4 @@ flask/static/image/sis
 sis_old
 GEI_clustering
 ./contrast/2018micro_singleRegular.csv
+./other/make_gif/image/*

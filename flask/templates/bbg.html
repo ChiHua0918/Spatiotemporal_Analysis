@@ -29,9 +29,11 @@
         <option value="2018">2018</option>
       </select>
         <!-- 選擇 cut 方法 -->
-      <select id="cut">
+      <select id="cutTypeSelect">
         <!-- <option value="" selected="selected">請選擇 cut 方式</option> -->
         <option value="KMeans">KMeans</option>
+        <option value="HCED1">HCED1</option>
+        <option value="RasterScan4">RasterScan4</option>
       </select>
       <!-- 選擇 GEI 資料 -->
       <select id="data" onchange="GEI()">
@@ -50,9 +52,7 @@
     <table id="frame"></table>
   </div>
   <!-- 網頁載入，資料選擇 GEI_origin -->
-  <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="../static/show.js"></script>
-  <script src="../static/bbg.js"></script>
 </body>
 <script>
   // BBG 一開始 load GEI_origin 圖片
@@ -62,12 +62,12 @@
   // 顯示GEI
   function GEI() {
       folder = document.getElementById('data').value;
-      console.log(folder);
       subtitle.innerHTML = folder;
       let img = "<tr>";
+      console.log(cutType);
       for (var i = 0; i < GEINum; i++) {
           imgName = "NO." + i + ".png";
-          img += `<td><img src='./static/image/GEI/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
+          img += `<td><img src='./static/image/GEI/${cutType}/${folder}/${imgName}' width="${(window.innerWidth-200)/5}px" id = ${i} onclick = "ShowModal(${i})" ><br/> ${imgName}</td>`;
           $("#qbeBtn").click(function(){openQBE(i)});
           // 換行
           if (i % 5 == 4) {
@@ -75,8 +75,6 @@
           }
           boardGEI.push(imgName);
       }
-      console.log(boardGEI);
-      console.log(GEINum);
       showPicture.innerHTML = img;
       sourceDataset = folder;
       changeColor("dataButton","none");

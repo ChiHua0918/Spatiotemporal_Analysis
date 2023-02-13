@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../static/css/main.css">
   <!-- <link rel="stylesheet" href="../static/css/navbar.css"> -->
   <!--引入jQuery包用于使用ajax-->
-  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   <title>GEI</title>
 </head>
 
@@ -31,9 +31,11 @@
         <option value="2018">2018</option>
       </select>
       <!-- 選擇 cut 方法 -->
-      <select id="cut">
+      <select id="cutTypeSelect">
         <!-- <option value="" selected="selected">請選擇 cut 方式</option> -->
         <option value="KMeans">KMeans</option>
+        <option value="HCED1">HCED1</option>
+        <option value="RasterScan4">RasterScan4</option>
       </select>
       <!-- 選擇 GEI 資料 -->
       <select id="data" onchange="GEI()">
@@ -79,7 +81,6 @@
       {{image_illustrate}}
     </table>
   </div>
-  <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="../static/show.js"></script>
 </body>
 

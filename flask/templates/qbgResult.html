@@ -10,8 +10,6 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/qbgResult.css">
   <link rel="stylesheet" href="../static/css/main.css">
-  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="../static/pagination.js"></script>
 
   <title>QBG</title>
 </head>
@@ -67,16 +65,16 @@
     // var sourceDataset = "{{ sourceDataset }}".replaceAll('&#x27;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
     var sourceDataset = "{{sourceDataset}}";
     var GEIRankData = JSON.parse('{{GEIRankData|tojson}}');
+    var cutType = "{{cutType}}";
     /* get__(): get information of each result by index*/
-    // index: from 0 to 100
-    function getFileName(index) {
+    function getFileName(GEI_id) {
       // there are 3 type of frame: level, origin and origin_contrast, 
       // images showed by different type based on the dataset(level/origin) and contrast emhancement(true/false)
       let picFolder = "GEI";
       if (document.getElementById('contrast').checked){
         picFolder = "GEI_contrast";
       }
-      return `/static/image/${picFolder}/${sourceDataset}/${GEIRankData[index][1]}.png`;
+      return `/static/image/${picFolder}/${cutType}/${sourceDataset}/NO.${GEI_id}.png`;
     }
     // getUserPic(): show the frame of user's query
     function getUserPic() {
@@ -84,21 +82,8 @@
       if (document.getElementById('contrast').checked) {
         picFolder = "/GEI_contrast";
       }
-      return `/static/image/${picFolder}/${sourceDataset}/${sourceImageName}`;
+      return `/static/image/${picFolder}/${cutType}/${sourceDataset}/${sourceImageName}`;
     }
-    // show the modal
-    function showModalTest(id){
-      // 設置 gif
-      let gifPath = `../static/image/gif/KMeansCut/${id}.gif`;
-      let widthSize = `${(window.innerWidth/4)}px`;
-      modal.setAttribute("src",gifPath);
-      modal.setAttribute("width",widthSize)
-
-      // 目前挑選的 GEI 編號以及 GEI 的型態
-      let number = "NO."+id;
-      $("#gifName").text(number);
-    }
-
     /* init page*/
     // show image of the user's query
     userPic = document.getElementById("userPic");
@@ -165,7 +150,7 @@
         }
 
         // GEI info
-        elements[index].innerHTML = `<img src="${getFileName(Xst)}" id=${Xst} class="sis"  onClick = "ShowModal(${GEIRankData[Xst][1].substring(3,GEIRankData[Xst][1].length)})">
+        elements[index].innerHTML = `<img src="${getFileName(GEIRankData[Xst][1].substring(3,))}" id=${GEIRankData[Xst][1].substring(3,)} class="sis"  onClick = "ShowModal(${GEIRankData[Xst][1].substring(3,GEIRankData[Xst][1].length)})">
         <p><strong>          NO.${GEIRankData[Xst][6]} / ${GEIRankData[Xst][0].substring(0, 8).padEnd(8,'0')} </strong> <br/></p>
         <p id = "timeRange"> start ${GEIRankData[Xst][2]} ${GEIRankData[Xst][3]}<br/>
                              end   ${GEIRankData[Xst][4]} ${GEIRankData[Xst][5]}<br/>

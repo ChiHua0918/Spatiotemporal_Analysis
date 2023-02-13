@@ -19,10 +19,10 @@ def findPictureName(id):
             # data[0]: 彩色 PM2.5 圖片名字
             statckList.append(data[0])
     return statckList
-def makeGif(folder,id,speed):
+def makeGif(cutType,id,speed):
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
-    path = f"./image/{folder}/{id}.gif"
+    path = f"./image/{cutType}/{id}.gif"
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")
@@ -32,7 +32,7 @@ def makeGif(folder,id,speed):
             image = imageio.imread("../../sis/"+filename)
             writer.append_data(image)
 
-def main(folder,file,sourceCut):
+def main(cutType,file,sourceCut):
     global cut_shot
     # cut and shot
     cut_shot = []
@@ -44,15 +44,15 @@ def main(folder,file,sourceCut):
             except:
                 pass
     # GEI 數量
-    with open(f"../../make_GEI/data/GEI_data/{folder}/{file}.csv", newline= '') as csvfile :
+    with open(f"../../make_GEI/data/GEI_data/{cutType}/{file}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         GEINum = len(list(rows))-1 # -1: 去掉標題
 
     for id in range(GEINum):
-        makeGif(folder,id,2)
+        makeGif(cutType,id,2)
 if __name__ == "__main__":
     # gif 存放在哪一個資料夾
     file = "GEI_origin"
-    sourceCut = "KMeans.csv"
-    folder = sourceCut[:sourceCut.find(".csv")]
-    main(folder,file,sourceCut)
+    sourceCut = input("cut file = ")# "KMeans.csv"
+    cutType = sourceCut[:sourceCut.find(".csv")]
+    main(cutType,file,sourceCut)
