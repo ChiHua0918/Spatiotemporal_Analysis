@@ -2,7 +2,7 @@
 airDeal
 # make_GEI
 make_GEI/picture
-make_GEI/data
+# make_GEI/data
 make_GEI/cut~3_old.csv
 make_GEI/statistics_shot_length.py
 # make_gif
@@ -18,9 +18,8 @@ flask/static/image/gif
 flask/static/image/clusterUI
 flask/image
 # flask/static/data/clusterData
-flask/static/data/GEI_regular
-flask/static/data/clusterData
-flask/static/data/cut.csv
+# flask/static/data/GEI_regular
+# flask/static/data/cut.csv
 flask/static/data/cut~3(old).csv
 flask/static/data/clusterUI.csv
 flask/dynamicPic/clusterUI

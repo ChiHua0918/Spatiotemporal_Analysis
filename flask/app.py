@@ -167,9 +167,9 @@ def gif():
     id = request.args.get("id") # GEI id
     speed = request.args.get("speed") # gif 速度
     # 要疊成 gif 的圖片
-    stackList = findPictureName(id)
+    stackList = findPictureName(id,cutType)
     print(stackList)
-    path = f"./static/image/gif/{cutType}/{id}.gif"
+    path = f"./static/image/gif/{id}.gif"
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")
@@ -180,15 +180,13 @@ def gif():
             writer.append_data(image)
     return {"gif":path}
 # 找要疊加的圖片
-def findPictureName(id):
+def findPictureName(id,cutType):
     readData = []
-    with open("./static/data/cut.csv", newline= '') as csvfile :
+    with open(f"./static/data/{cutType}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
+        next(rows) # 跳過標題
         for row in rows :
-            try:
-                readData.append([row[0]]+list(map(int,row[1:])))
-            except:
-                pass
+            readData.append([row[0]]+list(map(int,row[1:])))
     # 要疊加的照片
     statckList = []
     order = 0
