@@ -59,6 +59,11 @@
   $( document ).ready(function() {
       getGEINum().then(setTimeout(GEI(),0));
   });
+  $("#cutTypeSelect").change(function(){
+    showPicture.innerHTML = "";
+    getGEINum();
+    GEI();
+  });
   // 顯示GEI
   function GEI() {
       folder = document.getElementById('data').value;

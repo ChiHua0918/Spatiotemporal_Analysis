@@ -199,9 +199,10 @@ function changeColor(buttonType,order){
         showPicture.innerHTML = "";
     }
 }
+$("#cutTypeSelect" ).change(function() {
+    cutType = document.getElementById("cutTypeSelect").value;
+});
 $( document ).ready(function() {
     cutType = document.getElementById("cutTypeSelect").value;
-    $("#cutTypeSelect" ).change(function() {
-        cutType = document.getElementById("cutTypeSelect").value;
-    });
+    
 });
