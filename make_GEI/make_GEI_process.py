@@ -12,9 +12,11 @@ def microToLevel():
 def cut(file,year):
     # 計算原始 10*10 空汙圖中，10 種等級佔比多少
     # 輸出: 每小時空汙直方圖
+    '''
     createFile(f"./data/countLevelNum")
     print(f"python3 ./code/countLevelNum.py {file} None begin {year}")
     os.system(f"python3 ./code/countLevelNum.py {file} None begin {year}")
+    '''
     # K-Means 分群
     createFile(f"./data/{year}/clustering")
     print(f"python3 ./code/cluster.py {file} None begin  {year}")
