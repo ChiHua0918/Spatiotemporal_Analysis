@@ -39,7 +39,7 @@ def segment(data):
     # else:
     #     return 'brown'
 
-def drawColor(GEI,cutType,folder):
+def drawColor(GEI,cutType,folder,year):
     ax = plt.subplot(111)
     name = GEI[0] #name
     name = name.replace("/","-")
@@ -64,13 +64,13 @@ def drawColor(GEI,cutType,folder):
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # now = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
-    plt.savefig(f"./image/{cutType}/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
+    plt.savefig(f"./image/{year}/{cutType}/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
     # plt.show()
 
-def main(argv,cutType):
+def main(argv,cutType,year):
     inputFile =  f"./{argv}_{cutType}.csv"
     readData = []
     with open(inputFile, newline= '') as csvfile :
@@ -79,8 +79,8 @@ def main(argv,cutType):
         for row in rows :
             readData.append([row[0]]+list(map(float,row[1:])))
     for GEI in readData:
-        print(drawColor(GEI,cutType,argv))
+        print(drawColor(GEI,cutType,argv,year))
 
 if __name__ == '__main__':
     # main(sys.argv[1:])
-    main(sys.argv[1],sys.argv[2])
+    main(sys.argv[1],sys.argv[2],sys.argv[3])

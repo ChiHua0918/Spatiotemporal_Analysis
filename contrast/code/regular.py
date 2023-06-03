@@ -12,7 +12,7 @@ def regular(readData):
                 readData[r][c] = round((readData[r][c]-minValue)/(maxValue-minValue)*255)
             except: # 如果最大最小值相同 -> 全黑的圖
                 readData[r][c] = 0
-def main(argv,cutType):
+def main(argv,cutType,year):
     # gei 數據從哪裡開始
     global GEI_index
     GEI_index = 3
@@ -21,7 +21,7 @@ def main(argv,cutType):
     if inputData == "2018micro.csv":
         inputFile = f"../make_GEI/{inputData}"
     else:
-        inputFile = f"../make_GEI/data/GEI_data/{cutType}/{inputData}"
+        inputFile = f"../make_GEI/data/{year}/GEI_data/{cutType}/{inputData}"
 
     readData = []
     with open(inputFile, newline= '') as csvfile :
@@ -38,4 +38,4 @@ def main(argv,cutType):
         writer.writerows(readData)
     print("regular.py 完成")
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2])
+    main(sys.argv[1],sys.argv[2],sys.argv[3])
