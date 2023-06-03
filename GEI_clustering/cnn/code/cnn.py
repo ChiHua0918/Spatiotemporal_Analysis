@@ -66,7 +66,7 @@ def vgg16(model,path):
         # 預測，取得feature map，維度為 (1,3,3,512)
         features = model.predict(x)
         predicted = decode_predictions(features, top=20)[0]
-        print("===== predicted =====",predicted)
+        # print("===== predicted =====",predicted)
         # relation.append(predicted)
         # 每一個GEI的對應類別的關係程度
         extend = dict()
@@ -99,7 +99,7 @@ def main(source,outputFolder,cutType,year):
         classifier_activation=None,
     )
     # GEI 圖片路徑
-    inputFile = f"../make_GEI/picture/{year}/{cutType}/{source}"
+    inputFile = f"../make_GEI/picture/{year}/{cutType}/{source}/"
     classNum, every_GEI_extent = vgg16(model,inputFile) # cnn
     classification = take(classNum)
     # random.shuffle(classification) # 把順序打亂
