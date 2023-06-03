@@ -17,7 +17,12 @@ def main(argv,cutType):
     global GEI_index
     GEI_index = 3
     inputData = argv+".csv"
-    inputFile = f"../make_GEI/data/GEI_data/{cutType}/{inputData}"
+    # 給采禎的每小時空污圖
+    if inputData == "2018micro.csv":
+        inputFile = f"../make_GEI/{inputData}"
+    else:
+        inputFile = f"../make_GEI/data/GEI_data/{cutType}/{inputData}"
+
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
@@ -25,6 +30,7 @@ def main(argv,cutType):
         for row in rows :
             readData.append(row[:GEI_index]+list(map(float,row[GEI_index:])))
     regular(readData)
+    
     outputFile = f"./{argv}_{cutType}.csv"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)

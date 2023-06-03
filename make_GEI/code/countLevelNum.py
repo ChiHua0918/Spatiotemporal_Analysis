@@ -14,9 +14,12 @@ def HD(data) :
     return HisData
 
 # 數據轉為 0~9 級
-def convert(data) :
+def convert(data,inpuFile) :
     # 各計數的上界
-    levelList = [7.5,15.5,25.5,35.5,45.5,54.5,102.5,150.5,250.5]
+    if inpuFile == "GEI_origin":
+        levelList = [25,50,75,100,125,150,175,200,225,250]
+    else:
+        levelList = [7.5,15.5,25.5,35.5,45.5,54.5,102.5,150.5,250.5]
     for r in range(len(data)):
         for c in range(3, len(data[0])) :
             for i in range(len(levelList)) :
@@ -28,14 +31,14 @@ def convert(data) :
                     data[r][c] = i
                     break
     return data
-def main(argv,cutFile,form):
-    inputData = argv
+def main(inputData,cutFile,form,year):
     cutType = cutFile[:cutFile.find(".csv")]
     if form == "begin": # 2018micro.csv
         path = "./"+inputData
+        outputFile = f"./data/countLevelNum/{inputData}"
     elif form == "regular": # 已正規化數據
-        path = f"../make_GEI/data/GEI_regular/{cutType}/{inputData}"
-        # path = f"../make_GEI/data/GEI_regular/{cutType}/{inputData}"
+        path = f"../make_GEI/data/{year}/GEI_regular/{cutType}/{inputData}"
+        outputFile = f"./histogram/data/{year}/countLevelNum/{cutType}/{inputData}"
 
     readData = []
     with open(path, newline= '') as csvfile :
@@ -44,14 +47,8 @@ def main(argv,cutFile,form):
         for row in rows :
             readData.append(row[:3]+list(map(float,row[3:])))
     # 轉換等級
-    readData = convert(readData)
+    readData = convert(readData,inputData)
     HisData = HD(readData)
-    # index = inputData.find('.csv')
-    # outputData = inputData[:index]+"_countNum"+inputData[index:]
-    if form == "begin": # 2018micro.csv
-        outputFile = f"./data/countLevelNum/{inputData}"
-    elif form == "regular": # 已正規化數據
-        outputFile = f"../make_GEI/data/countLevelNum/{cutType}/{inputData}"
 
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
@@ -60,4 +57,4 @@ def main(argv,cutFile,form):
     print("======= countLevelNum.py 完成 =======")
 
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2],sys.argv[3])
+    main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])

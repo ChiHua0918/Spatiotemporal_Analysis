@@ -41,7 +41,7 @@ def readCSV(inputFile):
             # row[0]: time
             readData.append([row[0]]+list(map(float,row[1:])))
     return readData
-def main(source,cutFile,output):
+def main(source,cutFile,output,year):
     # 數據
     inputFile = source
     data = readCSV(inputFile)
@@ -50,11 +50,11 @@ def main(source,cutFile,output):
     cut_shot = readCSV(cutFile)
     # 疊加 GEI
     GEIData = GEI(data,cut_shot)
-    outputFile = f"./data/GEI_data/{cutFile[:cutFile.find('.csv')]}/{output}"
+    outputFile = f"./data/{year}/GEI_data/{cutFile[:cutFile.find('.csv')]}/{output}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["number","start","end","data"])
         writer.writerows(GEIData)
     print("======= GEI.py 完成 =======")
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2],sys.argv[3])
+    main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])

@@ -88,19 +88,20 @@ def GEINum():
 @app.route("/cluster",methods = ["GET"])
 def cluster():
     # 從前端拿到的資料
+    dataYear = request.args.get("dataYear")
     cutType = request.args.get("cutType")
     memory = request.args.get("sourceDataset")
     clusterFile = request.args.get("clusterFile")
     filterSize = request.args.get("filterSize")
     print(f"memory:{memory} clusterFile:{clusterFile} filterSize:{filterSize}")
-    if clusterFile.split('_')[0] == "histogram":
+    if clusterFile == "histogram":
         folder = clusterFile
-        path = f"./static/data/clustering/{cutType}/{folder}/{memory}.csv"
+        path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
-        path = f"./static/data/clustering/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
+        path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clustering/{cutType}/cnn/imagenet/{memory}_imagenet.csv"
+        path = f"./static/data/clustering/{dataYear}/{cutType}/cnn/imagenet/{memory}_imagenet.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :

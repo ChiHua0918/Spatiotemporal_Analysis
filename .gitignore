@@ -2,48 +2,37 @@
 airDeal
 # make_GEI
 make_GEI/picture
-# make_GEI/data
+make_GEI/data
+make_GEI/2018level.csv
+make_GEI/KMeans.csv
 make_GEI/cut~3_old.csv
 make_GEI/statistics_shot_length.py
-# make_gif
-make_gif/image
-# 加強對比
+# 加強對比 contrast
 contrast/image
 contrast/*.csv
+# GEI_clustering
+GEI_clustering/clustering
+GEI_clustering/histogram/data
+GEI_clustering/bow/data
+GEI_clustering/bow/clustering
+GEI_clustering/bow/code/quadrant.py
+GEI_clustering/cnn/data
 # flask
+flask/make_clusterUI/__pycache__
 flask/static/image/GEI
 flask/static/image/GEI_contrast
 flask/static/image/sis
 flask/static/image/gif
 flask/static/image/clusterUI
-flask/image
-# flask/static/data/clusterData
-# flask/static/data/GEI_regular
-# flask/static/data/cut.csv
-flask/static/data/cut~3(old).csv
-flask/static/data/clusterUI.csv
-flask/dynamicPic/clusterUI
-# bow
-bow/clustering
-bow/data
-bow/test.py
-bow/openCV_edge.py
-bow/Compare.py
+flask/static/data/clustering
+flask/static/data/GEI_regular
+flask/static/data/*.csv
+flask/dynamicPic/
 # find Best Way 線下資料評估，無須放到網頁
-# findBestWay
+findBestWay
+
 # 其他
-test.py
-test1.py
-Histogram.py
-Hierarchical.py
-cnnTakeFeature.py
-test.csv
-cnnContent.txt
-cnn/data
-draw_origin
-flask/make_clusterUI/__pycache__
-flask/static/image/sis
-sis_old
-GEI_clustering
-./contrast/2018micro_singleRegular.csv
-./other/make_gif/image/*
+other/make_gif/image
+other/draw_origin/sis_origin
+other/draw_origin/*.csv
+other/drawSSE

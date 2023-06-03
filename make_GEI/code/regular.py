@@ -11,10 +11,10 @@ def squareRoot(readData):
     for r in range(len(readData)):
         for c in range(3,len(readData[r])):
             readData[r][c] = readData[r][c]**0.5
-def main(argv,cutFile):
+def main(argv,cutFile,year):
     inputData = argv
     cutType = cutFile[:cutFile.find(".csv")]
-    path = f"./data/GEI_data/{cutType}/{inputData}"
+    path = f"./data/{year}/GEI_data/{cutType}/{inputData}"
     readData = []
     maxValue = 0
     minValue = sys.maxsize
@@ -36,11 +36,11 @@ def main(argv,cutFile):
     print("最小值",minValue)
     regular(readData,minValue,maxValue)
     # outputData = inputData[:index]+"_regular"+inputData[index:]
-    outputFile = f"./data/GEI_regular/{cutType}/{inputData}"
+    outputFile = f"./data/{year}/GEI_regular/{cutType}/{inputData}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","start","end","data"])
         writer.writerows(readData)
     print("======= regular.py 完成 =======")
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2])
+    main(sys.argv[1],sys.argv[2],sys.argv[3])

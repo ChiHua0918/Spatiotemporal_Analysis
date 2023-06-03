@@ -69,6 +69,8 @@ function contrast(){
 // 按下分群
 function clickCluster() {
     subtitle.innerHTML = "分群結果 - "+document.getElementById('clusterFile').name;
+    // 年份
+    let dataYear = document.getElementById('dataYear').value;
     // 要顯示哪一個檔案的 GEI 分群
     let clusterFile = document.getElementById('clusterFile').value;
     // filter 大小
@@ -95,21 +97,21 @@ function clickCluster() {
     picture = "";
     alert("圖片製作中，請稍等");
     // 紀錄目前的模式是 等級 or 空間
-    clusterGEI(sourceDataset,clusterFile,filterSize);
+    clusterGEI(sourceDataset,dataYear,clusterFile,filterSize);
     changeColor('clustering','0');
 }
 // 分群 -- cluster:每一張 GEI 所屬的群
-function clusterGEI(sourceDataset,clusterFile,filterSize) {
+function clusterGEI(sourceDataset,dataYear,clusterFile,filterSize) {
     var maxCluster;
     // user 沒有選擇檔案
     if (clusterFile.length == 0){
-        alert("請先選擇模式");
+        alert("請先選擇方法");
         return;
     }
     $.ajax({
         url: 'cluster',
         type: "GET",
-        data: {"cutType":cutType,"sourceDataset":sourceDataset,"clusterFile":clusterFile,"filterSize":filterSize},
+        data: {"cutType":cutType,"sourceDataset":sourceDataset,"dataYear":dataYear,"clusterFile":clusterFile,"filterSize":filterSize},
         async: true,
         /*result為后端函式回傳的json*/
         success: function (result) {

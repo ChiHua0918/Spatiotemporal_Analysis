@@ -23,9 +23,8 @@ def cut(readData,least):
             cut_shot[len(cut_shot)-1][1] = 1
             shotNum = 0
     return cut_shot
-def main(argv):
-    inputData = argv
-    inputFile = "./data/clustering/"+inputData
+def main(inputData,year):
+    inputFile = f"./data/{year}/clustering/{inputData}"
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
@@ -39,10 +38,11 @@ def main(argv):
     cut_shot = cut(readData,least)
     print("number of source:",len(readData))
     print("number of output:",len(cut_shot))
-    with open(f"cut~{least}.csv", 'w', newline='') as _file:
+    # with open(f"cut~{least}.csv", 'w', newline='') as _file:
+    with open(f"KMeans.csv", 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["name","cut_shot"])
         writer.writerows(cut_shot)
     print("======= cut.py 完成 =======")
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])
