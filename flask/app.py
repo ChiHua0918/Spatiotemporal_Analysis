@@ -209,4 +209,6 @@ if __name__ == "__main__":
     # from gevent import pywsgi
     # server = pywsgi.WSGIServer(("localhost", 8085), app)
     # server.serve_forever()
+    if os.path.isdir("./static/image/clusterUI") == False:
+        os.system("mkdir ./static/image/clusterUI")
     app.run(port=8085,debug=True)

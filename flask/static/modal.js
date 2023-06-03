@@ -8,7 +8,7 @@ var modal = document.getElementById('modal');
 function ShowModal(id) {
     show();
     // 設置 gif
-    let gifPath = `../static/image/gif/${cutType}/${id}.gif`;
+    let gifPath = `../static/image/gif/${dataYear}/${cutType}/${id}.gif`;
     let widthSize = `${(window.innerWidth/4)}px`;
     modal.setAttribute("src",gifPath);
     modal.setAttribute("width",widthSize)
