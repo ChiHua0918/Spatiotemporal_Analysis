@@ -1,7 +1,7 @@
 FROM python:3.8
 
 ENV PYTHONUNBUFFERED 1
-RUN mkdir /run_data && mkdir /api_data && mkdir && mkdir /log
+RUN mkdir /run_data && mkdir /api_data && mkdir /log
 WORKDIR /api_data
 COPY ./flask /api_data \
      ./sis /api_data/static/image/sis \
