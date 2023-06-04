@@ -30,7 +30,7 @@ def main(folder,inputData,size,cutType,year):
     # 要分多少群
     readData = []
     name = []
-    inputFile = f"./data/{year}/{cutType}/{folder}/{inputData}_{size}.csv"
+    inputFile = f"./bow/data/{year}/{cutType}/{folder}/{inputData}_{size}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :

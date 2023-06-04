@@ -99,7 +99,10 @@ def cluster():
         path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{memory}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
-        path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
+        if folder == "quadrantScoreDecideNum":
+            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_quadrantScoreDecideNum_{filterSize}.csv"
+        else:
+            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
         path = f"./static/data/clustering/{dataYear}/{cutType}/cnn/imagenet/{memory}_imagenet.csv"
     cluster = [] # GEI 所屬群

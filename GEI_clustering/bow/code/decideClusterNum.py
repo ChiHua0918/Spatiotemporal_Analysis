@@ -13,7 +13,7 @@ def main(folder,inputData,size,cutType,year):
     # 數據
     readData = []
     name = []
-    inputFile = f"./data/{year}/{cutType}/{folder}/{inputData}_{size}.csv"
+    inputFile = f"./bow/data/{year}/{cutType}/{folder}/{inputData}_{size}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
@@ -27,7 +27,7 @@ def main(folder,inputData,size,cutType,year):
     for i in range(len(cluster)):
         readData[i].insert(0,name[i])
         readData[i].insert(1,cluster[i])
-    outputFile = f"../clustering/{year}/{cutType}/bow/{folder}/{inputData}_{size}.csv"
+    outputFile = f"./clustering/{year}/{cutType}/bow/quadrantScoreDecideNum/{inputData}_quadrantScoreDecideNum_{size}.csv"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["time","cluster","data"])

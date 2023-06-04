@@ -68,9 +68,9 @@ def createFile(path):
 if __name__ == "__main__":
     # gif 存放在哪一個資料夾
     file = "GEI_origin"
-    sourceCut = input("cut file = ")# "KMeans.csv"
+    sourceCut = input("(KMenas.csv、HCED1.csv、RasterScan4.csv)\ncut file = ")# "KMeans.csv"
     cutType = sourceCut[:sourceCut.find(".csv")]
-    year = int(input("(KMenas.csv、HCED1.csv、RasterScan4.csv)\nPlease enter the year: "))
+    year = int(input("Please enter the year: "))
     createFile("./image")
     createFile(f"./image/{year}")
     createFile(f"./image/{year}/{cutType}")

@@ -67,9 +67,9 @@ def main():
     year = int(input("Please enter the year: "))
     createFile("./clustering")
     # cluster
-    histogram(data,cutFile,cutType,year)
+    # histogram(data,cutFile,cutType,year)
     bow(cutType,year)
-    cnn(data,cutType,year)
+    # cnn(data,cutType,year)
 
 if __name__ == '__main__':
     if os.path.exists(f"./clustering") == False:
