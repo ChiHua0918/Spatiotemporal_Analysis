@@ -26,7 +26,7 @@ async function getGEINum() {
     $.ajax({
         url: "GEINum", 
         type: "GET",
-        data:{"cutType":cutType},
+        data:{"cutType":cutType,"dataYear":dataYear},
         async:false,
         /*result為后端函式回傳的json*/
         success: function (result) {

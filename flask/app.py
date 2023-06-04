@@ -79,7 +79,8 @@ def directQBG(selectName,GEIfolder,cutType):
 @app.route("/GEINum",methods=["GET"])
 def GEINum():
     cutType = request.args.get("cutType")
-    path = f"./static/image/GEI/{cutType}/GEI_origin"
+    dataYear = request.args.get("dataYear")
+    path = f"./static/image/GEI/{dataYear}/{cutType}/GEI_origin"
     GEIName = os.listdir(path)
     return {"num":len(GEIName)}
     # return {"num":2}
