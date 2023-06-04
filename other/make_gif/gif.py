@@ -25,13 +25,6 @@ def makeGif(cutType,id,speed,year):
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
     path = f"./image/{year}/{cutType}/{id}.gif"
-    # for i in range(len(stackList)):
-    #         filename = stackList[i]
-    #         filename = filename.replace("/","-")
-    #         filename = filename.replace(" ","-")
-    #         filename = filename.replace(":","-")
-    #         filename += ".png"
-    #         stackList[i] = filename
     images = []
     for filename in stackList:
         filename = filename.replace("/","-")
@@ -39,9 +32,17 @@ def makeGif(cutType,id,speed,year):
         filename = filename.replace(":","-")
         filename += ".png"
         images.append(imageio.imread("../../sis/"+filename))
-    # with imageio.get_writer(path, mode='I',fps=speed) as writer:
     imageio.mimsave(path,images,duration=speed)
-    # with iio.imwrite(path, mode='I',fps=speed) as writer:
+    '''
+    with imageio.get_writer(path, mode='I',fps=speed) as writer:
+        for filename in stackList:
+            filename = filename.replace("/","-")
+            filename = filename.replace(" ","-")
+            filename = filename.replace(":","-")
+            filename += ".png"
+            image = imageio.imread("../../sis/"+filename)
+            writer.append_data(image)
+    '''
 
 def main(cutType,file,sourceCut,year):
     global cut_shot
@@ -60,7 +61,7 @@ def main(cutType,file,sourceCut,year):
         GEINum = len(list(rows))-1 # -1: 去掉標題
 
     for id in range(GEINum):
-        makeGif(cutType,id,2,year)
+        makeGif(cutType,id,1,year)
 def createFile(path):
     if os.path.isdir(path) == False:
         os.system("mkdir "+ path)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     file = "GEI_origin"
     sourceCut = input("cut file = ")# "KMeans.csv"
     cutType = sourceCut[:sourceCut.find(".csv")]
-    year = int(input("Please enter the year: "))
+    year = int(input("(KMenas.csv、HCED1.csv、RasterScan4.csv)\nPlease enter the year: "))
     createFile("./image")
     createFile(f"./image/{year}")
     createFile(f"./image/{year}/{cutType}")
