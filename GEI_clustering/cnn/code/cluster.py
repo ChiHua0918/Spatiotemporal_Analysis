@@ -60,7 +60,7 @@ def k_means(fileName,data):
     cluster = KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).predict(data)
     print("群心",KMeans(n_clusters=k,n_init=10,max_iter=300).fit(data).cluster_centers_)
     print(f"分 {k} 類")
-    draw(fileName,[i for i in range(least,most)],scores,distortions)
+    # draw(fileName,[i for i in range(least,most)],scores,distortions)
     return cluster
 
 def main(inputData,folder,cutType,year):

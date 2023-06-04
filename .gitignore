@@ -16,7 +16,7 @@ GEI_clustering/histogram/data
 GEI_clustering/bow/data
 GEI_clustering/bow/clustering
 GEI_clustering/bow/code/quadrant.py
-GEI_clustering/cnn/data
+# GEI_clustering/cnn/data
 # flask
 flask/make_clusterUI/__pycache__
 flask/static/image/GEI
