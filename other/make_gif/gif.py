@@ -1,3 +1,4 @@
+# import imageio.v3 as iio
 import imageio
 import csv
 import os
@@ -24,14 +25,23 @@ def makeGif(cutType,id,speed,year):
     # 要疊成 gif 的圖片
     stackList = findPictureName(id)
     path = f"./image/{year}/{cutType}/{id}.gif"
-    with imageio.get_writer(path, mode='I',fps=speed) as writer:
-        for filename in stackList:
-            filename = filename.replace("/","-")
-            filename = filename.replace(" ","-")
-            filename = filename.replace(":","-")
-            filename += ".png"
-            image = imageio.imread("../../sis/"+filename)
-            writer.append_data(image)
+    # for i in range(len(stackList)):
+    #         filename = stackList[i]
+    #         filename = filename.replace("/","-")
+    #         filename = filename.replace(" ","-")
+    #         filename = filename.replace(":","-")
+    #         filename += ".png"
+    #         stackList[i] = filename
+    images = []
+    for filename in stackList:
+        filename = filename.replace("/","-")
+        filename = filename.replace(" ","-")
+        filename = filename.replace(":","-")
+        filename += ".png"
+        images.append(imageio.imread("../../sis/"+filename))
+    # with imageio.get_writer(path, mode='I',fps=speed) as writer:
+    imageio.mimsave(path,images,duration=speed)
+    # with iio.imwrite(path, mode='I',fps=speed) as writer:
 
 def main(cutType,file,sourceCut,year):
     global cut_shot
