@@ -88,7 +88,7 @@ function clickCluster() {
         return;
     }
     // CNN 目前只有 3*3
-    else if (filterSize == "2"){
+    else if (clusterFile.split('_')[0] == "cnn" && filterSize == "2"){
         alert("目前 CNN 只有 filter 3*3");
         // 更改 filter 大小
         document.getElementById('filterSize').getElementsByTagName('option')[2].selected = 'selected';
