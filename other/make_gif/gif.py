@@ -61,7 +61,7 @@ def main(cutType,file,sourceCut,year):
         GEINum = len(list(rows))-1 # -1: 去掉標題
 
     for id in range(GEINum):
-        makeGif(cutType,id,1,year)
+        makeGif(cutType,id,2,year)
 def createFile(path):
     if os.path.isdir(path) == False:
         os.system("mkdir "+ path)
