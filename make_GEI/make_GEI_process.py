@@ -54,7 +54,7 @@ def main():
     createFile("./data")
     createFile("./picture")
     # K-Means 切割出 shot
-    cut(source,year)
+    # cut(source,year)
     # 資料 --- 1. 原始數據 2. 等級數據
     sourceData = ["2018micro.csv","2018level.csv"]
     outputData = ["GEI_origin.csv","GEI_level.csv"]

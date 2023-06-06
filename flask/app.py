@@ -96,16 +96,14 @@ def cluster():
     filterSize = request.args.get("filterSize")
     print(f"sourceDataset:{sourceDataset} clusterFile:{clusterFile} filterSize:{filterSize}")
     if clusterFile == "histogram":
-        folder = clusterFile
+        folder = clusterFile # histogram
         path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{sourceDataset}.csv"
     elif clusterFile.split('_')[0] == "bow":
-        folder = clusterFile.split('_')[1]
-        if folder == "quadrantScoreDecideNum":
-            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{sourceDataset}_quadrantScoreDecideNum_{filterSize}.csv"
-        else:
-            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{sourceDataset}_{filterSize}.csv"
+        folder = clusterFile.split('_')[1] #bow
+        path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{sourceDataset}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clustering/{dataYear}/{cutType}/cnn/imagenet/{sourceDataset}_imagenet.csv"
+        folder = folder = clusterFile.split('_')[1] # cnn
+        path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/imagenet/{sourceDataset}_imagenet.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :

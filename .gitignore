@@ -16,22 +16,22 @@ GEI_clustering/bow/data
 GEI_clustering/bow/clustering
 GEI_clustering/bow/code/quadrant.py
 GEI_clustering/cnn/data
-# GEI_clustering/clustering
-GEI_clustering/clustering/2018/HCED1/bow/accumulate
-GEI_clustering/clustering/2018/HCED1/histogram
-GEI_clustering/clustering/2018/HCED1/bow/quadrantAccumulate
-GEI_clustering/clustering/2018/HCED1/bow/quadrantScore
-GEI_clustering/clustering/2018/HCED1/cnn/imagenet
-GEI_clustering/clustering/2018/KMeans/histogram
-GEI_clustering/clustering/2018/KMeans/bow/accumulate
-GEI_clustering/clustering/2018/KMeans/bow/quadrantAccumulate
-GEI_clustering/clustering/2018/KMeans/bow/quadrantScore
-GEI_clustering/clustering/2018/KMeans/cnn/imagenet
-GEI_clustering/clustering/2018/RasterScan4/histogram
-GEI_clustering/clustering/2018/RatserScan4/bow/accumulate
-GEI_clustering/clustering/2018/RasterScan4/bow/quadrantAccumulate
-GEI_clustering/clustering/2018/RasterScan4/bow/quadrantScore
-GEI_clustering/clustering/2018/RasterScan4/cnn/imagenet
+GEI_clustering/clustering
+# GEI_clustering/clustering/2018/HCED1/bow/accumulate
+# GEI_clustering/clustering/2018/HCED1/histogram
+# GEI_clustering/clustering/2018/HCED1/bow/quadrantAccumulate
+# GEI_clustering/clustering/2018/HCED1/bow/quadrantScore
+# GEI_clustering/clustering/2018/HCED1/cnn/imagenet
+# GEI_clustering/clustering/2018/KMeans/histogram
+# GEI_clustering/clustering/2018/KMeans/bow/accumulate
+# GEI_clustering/clustering/2018/KMeans/bow/quadrantAccumulate
+# GEI_clustering/clustering/2018/KMeans/bow/quadrantScore
+# GEI_clustering/clustering/2018/KMeans/cnn/imagenet
+# GEI_clustering/clustering/2018/RasterScan4/histogram
+# GEI_clustering/clustering/2018/RatserScan4/bow/accumulate
+# GEI_clustering/clustering/2018/RasterScan4/bow/quadrantAccumulate
+# GEI_clustering/clustering/2018/RasterScan4/bow/quadrantScore
+# GEI_clustering/clustering/2018/RasterScan4/cnn/imagenet
 # flask
 flask/make_clusterUI/__pycache__
 flask/static/image/GEI

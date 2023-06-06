@@ -4,6 +4,7 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /run_data && mkdir /api_data && mkdir /log
 WORKDIR /api_data
 COPY ./flask                     /api_data
+RUN   mkdir                      /api_data/static/image/clusterUI
 COPY ./sis                       /api_data/static/image/sis
 COPY ./other/make_gif/image      /api_data/static/image/gif
 COPY ./contrast/image            /api_data/static/image/GEI_contrast
