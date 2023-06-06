@@ -19,7 +19,7 @@ var tmp;
 // 選取哪一年份 （2018）
 var dataYear = document.getElementById("dataYear").value
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
-var sourceDataset = "";
+var sourceDataset = document.getElementById("data").value;
 // 目前切 cut 的方法
 var cutType;
 async function getGEINum() {

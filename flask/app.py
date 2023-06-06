@@ -91,21 +91,21 @@ def cluster():
     # 從前端拿到的資料
     dataYear = request.args.get("dataYear")
     cutType = request.args.get("cutType")
-    memory = request.args.get("sourceDataset")
+    sourceDataset = request.args.get("sourceDataset")
     clusterFile = request.args.get("clusterFile")
     filterSize = request.args.get("filterSize")
-    print(f"memory:{memory} clusterFile:{clusterFile} filterSize:{filterSize}")
+    print(f"sourceDataset:{sourceDataset} clusterFile:{clusterFile} filterSize:{filterSize}")
     if clusterFile == "histogram":
         folder = clusterFile
-        path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{memory}.csv"
+        path = f"./static/data/clustering/{dataYear}/{cutType}/{folder}/{sourceDataset}.csv"
     elif clusterFile.split('_')[0] == "bow":
         folder = clusterFile.split('_')[1]
         if folder == "quadrantScoreDecideNum":
-            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_quadrantScoreDecideNum_{filterSize}.csv"
+            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{sourceDataset}_quadrantScoreDecideNum_{filterSize}.csv"
         else:
-            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{memory}_{filterSize}.csv"
+            path = f"./static/data/clustering/{dataYear}/{cutType}/bow/{folder}/{sourceDataset}_{filterSize}.csv"
     elif clusterFile.split('_')[0] == "cnn":
-        path = f"./static/data/clustering/{dataYear}/{cutType}/cnn/imagenet/{memory}_imagenet.csv"
+        path = f"./static/data/clustering/{dataYear}/{cutType}/cnn/imagenet/{sourceDataset}_imagenet.csv"
     cluster = [] # GEI 所屬群
     GEIName = [] # GEI 名字
     with open(path, newline= '') as csvfile :
@@ -118,14 +118,14 @@ def cluster():
                 pass
     k = max(cluster)
     tmp = cluster.copy()
-    clusterUI(tmp,memory,cutType)
+    clusterUI(tmp,sourceDataset,cutType,dataYear)
     return {"cluster":cluster,"GEIName":GEIName,"maxCluster":k}
 # 製作每一群的代表 GEI
-def clusterUI(cluster,memory,cutType):
+def clusterUI(cluster,sourceDataset,cutType,dataYear):
     # 每一群所有 GEI 堆疊成一個代表的 GEI
     print("make clusterUI")
     readData = []
-    with open(f"./static/data/GEI_regular/{cutType}/{memory}.csv", newline= '') as csvfile :
+    with open(f"./static/data/GEI_regular/{dataYear}/{cutType}/{sourceDataset}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         next(rows) # 跳過標題
         for row in rows :
