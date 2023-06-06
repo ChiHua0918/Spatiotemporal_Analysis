@@ -72,7 +72,7 @@ def drawColor(GEI,cutType,folder,year):
 
 def main(inputData,cutFile,year):
     cutType = cutFile[:cutFile.find(".csv")]
-    path = f"./data/{year}/GEI_regular/{cutType}/{inputData}"
+    path = f"./data/GEI_regular/{year}/{cutType}/{inputData}"
     readData = []
     with open(path, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')

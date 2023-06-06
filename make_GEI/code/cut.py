@@ -24,7 +24,7 @@ def cut(readData,least):
             shotNum = 0
     return cut_shot
 def main(inputData,year):
-    inputFile = f"./data/{year}/clustering/{inputData}"
+    inputFile = f"./data/clustering/{year}/{inputData}"
     readData = []
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')

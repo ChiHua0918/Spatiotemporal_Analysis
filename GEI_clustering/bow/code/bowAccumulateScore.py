@@ -71,7 +71,7 @@ def main(inputData,size,cutType,year):
     filters = choiceFilter(size)
     # 讀取 GEI 資料
     name,readData = [],[] # GEI 名字，GEI 10*10 資料
-    inputFile = f"../make_GEI/data/{year}/GEI_regular/{cutType}/{inputData}.csv"
+    inputFile = f"../make_GEI/data/GEI_regular/{year}/{cutType}/{inputData}.csv"
     with open(inputFile, newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         next(rows)

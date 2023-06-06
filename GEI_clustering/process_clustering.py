@@ -31,12 +31,12 @@ def bow(cutType,year):
 def histogram(data,cutFile,cutType,year):
     createFile("./histogram")
     createFile("./histogram/data")
-    createFile(f"./histogram/data/{year}")
+    createFile(f"./histogram/data/countLevelNum")
+    createFile(f"./histogram/data/countLevelNum/{year}")
+    createFile(f"./histogram/data/countLevelNum/{year}/{cutType}")
     # begin: 2018micro.csv 數據分群（目的為切 cut & shot） regular: 已正規化的數據
     form = "regular"
     # GEI 正規化後(0~255)的數據
-    createFile(f"./histogram/data/{year}/countLevelNum")
-    createFile(f"./histogram/data/{year}/countLevelNum/{cutType}")
     for file in data:
         print(f"python3 ../make_GEI/code/countLevelNum.py {file} {cutFile} {form} {year}")
         os.system(f"python3 ../make_GEI/code/countLevelNum.py {file} {cutFile} {form} {year}")
@@ -46,19 +46,6 @@ def histogram(data,cutFile,cutType,year):
     for file in data:
         print(f"python3 ../make_GEI/code/cluster.py {file} {cutFile} {form} {year}")
         os.system(f"python3 ../make_GEI/code/cluster.py {file} {cutFile} {form} {year}")
-def makeDir(cutType,year):
-    if os.path.exists(f"./clustering/{cutType}") == False:
-        os.system(f"mkdir ./clustering/{cutType}")
-    ways = ["histogram","bow","cnn"]
-    for i in ways:
-        if os.path.exists(f"./clustering/{cutType}/{i}") == False:
-            os.system(f"mkdir ./clustering/{cutType}/{i}")
-    bow_ways = ["accumulate","quadrantAccumulate","quadrantAccumulateDecideNum","quadrantScore"]
-    for i in bow_ways:
-        if os.path.exists(f"./clustering/{cutType}/bow/{i}") == False:
-            os.system(f"mkdir ./clustering/{cutType}/bow/{i}")
-    if os.path.exists(f"./clustering/{cutType}/cnn/imagenet") == False:
-        os.system(f"mkdir ./clustering/{cutType}/cnn/imagenet")
 
 def main():
     data = ["GEI_origin.csv","GEI_level.csv"]
@@ -67,9 +54,9 @@ def main():
     year = int(input("Please enter the year: "))
     createFile("./clustering")
     # cluster
-    # histogram(data,cutFile,cutType,year)
+    histogram(data,cutFile,cutType,year)
     bow(cutType,year)
-    # cnn(data,cutType,year)
+    cnn(data,cutType,year)
 
 if __name__ == '__main__':
     if os.path.exists(f"./clustering") == False:

@@ -56,7 +56,7 @@ def main(cutType,file,sourceCut,year):
             except:
                 pass
     # GEI 數量
-    with open(f"../../make_GEI/data/{year}/GEI_data/{cutType}/{file}.csv", newline= '') as csvfile :
+    with open(f"../../make_GEI/data/GEI_data/{year}/{cutType}/{file}.csv", newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         GEINum = len(list(rows))-1 # -1: 去掉標題
 

@@ -35,10 +35,10 @@ def main(inputData,cutFile,form,year):
     cutType = cutFile[:cutFile.find(".csv")]
     if form == "begin": # 2018micro.csv
         path = "./"+inputData
-        outputFile = f"./data/countLevelNum/{inputData}"
+        outputFile = f"./data/countLevelNum/{year}/{inputData}"
     elif form == "regular": # 已正規化數據
-        path = f"../make_GEI/data/{year}/GEI_regular/{cutType}/{inputData}"
-        outputFile = f"./histogram/data/{year}/countLevelNum/{cutType}/{inputData}"
+        path = f"../make_GEI/data/GEI_regular/{year}/{cutType}/{inputData}"
+        outputFile = f"./histogram/data/countLevelNum/{year}/{cutType}/{inputData}"
 
     readData = []
     with open(path, newline= '') as csvfile :

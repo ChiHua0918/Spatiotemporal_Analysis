@@ -50,7 +50,7 @@ def main(source,cutFile,output,year):
     cut_shot = readCSV(cutFile)
     # 疊加 GEI
     GEIData = GEI(data,cut_shot)
-    outputFile = f"./data/{year}/GEI_data/{cutFile[:cutFile.find('.csv')]}/{output}"
+    outputFile = f"./data/GEI_data/{year}/{cutFile[:cutFile.find('.csv')]}/{output}"
     with open(outputFile, 'w', newline='') as _file:
         writer = csv.writer(_file)
         writer.writerow(["number","start","end","data"])

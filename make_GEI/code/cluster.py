@@ -34,10 +34,10 @@ def main(inputData,cutFile,form,year):
     cutType = cutFile[:cutFile.find(".csv")]
     # 數據
     if form == "begin": # 2018micro.csv
-        path =  f"./data/countLevelNum/{inputData}"
-        outputFile = f"./data/{year}/clustering/{inputData}"
+        path =  f"./data/countLevelNum/{year}/{inputData}"
+        outputFile = f"./data/clustering/{year}/{inputData}"
     elif form == "regular": # 已正規化數據
-        path =  f"./histogram/data/{year}/countLevelNum/{cutType}/{inputData}"
+        path =  f"./histogram/data/countLevelNum/{year}/{cutType}/{inputData}"
         outputFile = f"./clustering/{year}/{cutType}/histogram/{inputData}"
     readData = []
     name = []

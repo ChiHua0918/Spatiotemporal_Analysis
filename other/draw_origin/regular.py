@@ -12,7 +12,7 @@ def squareRoot(readData):
         for c in range(1,len(readData[r])):
             readData[r][c] = readData[r][c]**0.5
 def main(inputData):
-    path = "../make_GEI/"+inputData
+    path = "../../make_GEI/"+inputData
     readData = []
     maxValue = 0
     minValue = sys.maxsize

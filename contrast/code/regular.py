@@ -21,7 +21,7 @@ def main(argv,cutType,year):
     if inputData == "2018micro.csv":
         inputFile = f"../make_GEI/{inputData}"
     else:
-        inputFile = f"../make_GEI/data/{year}/GEI_data/{cutType}/{inputData}"
+        inputFile = f"../make_GEI/data/GEI_data/{year}/{cutType}/{inputData}"
 
     readData = []
     with open(inputFile, newline= '') as csvfile :

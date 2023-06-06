@@ -5,34 +5,34 @@ import csv
 import os
 
 def segment(data):
-    # replaceNum = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
-    # data = int(float(data))
-    # # 16進位
-    # num = replaceNum[data//16]+replaceNum[data%16]
-    # color = "#"+num+num+num
-    # return color
-    if data == -1:
-        return 'white'
-    elif data < 7.5:
-        return 'lightgreen'
-    elif data > 7.4 and data < 15.5:
-        return 'LightSeaGreen'
-    elif data > 15.4 and data < 25.5:
-        return 'lightyellow'
-    elif data > 25.4 and data < 35.5:
-        return 'yellow'
-    elif data > 35.4 and data < 45.5:
-        return 'orange'
-    elif data > 45.4 and data < 54.5:
-        return 'tomato'
-    elif data > 54.4 and data < 102.5:
-        return 'IndianRed'
-    elif data > 102.4 and data < 150.5:
-        return 'red'
-    elif data > 150.4 and data < 250.5:
-        return 'purple'
-    else:
-        return 'brown'
+    replaceNum = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
+    data = int(float(data))
+    # 16進位
+    num = replaceNum[data//16]+replaceNum[data%16]
+    color = "#"+num+num+num
+    return color
+    # if data == -1:
+    #     return 'white'
+    # elif data < 7.5:
+    #     return 'lightgreen'
+    # elif data > 7.4 and data < 15.5:
+    #     return 'LightSeaGreen'
+    # elif data > 15.4 and data < 25.5:
+    #     return 'lightyellow'
+    # elif data > 25.4 and data < 35.5:
+    #     return 'yellow'
+    # elif data > 35.4 and data < 45.5:
+    #     return 'orange'
+    # elif data > 45.4 and data < 54.5:
+    #     return 'tomato'
+    # elif data > 54.4 and data < 102.5:
+    #     return 'IndianRed'
+    # elif data > 102.4 and data < 150.5:
+    #     return 'red'
+    # elif data > 150.4 and data < 250.5:
+    #     return 'purple'
+    # else:
+    #     return 'brown'
 
 def drawColor(GEI):
     ax = plt.subplot(111)
@@ -61,7 +61,7 @@ def drawColor(GEI):
     # date = date.replace('/','-').replace(' ','-').replace(':','-')
     # plt.savefig(f"./picture/{folder}/{name}.png", bbox_inches='tight',pad_inches = 0)
     # plt.savefig(f"./sis_origin/{name}.png", bbox_inches='tight',pad_inches = 0)
-    plt.savefig(f"../sis/{name}.png", bbox_inches='tight',pad_inches = 0)
+    plt.savefig(f"./sis_origin/{name}.png", bbox_inches='tight',pad_inches = 0)
     plt.cla()
     plt.clf()
     return name
@@ -80,7 +80,7 @@ def main(argv):
         print(drawColor(GEI))
     print("======= userDataPic.py 完成 =======")
 if __name__ == '__main__':
-    # main("2018micro_regular.csv")
     if os.path.exists("./sis_origin") == False:
         os.system("mkdir ./sis_origin")
-    main("2018micro.csv")
+    main("2018micro_regular.csv")
+    # main("2018micro.csv")
