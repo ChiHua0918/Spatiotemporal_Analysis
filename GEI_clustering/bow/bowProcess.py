@@ -41,8 +41,10 @@ def bowQuadrantScore(source,size,cutType,year):
     return "quadrantScore"
 # 階層式分析
 def hierarchical(source,folderList,size,cutType,year):
-    createFile(f"./clustering/{year}/{cutType}/bow/quadrantScoreDecideNum")
     for folder in folderList:
+        if folder == "accumulate":
+            continue
+        createFile(f"./clustering/{year}/{cutType}/bow/{folder}DecideNum")
         for data in source:
             print(f"python3 ./bow/code/Hierarchical.py {folder} {data} {size} {cutType} {year}")
             os.system(f"python3 ./bow/code/Hierarchical.py {folder} {data} {size} {cutType} {year}")
@@ -53,10 +55,10 @@ def main(cutType,year):
     source = ["GEI_origin","GEI_level"]
     size = input("請輸入 filter 大小(輸入數字為整數):")
     folderList = []
-    # folderList.append(AccumulateScore(source,size,cutType,year))
+    folderList.append(AccumulateScore(source,size,cutType,year))
     folderList.append(bowQuadrantAccumulate(source,size,cutType,year))
     folderList.append(bowQuadrantScore(source,size,cutType,year))
-    # cluster(size,folderList,cutType,year)
+    cluster(size,folderList,cutType,year)
     hierarchical(source,folderList,size,cutType,year)
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
