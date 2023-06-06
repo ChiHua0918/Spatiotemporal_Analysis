@@ -4,7 +4,7 @@ import csv
 import imageio
 import numpy as np
 from make_clusterUI.userDataPic import drawColor
-#創建Flask物件app并初始化
+
 app = Flask(__name__)
 
 #通過python3裝飾器的方法定義路由地址
@@ -173,8 +173,16 @@ def gif():
     speed = request.args.get("speed") # gif 速度
     # 要疊成 gif 的圖片
     stackList = findPictureName(id,cutType)
-    print(stackList)
+    images = []
     path = f"./static/image/gif/{id}.gif"
+    for filename in stackList:
+        filename = filename.replace("/","-")
+        filename = filename.replace(" ","-")
+        filename = filename.replace(":","-")
+        filename += ".png"
+        images.append(imageio.imread("./static/image/sis/"+filename))
+    imageio.mimsave(path,images,duration=speed)
+    '''
     with imageio.get_writer(path, mode='I',fps=speed) as writer:
         for filename in stackList:
             filename = filename.replace("/","-")
@@ -183,6 +191,7 @@ def gif():
             filename += ".png"
             image = imageio.imread("./static/image/sis/"+filename)
             writer.append_data(image)
+    '''
     return {"gif":path}
 # 找要疊加的圖片
 def findPictureName(id,cutType):
