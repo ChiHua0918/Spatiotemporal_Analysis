@@ -35,7 +35,7 @@ def qbgResult():
     print("selectName:",selectName)
     print("GEIfolder:",GEIfolder)
     print("cutType:",cutType)
-    rankResult = directQBG(selectName,GEIfolder,cutType)
+    rankResult = directQBG(selectName,GEIfolder,dataYear,cutType)
     # 排名結果的第一名一定是使用者選擇的 GEI
     # GEIRankData = rankResult[1:]
     GEIRankData = dict()
@@ -69,9 +69,9 @@ def readFile():
     return {"data":cut_shot}
 # 計算 GEI 的排名
 # @app.route("/directQBG",methods = ["GET"])
-def directQBG(selectName,GEIfolder,cutType):
+def directQBG(selectName,GEIfolder,dataYear,cutType):
     print(cutType)
-    command = "python3 rasterScan_D_GEI.py " + selectName +" "+cutType
+    command = f"python3 rasterScan_D_GEI.py {selectName} {dataYear} {cutType}"
     print(GEIfolder)
     print(command)
     # 建立 process，將執行結果用 readlines 讀取

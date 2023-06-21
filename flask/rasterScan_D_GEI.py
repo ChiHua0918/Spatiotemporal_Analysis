@@ -173,10 +173,11 @@ def checkDate(data) :
 def main(argv) :
     # 主要比對圖片
     MainData = argv[0]
-    cutType = argv[1]
+    dataYear = argv[1]
+    cutType = argv[2]
     data = []
     # 讀入csv檔
-    with open(f'./static/data/GEI_regular/{cutType}/GEI_origin.csv', newline= '') as csvfile :
+    with open(f'./static/data/GEI_regular/{dataYear}/{cutType}/GEI_origin.csv', newline= '') as csvfile :
         rows = csv.reader(csvfile, delimiter = ',')
         for row in rows :
             data.append(row)
