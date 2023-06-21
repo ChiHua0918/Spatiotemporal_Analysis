@@ -23,11 +23,13 @@ def qbgResult():
     if request.method == 'POST':
         selectName = request.form.get("selectName")
         GEIfolder = request.form.get("GEIfolder")
+        dataYear = request.form.get("dataYear")
         cutType = request.form.get("cutType")
         print("method:POST")
     else:
         selectName = "NO.0"
         GEIfolder = "GEI_origin"
+        dataYear = 2018
         cutType = "KMeans"
         print("method:GET")
     print("selectName:",selectName)
@@ -45,6 +47,7 @@ def qbgResult():
     return render_template("qbgResult.html",sourceImageName = selectName+".png",\
                                             sourceDataset = GEIfolder,\
                                             GEIRankData = GEIRankData,\
+                                            dataYear = dataYear,\
                                             cutType = cutType,\
                                             start = start,\
                                             end = end)

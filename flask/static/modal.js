@@ -17,6 +17,7 @@ function ShowModal(id) {
     let number = "NO."+id;
     $("#gifName").text(number);
     $("#selectName").val(number);
+    $("#dataYear").val(dataYear);
     $("#cutType").val(cutType);
     $("#GEIfolder").val(sourceDataset);
 

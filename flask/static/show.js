@@ -17,7 +17,7 @@ var boardGEI = [];
 //存取上一個版面
 var tmp;
 // 選取哪一年份 （2018）
-var dataYear = document.getElementById("dataYear").value
+var dataYear = document.getElementById("dataYearSelect").value
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
 var sourceDataset = document.getElementById("data").value;
 // 目前切 cut 的方法
@@ -72,7 +72,7 @@ function contrast(){
 function clickCluster() {
     subtitle.innerHTML = "分群結果 - "+document.getElementById('clusterFile').name;
     // 年份
-    let dataYear = document.getElementById('dataYear').value;
+    let dataYear = document.getElementById('dataYearSelect').value;
     // 要顯示哪一個檔案的 GEI 分群
     let clusterFile = document.getElementById('clusterFile').value;
     // filter 大小
@@ -206,8 +206,8 @@ function changeColor(buttonType,order){
 $("#cutTypeSelect" ).change(function() {
     cutType = document.getElementById("cutTypeSelect").value;
 });
-$("#dataYear" ).change(function() {
-    dataYear = document.getElementById("dataTear").value;
+$("#dataYearSelect" ).change(function() {
+    dataYear = document.getElementById("dataYearSelect").value;
 });
 $( document ).ready(function() {
     cutType = document.getElementById("cutTypeSelect").value;

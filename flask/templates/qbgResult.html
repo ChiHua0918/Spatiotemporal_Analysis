@@ -80,7 +80,7 @@
     function getUserPic() {
       let picFolder= "GEI";
       if (document.getElementById('contrast').checked) {
-        picFolder = "/GEI_contrast";
+        picFolder = "GEI_contrast";
       }
       return `/static/image/${picFolder}/${dataYear}/${cutType}/${sourceDataset}/${sourceImageName}`;
     }
