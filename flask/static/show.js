@@ -17,12 +17,13 @@ var boardGEI = [];
 //存取上一個版面
 var tmp;
 // 選取哪一年份 （2018）
-var dataYear = document.getElementById("dataYearSelect").value
+var dataYear;
 // 紀錄現在選取的數據 (GEI_origin、GEI_Level)
 var sourceDataset = document.getElementById("data").value;
 // 目前切 cut 的方法
 var cutType;
 async function getGEINum() {
+    console.log("cutType",cutType,"dataYear",dataYear);
     $.ajax({
         url: "GEINum", 
         type: "GET",
@@ -211,5 +212,5 @@ $("#dataYearSelect" ).change(function() {
 });
 $( document ).ready(function() {
     cutType = document.getElementById("cutTypeSelect").value;
-    
+    dataYear = document.getElementById("dataYearSelect").value;
 });
