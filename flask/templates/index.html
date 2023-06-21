@@ -265,24 +265,24 @@
       html += "<td>";
       if (data[newpos] == 1) {
         if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="isCut checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut checkCut" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 0) {
-          html += `<img id="${newpos}" class="isCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="isCut unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="isCut unknown" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       else {
         if (checkdata[newpos] == 2) {
-          html += `<img id="${newpos}" class="unknown" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="unknown" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else if (checkdata[newpos] == 1) {
-          html += `<img id="${newpos}" class="checkCut" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" class="checkCut" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
         else {
-          html += `<img id="${newpos}" src="../static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
+          html += `<img id="${newpos}" src="./static/image/sis/${dataName[i]}.png" onclick="incut(this.id)">${dataName[i]}`;
         }
       }
       html += "</td>";
