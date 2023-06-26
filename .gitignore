@@ -44,7 +44,10 @@ flask/static/data/GEI_regular
 flask/static/data/*.csv
 flask/dynamicPic/
 # find Best Way 線下資料評估，無須放到網頁
-findBestWay
+findBestWay/old
+findBestWay/assessment_bow
+findBestWay/threeWay
+findBestWay/assessment_old.py
 
 # 其他
 other/make_gif/image

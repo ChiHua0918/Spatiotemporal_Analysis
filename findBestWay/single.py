@@ -23,16 +23,18 @@ def single_object(header,data):
     return result
 # read file
 def readFile(path):
-    # 資料格式
-    # {
-    #     k:{
-    #         fileName:{
-    #             'Silhouette_Coefficient':,
-    #             'Calinski_Harabaz_Index':,
-    #             'Davies_Bouldin_Index':
-    #         }
-    #     }
-    # }
+    '''
+    資料格式
+    {
+        k:{
+            fileName:{
+                'Silhouette_Coefficient':,
+                'Calinski_Harabaz_Index':,
+                'Davies_Bouldin_Index':
+            }
+        }
+    }
+    '''
     readData = dict()
     for k in range(2,10):
         readData[k] = dict()
@@ -52,12 +54,11 @@ def readFile(path):
     return header, readData
 def main():
     # BOW
-    path = "./test/"
-    source = ["GEI_origin.csv","GEI_level.csv"]
-    # three way
+    path = "./assessment_bow/"
+    source = ["bow_GEI_origin.csv","bow_GEI_level.csv"]
+    # three way（histogram, BOW, CNN）
     # path = "./threeWay/"
-    # source = ["bowScores_GEI_origin.csv","bowScores_GEI_level.csv"]
-    # 
+    # source = ["GEI_origin.csv","GEI_level.csv"]
     for file in source:
         print(f"============== {file} =============")
         print("|k|NO.1|NO.2|NO.3|NO.4|NO.5|NO.6|")

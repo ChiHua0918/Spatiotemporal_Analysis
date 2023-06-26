@@ -131,8 +131,8 @@ def printTable(k,result):
         print(f"{i}|",end="")
     print()
 def main():
-    path = "./test/"
-    source = ["GEI_origin.csv","GEI_level.csv"]
+    path = "./assessment_bow/"
+    source = ["bow_GEI_origin.csv","bow_GEI_level.csv"]
     for file in source:
         print(f"============== {file} =============")
         print("|k|NO.1|NO.2|NO.3|NO.4|NO.5|NO.6|")
